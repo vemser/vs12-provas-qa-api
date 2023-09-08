@@ -1,12 +1,16 @@
 package provas.alternativaController;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Objects;
 
 import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 import static util.TokenUtils.getToken;
+import static org.hamcrest.Matchers.equalTo;
+
 
 public class AlternativaControllerTest {
     private String token;
@@ -22,5 +26,36 @@ public class AlternativaControllerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testListarAlternativas() {
+
+        given()
+                .header("Authorization", this.token)
+                .param("pagina", "0")
+                .param("quantidadeRegistros", "5")
+        .when()
+                .get("/alternativa")
+        .then()
+                .statusCode(200)
+        ;
+    }
+    @Test
+    public void testListarAlternativaPeloId() {
+
+        given()
+                .header("Authorization", this.token)
+                .param("pagina", "0")
+                .param("quantidadeRegistros", "5")
+        .when()
+                .get("/alternativa/1")
+        .then()
+                .statusCode(200)
+                .body("alternativa", equalTo("Alternativa 1") )
+                .body("correta", equalTo(true))
+                .body("idAlternativa", equalTo(1))
+                .body("idQuestao", equalTo(1))
+        ;
     }
 }
