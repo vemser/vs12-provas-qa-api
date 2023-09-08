@@ -1,11 +1,13 @@
 package provas.funcionarioController;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Objects;
 
 import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 import static util.TokenUtils.getToken;
 
 public class FuncionarioControllerTest {
@@ -22,5 +24,20 @@ public class FuncionarioControllerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testListarFuncionarios() {
+
+        given()
+                .header("Authorization", this.token)
+                .param("pagina", "0")
+                .param("quantidadeRegistros", "5")
+        .when()
+                .get("/funcionario")
+        .then()
+                .log().all()
+                .statusCode(200)
+        ;
     }
 }
