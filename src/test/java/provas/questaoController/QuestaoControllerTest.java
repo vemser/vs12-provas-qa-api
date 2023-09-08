@@ -1,6 +1,7 @@
 package provas.questaoController;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -22,5 +23,9 @@ public class QuestaoControllerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @Test
+    public void cadastrarQuestaoComSucesso(){
+
     }
 }
