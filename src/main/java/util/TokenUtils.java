@@ -27,6 +27,7 @@ public class TokenUtils {
         .when()
                 .post(uri + endpoint)
         .then()
+                .log().all()
                 .extract().asString();
 
     }

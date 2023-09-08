@@ -48,6 +48,7 @@ public class EmpresaControllerTest {
         Integer idEmpresa = 5;
 
         given()
+                .header("Authorization", this.token)
             .when()
                 .get("/empresa/" + idEmpresa )
             .then()
@@ -63,6 +64,7 @@ public class EmpresaControllerTest {
         Integer idEmpresa = 9612;
 
         given()
+                .header("Authorization", this.token)
             .when()
                 .get("/empresa/" + idEmpresa)
             .then()
@@ -76,9 +78,10 @@ public class EmpresaControllerTest {
         String cnpjEmpresa = "90123456789012";
 
         given()
-                .when()
+                .header("Authorization", this.token)
+        .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
-                .then()
+        .then()
                 .statusCode(200)
                 .body("idEmpresa", equalTo(3))
                 .body("nome", equalTo("Empresa 3"))
@@ -92,9 +95,10 @@ public class EmpresaControllerTest {
         String cnpjEmpresa = "90123456794372";
 
         given()
-                .when()
+                .header("Authorization", this.token)
+       .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
-                .then()
+       .then()
                 .statusCode(404)
                 .body("message", equalTo("Empresa não encontrada."))
         ;
