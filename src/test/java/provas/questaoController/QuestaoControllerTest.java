@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import provas.pojo.AlternativaPojo;
 import provas.pojo.QuestaoPojo;
+import static org.hamcrest.Matchers.equalTo;
+
 
 import java.io.IOException;
 import java.util.Objects;
@@ -46,16 +48,30 @@ public class QuestaoControllerTest {
 
     @Test
     public void buscarQuestaoPorId(){
-        String idQuestao = "2";
+        String idQuestao = "19";
         given()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .param(idQuestao)
            .when()
-                .get("/questao" )
+                .get("/questao/20" )
            .then()
                 .log().all()
                 .statusCode(200)
+        ;
+    }
+    @Test
+    public void buscarQuestaoPorIdInexistente(){
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .param("aaaa")
+           .when()
+                .get("/questao/aaaa" )
+           .then()
+                .log().all()
+                .statusCode(400)
         ;
     }
 
@@ -87,35 +103,35 @@ public class QuestaoControllerTest {
                 .statusCode(HttpStatus.SC_CREATED)
         ;
     }
+    @Test
+    public void cadastrarQuestaoSemEnunciadoeDificuldade() {
+        AlternativaPojo alternativaPojo1 = new AlternativaPojo();
+        alternativaPojo1.setAlternativa("esta é uma alternativa verdadeira");
+        alternativaPojo1.setCorreta(true);
+        AlternativaPojo alternativaPojo2 = new AlternativaPojo();
+        alternativaPojo2.setAlternativa("esta é uma alternativa falsa");
+
+        QuestaoPojo questaoPojo = new QuestaoPojo();
+        questaoPojo.setIdTemas(new int[]{1});
+        questaoPojo.setAlternativas(new AlternativaPojo[]{alternativaPojo1,alternativaPojo2});
+        questaoPojo.setIdEmpresa(1);
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(questaoPojo)
+                .when()
+                .post("/questao")
+                .then()
+                .log().all()
+                .statusCode(400)
+        ;
+
+    }
     @Test //CT-API-008.2 - Validar cadastrar questão sem sucesso (titulo vazio)
     public void cadastrarQuestaoSemSucesso1() {
-            AlternativaPojo alternativaPojo1 = new AlternativaPojo();
-            alternativaPojo1.setAlternativa("esta é uma alternativa verdadeira");
-            alternativaPojo1.setCorreta(true);
-            AlternativaPojo alternativaPojo2 = new AlternativaPojo();
-            alternativaPojo2.setAlternativa("esta é uma alternativa falsa");
 
-            QuestaoPojo questaoPojo = new QuestaoPojo();
-            //questaoPojo.setTitulo("Titulo de questão teste");
-            questaoPojo.setEnunciado("Enunciado de questão teste");
-            questaoPojo.setDificuldade("FACIL");
-            questaoPojo.setIdTemas(new int[]{1});
-            questaoPojo.setAlternativas(new AlternativaPojo[]{alternativaPojo1,alternativaPojo2});
-            questaoPojo.setIdEmpresa(1);
-
-            given()
-                    .header("Authorization", this.token)
-                    .contentType(ContentType.JSON)
-                    .body(questaoPojo)
-                    .when()
-                    .post("/questao")
-                    .then()
-                    .log().all()
-                    .statusCode(HttpStatus.SC_CREATED)
-            ;
     }
-
-
     @Test //CT-API-008.3 - Validar cadastrar questão sem sucesso (titulo +30 caracteres)
     public void cadastrarQuestaoSemSucesso2() {
 
