@@ -52,6 +52,7 @@ public class EmpresaControllerTest {
             .when()
                 .get("/empresa/" + idEmpresa )
             .then()
+                .log().all()
                 .statusCode(200)
                 .body("idEmpresa", equalTo(5))
                 .body("nome", equalTo("menor preco 02"))
@@ -68,6 +69,7 @@ public class EmpresaControllerTest {
             .when()
                 .get("/empresa/" + idEmpresa)
             .then()
+                .log().all()
                 .statusCode(404)
                 .body("message", equalTo("Empresa não encontrada."))
         ;
@@ -82,6 +84,7 @@ public class EmpresaControllerTest {
         .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
         .then()
+                .log().all()
                 .statusCode(200)
                 .body("idEmpresa", equalTo(3))
                 .body("nome", equalTo("Empresa 3"))
@@ -99,6 +102,7 @@ public class EmpresaControllerTest {
        .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
        .then()
+                .log().all()
                 .statusCode(404)
                 .body("message", equalTo("Empresa não encontrada."))
         ;
