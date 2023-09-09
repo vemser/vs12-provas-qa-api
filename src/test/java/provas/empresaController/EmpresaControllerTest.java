@@ -81,14 +81,13 @@ public class EmpresaControllerTest extends EmpresaValida {
 
         given()
                 .header("Authorization", this.token)
-            .when()
+        .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
-           .then()
+        .then()
                 .statusCode(200)
                 .body("idEmpresa", equalTo(3))
                 .body("nome", equalTo("Empresa 3"))
                 .body("cnpj", equalTo("90123456789012"))
-
         ;
     }
 
@@ -98,9 +97,9 @@ public class EmpresaControllerTest extends EmpresaValida {
 
         given()
                 .header("Authorization", this.token)
-                .when()
+       .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
-        .then()
+       .then()
                 .statusCode(404)
                 .body("message", equalTo("Empresa não encontrada."))
         ;
