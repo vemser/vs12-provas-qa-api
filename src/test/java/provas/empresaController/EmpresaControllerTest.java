@@ -147,8 +147,6 @@ public class EmpresaControllerTest extends EmpresaValida {
         ;
     }
 
-
-
     @Test
     public void testAdicionarEmpresaSemNome() {
 
@@ -185,7 +183,7 @@ public class EmpresaControllerTest extends EmpresaValida {
                 .post("/empresa")
             .then()
                 .log().all()
-                .statusCode(201)
+                .statusCode(400)
         ;
     }
 }
