@@ -12,6 +12,8 @@ public class TokenUtils {
 
     public static String getToken(String filePath, String uri, String endpoint) throws IOException {
 
+        filePath = filePath.replaceAll("%20", " ");
+
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream(filePath);
         properties.load(fileInputStream);
