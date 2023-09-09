@@ -21,21 +21,21 @@ public class ProcessoDataFactory extends Processos {
         int numInteiro = random.nextInt(1, 20);
         boolean questoesPublicas = random.nextBoolean();
 
-        String[] palavras = {"facil", "medio", "dificil"};
+        String[] palavras = {"FACIL", "MEDIO", "DIFICIL"};
         int indice = random.nextInt(palavras.length);
         String palavraEscolhida = palavras[indice];
 
         Processos novoProcesso = new Processos();
         novoProcesso.setNome(faker.company().name());
-        novoProcesso.setDataHorarioInicio(faker.date().future(1, TimeUnit.DAYS).toString());
-        novoProcesso.setDataHorarioFim(faker.date().future(2,TimeUnit.DAYS).toString());
+        novoProcesso.setDataHorarioInicio(faker.date().future(1, TimeUnit.DAYS, "yyyy-MM-dd'T'HH:mm:ss'.'sss'Z'"));
+        novoProcesso.setDataHorarioFim(faker.date().future(2,TimeUnit.DAYS, "yyyy-MM-dd'T'HH:mm:ss'.'sss'Z'"));
         novoProcesso.setNotaCorte(nota);
         novoProcesso.setDificuldade(palavraEscolhida);
         novoProcesso.setPossuiQuestoesPublicas(questoesPublicas);
         novoProcesso.setQtdFacil(numInteiro);
         novoProcesso.setQtdMedia(numInteiro);
         novoProcesso.setQtdDificil(numInteiro);
-        novoProcesso.setTemas(Arrays.asList(1, 2, 3));
+        novoProcesso.setIdsTemas(Arrays.asList(1, 2, 3));
         return novoProcesso;
     }
 }
