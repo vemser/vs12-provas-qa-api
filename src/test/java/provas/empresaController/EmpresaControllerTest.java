@@ -23,8 +23,9 @@ public class EmpresaControllerTest extends EmpresaValida {
 
         try {
             String filePath = Objects.requireNonNull(getClass().getClassLoader().getResource("config.properties")).getPath();
+            System.out.println(filePath);
             this.token = getToken(filePath, baseURI, "/auth/login");
-
+            System.out.println(this.token);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,7 +41,6 @@ public class EmpresaControllerTest extends EmpresaValida {
         .when()
                 .get("/empresa")
         .then()
-                .log().all()
                 .statusCode(200)
         ;
     }
