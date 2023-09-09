@@ -1,7 +1,10 @@
 package provas.processoController;
 
 import dataFactory.ProcessoDataFactory;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import model.EmpresaValida;
 import model.Processos;
 import net.datafaker.Faker;
@@ -40,41 +43,78 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
 
         given()
                 .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
                 .param("pagina", "1")
                 .param("quantidadeRegistros", "5")
-           .when()
+            .when()
                 .get("/processo")
-           .then()
+            .then()
                 .log().all()
                 .statusCode(200)
         ;
     }
+
     @Test
     public void testBuscarProcessoPorIdComSucesso() {
         Integer idProcesso = 6;
 
         given()
                 .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
             .when()
-                .get("/processo/" + idProcesso )
+                .get("/processo/" + idProcesso)
             .then()
                 .log().all()
                 .statusCode(200)
                 .body("idProcesso", equalTo(6))
                 .body("nome", equalTo("Vem ser DBC"))
-                .body("ativo", equalTo(true))
+                .body("ativo", equalTo(false))
                 .body("idEmpresa", equalTo(6))
         ;
     }
+
     @Test
-    public void testDeleteProcessoPorId() {
-        Integer idProcesso = 6;
+    public void testBuscarProcessoInexistente() {
+        Integer idProcesso = 99;
 
         given()
                 .header("Authorization", this.token)
-             .when()
-                .delete("/processo/" + idProcesso )
-             .then()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/processo/" + idProcesso)
+                .then()
+                .log().all()
+                .statusCode(404)
+                .body("message", equalTo("Processo não encontrado."))
+        ;
+    }
+
+    @Test
+    public void testDeleteProcessoPorId() {
+        String idEmpresa = (faker.number().digit());
+
+        Response response = given()
+                .log().all()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(processoValido())
+            .when()
+                .post("/processo/empresa/" + idEmpresa)
+            .then()
+                .log().all()
+                .statusCode(201)
+                .extract().response();
+
+
+        String idProcesso = response.jsonPath().getString("idProcesso");
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .param(idProcesso)
+            .when()
+                .delete("/processo/" + idProcesso)
+            .then()
                 .log().all()
                 .statusCode(200)
         ;
@@ -82,17 +122,48 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
 
     @Test
     public void testAdicionarProcessoComSucesso() {
-
+        String idEmpresa = (faker.number().digit());
         given()
+                .log().all()
                 .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
                 .body(processoValido())
             .when()
-                .post("/processo/empresa/" + (faker.number().digit()))
+                .post("/processo/empresa/" + idEmpresa)
             .then()
                 .log().all()
-                .statusCode(415);
-        System.out.println(processoValido());
+                .statusCode(201)
         ;
     }
 
+    @Test
+    public void testAtualizarProcessoComSucesso() {
+        String idEmpresa = "1";
+
+        Response response = given()
+                .log().all()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(processoValido())
+           .when()
+                .post("/processo/empresa/" + idEmpresa)
+           .then()
+                .log().all()
+                .statusCode(201)
+                .extract().response();
+
+
+        String idProcesso = response.jsonPath().getString("idProcesso");
+
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(processoValido())
+                .when()
+                .put("/processo/" + idProcesso)
+                .then()
+                .log().all()
+                .statusCode(200);
+    }
 }
