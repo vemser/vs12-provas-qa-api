@@ -1,19 +1,25 @@
 package provas.processoController;
 
+import dataFactory.ProcessoDataFactory;
 import io.restassured.http.ContentType;
 import model.EmpresaValida;
+import model.Processos;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.Random;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static util.TokenUtils.getToken;
 
-public class ProcessoControllerTest {
+public class ProcessoControllerTest extends ProcessoDataFactory {
+    private static Faker faker = new Faker(new Locale("pt-BR"));
     private String token;
 
     @BeforeEach
@@ -60,129 +66,33 @@ public class ProcessoControllerTest {
                 .body("idEmpresa", equalTo(6))
         ;
     }
+    @Test
+    public void testDeleteProcessoPorId() {
+        Integer idProcesso = 6;
 
-//    @Test
-//    public void testBuscarEmpresaPorIdInexistente() {
-//        Integer idEmpresa = 9612;
-//
-//        given()
-//                .header("Authorization", this.token)
-//                .when()
-//                .get("/empresa/" + idEmpresa)
-//                .then()
-//                .statusCode(404)
-//                .body("message", equalTo("Empresa não encontrada."))
-//        ;
-//    }
-//
-//    @Test
-//    public void testBuscarEmpresaPeloCnpjComSucesso() {
-//        String cnpjEmpresa = "90123456789012";
-//
-//        given()
-//                .header("Authorization", this.token)
-//                .when()
-//                .get("/empresa/cnpj/" + cnpjEmpresa)
-//                .then()
-//                .statusCode(200)
-//                .body("idEmpresa", equalTo(3))
-//                .body("nome", equalTo("Empresa 3"))
-//                .body("cnpj", equalTo("90123456789012"))
-//        ;
-//    }
-//
-//    @Test
-//    public void testBuscarEmpresaPeloCnpjInexistente() {
-//        String cnpjEmpresa = "90123456794372";
-//
-//        given()
-//                .header("Authorization", this.token)
-//                .when()
-//                .get("/empresa/cnpj/" + cnpjEmpresa)
-//                .then()
-//                .statusCode(404)
-//                .body("message", equalTo("Empresa não encontrada."))
-//        ;
-//    }
-//
-//    @Test
-//    public void testAdicionarEmpresaComSucesso() {
-//
-//        EmpresaValida empresa = new EmpresaValida();
-//        empresa.setNome(faker.company().name());
-//        empresa.setCnpj(cnpj());
-//        empresa.setEmail(faker.internet().emailAddress());
-//        empresa.setNomeFuncionario(faker.name().firstName());
-//
-//        given()
-//                .header("Authorization", this.token)
-//                .contentType(ContentType.JSON)
-//                .body(empresa)
-//                .when()
-//                .post("/empresa")
-//                .then()
-//                .log().all()
-//                .statusCode(201)
-//        ;
-//    }
-//
-//    @Test
-//    public void testAdicionarEmpresaSemCnpj() {
-//
-//        EmpresaValida empresa = new EmpresaValida();
-//        empresa.setNome(faker.company().name());
-//        empresa.setEmail(faker.internet().emailAddress());
-//        empresa.setNomeFuncionario(faker.name().firstName());
-//
-//        given()
-//                .header("Authorization", this.token)
-//                .contentType(ContentType.JSON)
-//                .body(empresa)
-//                .when()
-//                .post("/empresa")
-//                .then()
-//                .log().all()
-//                .statusCode(400)
-//        ;
-//    }
-//
-//    @Test
-//    public void testAdicionarEmpresaSemNome() {
-//
-//        EmpresaValida empresa = new EmpresaValida();
-//        empresa.setCnpj(cnpj());
-//        empresa.setEmail(faker.internet().emailAddress());
-//        empresa.setNomeFuncionario(faker.name().firstName());
-//
-//        given()
-//                .header("Authorization", this.token)
-//                .contentType(ContentType.JSON)
-//                .body(empresa)
-//                .when()
-//                .post("/empresa")
-//                .then()
-//                .log().all()
-//                .statusCode(400)
-//        ;
-//    }
-//
-//    @Test
-//    public void testAdicionarEmpresaSemNomeDeFuncionario() {
-//
-//        EmpresaValida empresa = new EmpresaValida();
-//        empresa.setNome(faker.company().name());
-//        empresa.setCnpj(cnpj());
-//        empresa.setEmail(faker.internet().emailAddress());
-//
-//        given()
-//                .header("Authorization", this.token)
-//                .contentType(ContentType.JSON)
-//                .body(empresa)
-//                .when()
-//                .post("/empresa")
-//                .then()
-//                .log().all()
-//                .statusCode(400)
-//        ;
-//    }
+        given()
+                .header("Authorization", this.token)
+             .when()
+                .delete("/processo/" + idProcesso )
+             .then()
+                .log().all()
+                .statusCode(200)
+        ;
+    }
+
+    @Test
+    public void testAdicionarProcessoComSucesso() {
+
+        given()
+                .header("Authorization", this.token)
+                .body(processoValido())
+            .when()
+                .post("/processo/empresa/" + (faker.number().digit()))
+            .then()
+                .log().all()
+                .statusCode(415);
+        System.out.println(processoValido());
+        ;
+    }
+
 }
