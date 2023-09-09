@@ -20,6 +20,6 @@ public class Processos {
     Integer qtdFacil;
     Integer qtdMedia;
     Integer qtdDificil;
-    List<Integer> temas;
+    List<Integer> idsTemas;
 
 }
