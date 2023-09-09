@@ -129,35 +129,43 @@ public class CandidatoControllerTest extends Candidato {
 
         given()
                 .header("Authorization", this.token)
-                .when()
+        .when()
                 .get("/candidato/" + idCandidato)
 
-                .then()
+        .then()
                 .log().all()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
                 .body("message", equalTo("Candidato não encontrado."))
         ;
     }
 
+    @Test
+    public void testListarCandidatosComSucesso(){
+        given()
+                .header("Authorization", this.token)
+                .param("pagina",0)
+                .param("quantidadeRegistros",10)
 
+        .when()
+                .get("/candidato")
+        .then()
+                .log().all()
+                .statusCode(HttpStatus.SC_OK)
+        ;
+    }
+    @Test
+    public void testListarCandidatosSemSucesso(){
+        given()
+                .header("Authorization", this.token)
+                .param("pagina","asd")
+                .param("quantidadeRegistros","asd")
 
-//    public void testBuscarEmpresaPorIdComSucesso() {
-//        Integer idEmpresa = 5;
-//
-//        given()
-//                .header("Authorization", this.token)
-//                .when()
-//                .get("/empresa/" + idEmpresa )
-//                .then()
-//                .statusCode(200)
-//                .body("idEmpresa", equalTo(5))
-//                .body("nome", equalTo("menor preco 02"))
-//                .body("cnpj", equalTo("12352479000104"))
-//        ;
-//    }
-
-
-
+        .when()
+                .get("/candidato")
+        .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+        ;
+    }
 
 
 }
