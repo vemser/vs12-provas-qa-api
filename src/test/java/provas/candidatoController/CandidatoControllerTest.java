@@ -92,8 +92,6 @@ public class CandidatoControllerTest extends Candidato {
                 .statusCode(HttpStatus.SC_CREATED)
                 .body("idCandidato", equalTo(48))
         ;
-
-
     }
 
 //
