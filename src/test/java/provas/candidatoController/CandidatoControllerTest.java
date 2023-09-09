@@ -51,7 +51,6 @@ public class CandidatoControllerTest extends Candidato {
         .then()
                 .statusCode(HttpStatus.SC_CREATED)
         ;
-
     }
 
     @Test
@@ -71,8 +70,6 @@ public class CandidatoControllerTest extends Candidato {
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("errors", Matchers.contains("email: must be a well-formed email address"))
         ;
-
-
     }
 
     @Test
@@ -94,8 +91,70 @@ public class CandidatoControllerTest extends Candidato {
         ;
     }
 
-//
+    @Test
+    public void testBuscarCandidatoPeloIdComSucesso(){
+        Integer idCandidato = 2;
 
+        given()
+                .header("Authorization", this.token)
+        .when()
+                .get("/candidato/" + idCandidato)
+
+        .then()
+                .log().all()
+                .statusCode(HttpStatus.SC_OK)
+                .body("idCandidato", equalTo(2))
+                .body("email", equalTo("usuario2@email.com"))
+        ;
+    }
+
+    @Test
+    public void testBuscarCandidatoComIdInvalidoSemSucesso(){
+        String idCandidato = "asdasd";
+
+        given()
+                .header("Authorization", this.token)
+        .when()
+                .get("/candidato/" + idCandidato)
+
+        .then()
+                .log().all()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+        ;
+    }
+
+    @Test
+    public void testBuscarCandidatoComIdNaoCadastradoSemSucesso(){
+        Integer idCandidato = 20000;
+
+        given()
+                .header("Authorization", this.token)
+                .when()
+                .get("/candidato/" + idCandidato)
+
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.SC_NOT_FOUND)
+                .body("message", equalTo("Candidato não encontrado."))
+        ;
+    }
+
+
+
+//    public void testBuscarEmpresaPorIdComSucesso() {
+//        Integer idEmpresa = 5;
+//
+//        given()
+//                .header("Authorization", this.token)
+//                .when()
+//                .get("/empresa/" + idEmpresa )
+//                .then()
+//                .statusCode(200)
+//                .body("idEmpresa", equalTo(5))
+//                .body("nome", equalTo("menor preco 02"))
+//                .body("cnpj", equalTo("12352479000104"))
+//        ;
+//    }
 
 
 
