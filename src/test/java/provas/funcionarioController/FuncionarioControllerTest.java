@@ -40,4 +40,19 @@ public class FuncionarioControllerTest {
                 .statusCode(200)
         ;
     }
+
+    @Test
+    public void testListarFuncionarioPeloId() {
+
+        given()
+                .header("Authorization", this.token)
+                .param("pagina", "0")
+                .param("quantidadeRegistros", "5")
+            .when()
+                .get("/funcionario/5")
+            .then()
+                .log().all()
+                .statusCode(200)
+        ;
+    }
 }
