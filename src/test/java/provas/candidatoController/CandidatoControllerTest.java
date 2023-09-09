@@ -37,7 +37,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
-    public void testAdicionarCandidatoComSucesso(){
+    public void testAdicionarCandidatoComSucessoComoAdmin(){
         Candidato candidato = new Candidato();
         candidato.setEmail("wataxik974@searpen.com");
         candidato.setNome(faker.name().firstName());
@@ -54,7 +54,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
-    public void testAdicionarCandidatoComEmailInvalido(){
+    public void testAdicionarCandidatoComEmailInvalidoComoAdmin(){
         Candidato candidato = new Candidato();
         candidato.setEmail("cadidatoteste");
         candidato.setNome("Marcos");
@@ -73,7 +73,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
-    public void testAdicionarCandidatoComEmailJaCadastrado(){
+    public void testAdicionarCandidatoComEmailJaCadastradoComoAdmin(){
         Candidato candidato = new Candidato();
         candidato.setEmail("wataxik974@searpen.com");
         candidato.setNome(faker.name().firstName());
@@ -92,7 +92,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
-    public void testBuscarCandidatoPeloIdComSucesso(){
+    public void testBuscarCandidatoPeloIdComSucessoComoAdmin(){
         Integer idCandidato = 2;
 
         given()
@@ -109,7 +109,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
-    public void testBuscarCandidatoComIdInvalidoSemSucesso(){
+    public void testBuscarCandidatoComIdInvalidoSemSucessoComoAdmin(){
         String idCandidato = "asdasd";
 
         given()
@@ -124,7 +124,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
-    public void testBuscarCandidatoComIdNaoCadastradoSemSucesso(){
+    public void testBuscarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
         Integer idCandidato = 20000;
 
         given()
@@ -140,7 +140,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
-    public void testListarCandidatosComSucesso(){
+    public void testListarCandidatosComSucessoComoAdmin(){
         given()
                 .header("Authorization", this.token)
                 .param("pagina",0)
@@ -154,7 +154,7 @@ public class CandidatoControllerTest extends Candidato {
         ;
     }
     @Test
-    public void testListarCandidatosSemSucesso(){
+    public void testListarCandidatosSemSucessoComoAdmin(){
         given()
                 .header("Authorization", this.token)
                 .param("pagina","asd")
@@ -165,6 +165,37 @@ public class CandidatoControllerTest extends Candidato {
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
+    }
+
+    @Test
+    public void testDesativarCandidatoComSucessoComoAdmin(){
+        Integer idCandidato = 2;
+        given()
+                .header("Authorization", this.token)
+
+        .when()
+                .delete("/candidato/" + idCandidato)
+        .then()
+                .log().all()
+                .statusCode(HttpStatus.SC_NO_CONTENT)
+        ;
+
+    }
+
+    @Test
+    public void testDesativarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
+        Integer idCandidato = 20000;
+        given()
+                .header("Authorization", this.token)
+
+        .when()
+                .delete("/candidato/" + idCandidato)
+        .then()
+                .log().all()
+                .statusCode(HttpStatus.SC_NOT_FOUND)
+                .body("message",equalTo("Candidado não existe."))
+        ;
+
     }
 
 
