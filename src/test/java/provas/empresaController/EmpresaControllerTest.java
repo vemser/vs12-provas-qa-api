@@ -1,19 +1,21 @@
 package provas.empresaController;
 
+import io.restassured.http.ContentType;
+import model.EmpresaValida;
+import model.Funcionario;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
-
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static util.TokenUtils.getToken;
 import static org.hamcrest.Matchers.equalTo;
 
-
-public class EmpresaControllerTest {
-
+public class EmpresaControllerTest extends EmpresaValida {
+    private static Faker faker = new Faker(new Locale("PT-BR"));
     private String token;
 
     @BeforeEach
@@ -22,8 +24,9 @@ public class EmpresaControllerTest {
 
         try {
             String filePath = Objects.requireNonNull(getClass().getClassLoader().getResource("config.properties")).getPath();
+            System.out.println(filePath);
             this.token = getToken(filePath, baseURI, "/auth/login");
-
+            System.out.println(this.token);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,7 +37,7 @@ public class EmpresaControllerTest {
 
         given()
                 .header("Authorization", this.token)
-                .param("pagina", "0")
+                .param("pagina", "2")
                 .param("quantidadeRegistros", "5")
         .when()
                 .get("/empresa")
@@ -84,12 +87,10 @@ public class EmpresaControllerTest {
         .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
         .then()
-                .log().all()
                 .statusCode(200)
                 .body("idEmpresa", equalTo(3))
                 .body("nome", equalTo("Empresa 3"))
                 .body("cnpj", equalTo("90123456789012"))
-
         ;
     }
 
@@ -102,9 +103,124 @@ public class EmpresaControllerTest {
        .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
        .then()
-                .log().all()
                 .statusCode(404)
                 .body("message", equalTo("Empresa não encontrada."))
+        ;
+    }
+
+    @Test
+    public void testAdicionarEmpresaComSucesso() {
+
+        EmpresaValida empresa = new EmpresaValida();
+        empresa.setNome(faker.company().name());
+        empresa.setCnpj(cnpj());
+        empresa.setEmail(faker.internet().emailAddress());
+        empresa.setNomeFuncionario(faker.name().firstName());
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(empresa)
+        .when()
+                .post("/empresa")
+        .then()
+                .statusCode(201)
+        ;
+    }
+
+    @Test
+    public void testAdicionarEmpresaSemCnpj() {
+
+        EmpresaValida empresa = new EmpresaValida();
+        empresa.setNome(faker.company().name());
+        empresa.setEmail(faker.internet().emailAddress());
+        empresa.setNomeFuncionario(faker.name().firstName());
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(empresa)
+            .when()
+                .post("/empresa")
+            .then()
+                .statusCode(400)
+        ;
+    }
+
+    @Test
+    public void testAdicionarEmpresaSemNome() {
+
+        EmpresaValida empresa = new EmpresaValida();
+        empresa.setCnpj(cnpj());
+        empresa.setEmail(faker.internet().emailAddress());
+        empresa.setNomeFuncionario(faker.name().firstName());
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(empresa)
+            .when()
+                .post("/empresa")
+            .then()
+                .statusCode(400)
+        ;
+    }
+
+    @Test
+    public void testAdicionarEmpresaSemNomeDeFuncionario() {
+
+        EmpresaValida empresa = new EmpresaValida();
+        empresa.setNome(faker.company().name());
+        empresa.setCnpj(cnpj());
+        empresa.setEmail(faker.internet().emailAddress());
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(empresa)
+            .when()
+                .post("/empresa")
+            .then()
+                .statusCode(400)
+        ;
+    }
+
+    @Test
+    public void testAdicionarFuncionarioNaEmpresa() {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setEmail(faker.internet().emailAddress());
+        funcionario.setCargo("ROLE_MODERADOR");
+        funcionario.setNome(faker.name().firstName());
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(funcionario)
+           .when()
+                .post("/empresa/1/funcionario")
+                .then()
+                .statusCode(201)
+                .body("email", equalTo(funcionario.getEmail()))
+                .body("cargo", equalTo("ROLE_MODERADOR"))
+                .body("nome", equalTo(funcionario.getNome()))
+        ;
+    }
+    @Test
+    public void testAdicionarFuncionarioComoCandidato() {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setEmail(faker.internet().emailAddress());
+        funcionario.setCargo("ROLE_CANDIDATO");
+        funcionario.setNome(faker.name().firstName());
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(funcionario)
+            .when()
+                .post("/empresa/1/funcionario")
+           .then()
+                .body("status", equalTo(404))
+                .body("message", equalTo("O funcionário deve ser gestor ou moderador!"))
         ;
     }
 }
