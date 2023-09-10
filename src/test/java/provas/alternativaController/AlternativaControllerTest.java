@@ -68,7 +68,10 @@ public class AlternativaControllerTest {
             .when()
                 .get("/alternativa/231")
             .then()
+
                 .body("status", equalTo(400) )
+                .statusCode(400)
+
                 .body("message", equalTo("Alternativa não encontrada com o ID fornecido: 231") )
         ;
     }
