@@ -1,5 +1,7 @@
 package provas.funcionarioController;
 
+import dataFactory.FuncionarioDataFactory;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +12,7 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static util.TokenUtils.getToken;
 
-public class FuncionarioControllerTest {
+public class FuncionarioControllerTest extends FuncionarioDataFactory {
     private String token;
 
     @BeforeEach
@@ -34,7 +36,7 @@ public class FuncionarioControllerTest {
                 .param("pagina", "0")
                 .param("quantidadeRegistros", "5")
         .when()
-                .get("/funcionario")
+                .get("/funcionario/1/funcionario")
         .then()
                 .log().all()
                 .statusCode(200)
@@ -49,10 +51,25 @@ public class FuncionarioControllerTest {
                 .param("pagina", "0")
                 .param("quantidadeRegistros", "5")
             .when()
-                .get("/funcionario/5")
+                .get("/funcionario/1/funcionario/8")
             .then()
                 .log().all()
                 .statusCode(200)
+        ;
+    }
+    @Test
+    public void testAdicionarFuncionario() {
+
+        given()
+                .log().all()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(novoFuncionario())
+            .when()
+                .post("/funcionario")
+            .then()
+                .log().all()
+                .statusCode(201);
         ;
     }
 }
