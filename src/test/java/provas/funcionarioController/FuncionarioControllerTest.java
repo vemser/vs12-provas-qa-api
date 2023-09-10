@@ -2,6 +2,8 @@ package provas.funcionarioController;
 
 import dataFactory.FuncionarioDataFactory;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import model.Funcionario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +12,7 @@ import java.util.Objects;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static util.TokenUtils.getToken;
 
 public class FuncionarioControllerTest extends FuncionarioDataFactory {
@@ -38,7 +41,6 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
         .when()
                 .get("/funcionario/1/funcionario")
         .then()
-                .log().all()
                 .statusCode(200)
         ;
     }
@@ -53,23 +55,37 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
             .when()
                 .get("/funcionario/1/funcionario/8")
             .then()
-                .log().all()
                 .statusCode(200)
         ;
     }
-    @Test
-    public void testAdicionarFuncionario() {
 
-        given()
-                .log().all()
+    @Test
+    public void testAtualizarFuncionario() {
+        Response response = given()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
-                .body(novoFuncionario())
+                .body(novoFuncionarioNaEmpresa())
+           .when()
+                .post("/empresa/0/funcionario")
+           .then()
+                .statusCode(201)
+                .extract().response();
+
+        String idFuncionarioNovo = response.jsonPath().getString("idFuncionario");
+
+        Funcionario funcionario = novoFuncionarioAtualizado();
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(funcionario)
             .when()
-                .post("/funcionario")
+                .put("/funcionario/" + idFuncionarioNovo)
             .then()
-                .log().all()
-                .statusCode(201);
+                .statusCode(200)
+                .body("email", equalTo(funcionario.getEmail()))
+                .body("nome", equalTo(funcionario.getNome()))
+                .body("cargo", equalTo(funcionario.getCargo()))
         ;
     }
 }
