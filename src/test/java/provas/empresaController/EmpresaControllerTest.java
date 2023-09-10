@@ -2,6 +2,7 @@ package provas.empresaController;
 
 import io.restassured.http.ContentType;
 import model.EmpresaValida;
+import model.Funcionario;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -187,6 +188,47 @@ public class EmpresaControllerTest extends EmpresaValida {
             .then()
                 .log().all()
                 .statusCode(400)
+        ;
+    }
+
+    @Test
+    public void testAdicionarFuncionarioNaEmpresa() {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setEmail(faker.internet().emailAddress());
+        funcionario.setCargo("ROLE_MODERADOR");
+        funcionario.setNome(faker.name().firstName());
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(funcionario)
+           .when()
+                .post("/empresa/1/funcionario")
+                .then()
+                .log().all()
+                .statusCode(201)
+                .body("email", equalTo(funcionario.getEmail()))
+                .body("cargo", equalTo("ROLE_MODERADOR"))
+                .body("nome", equalTo(funcionario.getNome()))
+        ;
+    }
+    @Test
+    public void testAdicionarFuncionarioComoCandidato() {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setEmail(faker.internet().emailAddress());
+        funcionario.setCargo("ROLE_CANDIDATO");
+        funcionario.setNome(faker.name().firstName());
+
+        given()
+                .header("Authorization", this.token)
+                .contentType(ContentType.JSON)
+                .body(funcionario)
+            .when()
+                .post("/empresa/1/funcionario")
+           .then()
+                .log().all()
+                .body("status", equalTo(404))
+                .body("message", equalTo("O funcionário deve ser gestor ou moderador!"))
         ;
     }
 }
