@@ -160,9 +160,9 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .body(processoValido())
-                .when()
+            .when()
                 .put("/processo/" + idProcesso)
-                .then()
+            .then()
                 .log().all()
                 .statusCode(200);
     }
