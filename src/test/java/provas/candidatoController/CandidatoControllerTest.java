@@ -49,6 +49,7 @@ public class CandidatoControllerTest extends Candidato {
         .when()
                 .post("/candidato")
         .then()
+                .log().all()
                 .statusCode(HttpStatus.SC_CREATED)
         ;
     }
@@ -163,6 +164,7 @@ public class CandidatoControllerTest extends Candidato {
         .when()
                 .get("/candidato")
         .then()
+                .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }
