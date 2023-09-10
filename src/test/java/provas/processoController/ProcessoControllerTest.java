@@ -122,7 +122,7 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
 
     @Test
     public void testAdicionarProcessoComSucesso() {
-        String idEmpresa = (faker.number().digit());
+        Integer idEmpresa = 0;
         given()
                 .log().all()
                 .header("Authorization", this.token)
@@ -149,21 +149,24 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
                 .post("/processo/empresa/" + idEmpresa)
            .then()
                 .log().all()
-                .statusCode(201)
+                //.statusCode(201)
                 .extract().response();
 
 
         String idProcesso = response.jsonPath().getString("idProcesso");
-
+        Processos processos = processoValido();
 
         given()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
-                .body(processoValido())
+                .body(processos)
             .when()
                 .put("/processo/" + idProcesso)
             .then()
                 .log().all()
-                .statusCode(200);
+                .statusCode(200)
+                .body("nome", equalTo(processos.getNome()))
+                .body("notaCorte", equalTo(processos.getNotaCorte()))
+                .body("dificuldade", equalTo(processos.getDificuldade()));
     }
 }

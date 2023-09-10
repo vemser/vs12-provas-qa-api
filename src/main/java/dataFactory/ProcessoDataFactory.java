@@ -28,7 +28,7 @@ public class ProcessoDataFactory extends Processos {
         Processos novoProcesso = new Processos();
         novoProcesso.setNome(faker.company().name());
         novoProcesso.setDataHorarioInicio(faker.date().future(1, TimeUnit.DAYS, "yyyy-MM-dd'T'HH:mm:ss'.'sss'Z'"));
-        novoProcesso.setDataHorarioFim(faker.date().future(2,TimeUnit.DAYS, "yyyy-MM-dd'T'HH:mm:ss'.'sss'Z'"));
+        novoProcesso.setDataHorarioFim(faker.date().future(30, TimeUnit.DAYS, "yyyy-MM-dd'T'HH:mm:ss'.'sss'Z'"));
         novoProcesso.setNotaCorte(nota);
         novoProcesso.setDificuldade(palavraEscolhida);
         novoProcesso.setPossuiQuestoesPublicas(questoesPublicas);
