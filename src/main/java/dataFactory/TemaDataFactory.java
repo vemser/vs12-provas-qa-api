@@ -24,7 +24,17 @@ public class TemaDataFactory extends Tema {
                 "JAVA",
                 "PYTHON",
                 "C++",
-                "LOGICA",
+                "LOGICA12",
+                "LOGICA36",
+                "LOGICA65",
+                "LOGICA95",
+                "LOGICA45",
+                "LOGICA63",
+                "LOGICA84",
+                "LOGICA96",
+                "LOGICA62",
+                "LOGICA73",
+
         };
 
         Random random = new Random();

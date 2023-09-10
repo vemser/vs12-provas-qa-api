@@ -69,7 +69,7 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
                 .body("idProcesso", equalTo(6))
                 .body("nome", equalTo("Vem ser DBC"))
                 .body("ativo", equalTo(false))
-                .body("idEmpresa", equalTo(6))
+                .body("idEmpresa", equalTo(1))
         ;
     }
 
