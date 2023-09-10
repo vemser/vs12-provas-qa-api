@@ -38,7 +38,6 @@ public class AlternativaControllerTest {
         .when()
                 .get("/alternativa")
         .then()
-                .log().all()
                 .statusCode(200)
         ;
     }
@@ -52,7 +51,6 @@ public class AlternativaControllerTest {
         .when()
                 .get("/alternativa/1")
         .then()
-                .log().all()
                 .statusCode(200)
                 .body("alternativa", equalTo("Alternativa 1") )
                 .body("correta", equalTo(true))
@@ -70,7 +68,6 @@ public class AlternativaControllerTest {
             .when()
                 .get("/alternativa/231")
             .then()
-                .log().all()
                 .body("status", equalTo(400) )
                 .body("message", equalTo("Alternativa não encontrada com o ID fornecido: 231") )
         ;

@@ -40,10 +40,9 @@ public class TemaControllerTest extends TemaDataFactory {
                 .contentType(ContentType.JSON)
                 .param("pagina", "0")
                 .param("quantidadeRegistros", "10")
-            .when()
+        .when()
                 .get("/tema")
-            .then()
-                .log().all()
+        .then()
                 .statusCode(200)
         ;
     }
@@ -51,14 +50,12 @@ public class TemaControllerTest extends TemaDataFactory {
     public void testAdicionarTemaComSucesso() {
 
         given()
-                .log().all()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .body(temaEscolhido())
-            .when()
+        .when()
                 .post("/tema")
-            .then()
-                .log().all()
+        .then()
                 .statusCode(201);
     }
 
@@ -66,14 +63,12 @@ public class TemaControllerTest extends TemaDataFactory {
     public void testAdicionarTemaJaCadastrado() {
 
         given()
-                .log().all()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .body("{\"nome\": \"" + "Luna" + "\"}")
-            .when()
+        .when()
                 .post("/tema")
-            .then()
-                .log().all()
+        .then()
                 .statusCode(400)
                 .body("message", equalTo("Tema já cadastrado."));
     }

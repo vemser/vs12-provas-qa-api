@@ -49,7 +49,6 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
             .when()
                 .get("/processo")
             .then()
-                .log().all()
                 .statusCode(200)
         ;
     }
@@ -64,7 +63,6 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
             .when()
                 .get("/processo/" + idProcesso)
             .then()
-                .log().all()
                 .statusCode(200)
                 .body("idProcesso", equalTo(6))
                 .body("nome", equalTo("Vem ser DBC"))
@@ -80,10 +78,9 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
         given()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
-                .when()
+           .when()
                 .get("/processo/" + idProcesso)
-                .then()
-                .log().all()
+           .then()
                 .statusCode(404)
                 .body("message", equalTo("Processo não encontrado."))
         ;
@@ -94,14 +91,12 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
         String idEmpresa = (faker.number().digit());
 
         Response response = given()
-                .log().all()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .body(processoValido())
             .when()
                 .post("/processo/empresa/" + idEmpresa)
             .then()
-                .log().all()
                 .statusCode(201)
                 .extract().response();
 
@@ -115,7 +110,6 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
             .when()
                 .delete("/processo/" + idProcesso)
             .then()
-                .log().all()
                 .statusCode(200)
         ;
     }
@@ -125,14 +119,12 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
         Integer idEmpresa = 0;
 
       Response response = given()
-                .log().all()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .body(processoValido())
             .when()
                 .post("/processo/empresa/" + idEmpresa)
             .then()
-                .log().all()
                 .statusCode(201)
                 .extract().response();
 
@@ -144,7 +136,6 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
             .when()
                 .get("/processo/" + idProcesso)
             .then()
-                .log().all()
                 .body("idProcesso", equalTo(idProcesso));
     }
 
@@ -153,15 +144,12 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
         String idEmpresa = "1";
 
         Response response = given()
-                .log().all()
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .body(processoValido())
            .when()
                 .post("/processo/empresa/" + idEmpresa)
            .then()
-                .log().all()
-                //.statusCode(201)
                 .extract().response();
 
 
@@ -175,7 +163,6 @@ public class ProcessoControllerTest extends ProcessoDataFactory {
             .when()
                 .put("/processo/" + idProcesso)
             .then()
-                .log().all()
                 .statusCode(200)
                 .body("nome", equalTo(processos.getNome()))
                 .body("notaCorte", equalTo(processos.getNotaCorte()))

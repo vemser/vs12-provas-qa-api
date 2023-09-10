@@ -19,20 +19,6 @@ import static util.TokenUtils.getToken;
 public class QuestaoControllerTest {
     private String token;
 
-//    @BeforeEach
-//    public void setup() {
-//        baseURI = "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back";
-//
-//        try {
-//            String filePath = "src/properties/dados.properties";
-//            this.token = getToken(filePath, baseURI, "/auth/login");
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
     @BeforeEach
     public void setup() {
         baseURI = "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back";
@@ -53,9 +39,9 @@ public class QuestaoControllerTest {
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .param(idQuestao)
-           .when()
+        .when()
                 .get("/questao/20" )
-           .then()
+        .then()
                 .log().all()
                 .statusCode(200)
         ;
@@ -67,15 +53,14 @@ public class QuestaoControllerTest {
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .param("aaaa")
-           .when()
+        .when()
                 .get("/questao/aaaa" )
-           .then()
-                .log().all()
+        .then()
                 .statusCode(400)
         ;
     }
 
-    @Test //CT-API-008.1 - Validar cadastrar questão com sucesso
+    @Test
     public void cadastrarQuestaoComSucesso() {
 
         AlternativaPojo alternativaPojo1 = new AlternativaPojo();
@@ -99,7 +84,6 @@ public class QuestaoControllerTest {
         .when()
                 .post("/questao")
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_CREATED)
         ;
     }
@@ -120,13 +104,10 @@ public class QuestaoControllerTest {
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
                 .body(questaoPojo)
-                .when()
+        .when()
                 .post("/questao")
-                .then()
-                .log().all()
+        .then()
                 .statusCode(400)
         ;
-
     }
-
 }

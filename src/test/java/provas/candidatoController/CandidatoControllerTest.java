@@ -66,7 +66,6 @@ public class CandidatoControllerTest extends Candidato {
         .when()
                 .post("/candidato")
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("errors", Matchers.contains("email: must be a well-formed email address"))
         ;
@@ -85,7 +84,6 @@ public class CandidatoControllerTest extends Candidato {
         .when()
                 .post("/candidato")
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_CREATED)
                 .body("idCandidato", equalTo(48))
         ;
@@ -101,7 +99,6 @@ public class CandidatoControllerTest extends Candidato {
                 .get("/candidato/" + idCandidato)
 
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_OK)
                 .body("idCandidato", equalTo(2))
                 .body("email", equalTo("usuario2@email.com"))
@@ -118,7 +115,6 @@ public class CandidatoControllerTest extends Candidato {
                 .get("/candidato/" + idCandidato)
 
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }
@@ -133,7 +129,6 @@ public class CandidatoControllerTest extends Candidato {
                 .get("/candidato/" + idCandidato)
 
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
                 .body("message", equalTo("Candidato não encontrado."))
         ;
@@ -149,7 +144,6 @@ public class CandidatoControllerTest extends Candidato {
         .when()
                 .get("/candidato")
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_OK)
         ;
     }
@@ -159,7 +153,6 @@ public class CandidatoControllerTest extends Candidato {
                 .header("Authorization", this.token)
                 .param("pagina","asd")
                 .param("quantidadeRegistros","asd")
-
         .when()
                 .get("/candidato")
         .then()
@@ -172,11 +165,9 @@ public class CandidatoControllerTest extends Candidato {
         Integer idCandidato = 2;
         given()
                 .header("Authorization", this.token)
-
         .when()
                 .delete("/candidato/" + idCandidato)
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
 
@@ -191,7 +182,6 @@ public class CandidatoControllerTest extends Candidato {
         .when()
                 .delete("/candidato/" + idCandidato)
         .then()
-                .log().all()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
                 .body("message",equalTo("Candidado não existe."))
         ;

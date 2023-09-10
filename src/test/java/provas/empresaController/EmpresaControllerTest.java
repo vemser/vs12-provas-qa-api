@@ -55,7 +55,6 @@ public class EmpresaControllerTest extends EmpresaValida {
             .when()
                 .get("/empresa/" + idEmpresa )
             .then()
-                .log().all()
                 .statusCode(200)
                 .body("idEmpresa", equalTo(5))
                 .body("nome", equalTo("menor preco 02"))
@@ -72,7 +71,6 @@ public class EmpresaControllerTest extends EmpresaValida {
             .when()
                 .get("/empresa/" + idEmpresa)
             .then()
-                .log().all()
                 .statusCode(404)
                 .body("message", equalTo("Empresa não encontrada."))
         ;
@@ -87,7 +85,6 @@ public class EmpresaControllerTest extends EmpresaValida {
         .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
         .then()
-                .log().all()
                 .statusCode(200)
                 .body("idEmpresa", equalTo(3))
                 .body("nome", equalTo("Empresa 3"))
@@ -104,7 +101,6 @@ public class EmpresaControllerTest extends EmpresaValida {
        .when()
                 .get("/empresa/cnpj/" + cnpjEmpresa)
        .then()
-                .log().all()
                 .statusCode(404)
                 .body("message", equalTo("Empresa não encontrada."))
         ;
@@ -126,7 +122,6 @@ public class EmpresaControllerTest extends EmpresaValida {
         .when()
                 .post("/empresa")
         .then()
-                .log().all()
                 .statusCode(201)
         ;
     }
@@ -146,7 +141,6 @@ public class EmpresaControllerTest extends EmpresaValida {
             .when()
                 .post("/empresa")
             .then()
-                .log().all()
                 .statusCode(400)
         ;
     }
@@ -166,7 +160,6 @@ public class EmpresaControllerTest extends EmpresaValida {
             .when()
                 .post("/empresa")
             .then()
-                .log().all()
                 .statusCode(400)
         ;
     }
@@ -186,7 +179,6 @@ public class EmpresaControllerTest extends EmpresaValida {
             .when()
                 .post("/empresa")
             .then()
-                .log().all()
                 .statusCode(400)
         ;
     }
@@ -205,7 +197,6 @@ public class EmpresaControllerTest extends EmpresaValida {
            .when()
                 .post("/empresa/1/funcionario")
                 .then()
-                .log().all()
                 .statusCode(201)
                 .body("email", equalTo(funcionario.getEmail()))
                 .body("cargo", equalTo("ROLE_MODERADOR"))
@@ -226,7 +217,6 @@ public class EmpresaControllerTest extends EmpresaValida {
             .when()
                 .post("/empresa/1/funcionario")
            .then()
-                .log().all()
                 .body("status", equalTo(404))
                 .body("message", equalTo("O funcionário deve ser gestor ou moderador!"))
         ;
