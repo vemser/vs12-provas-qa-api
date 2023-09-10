@@ -12,5 +12,6 @@ public class Funcionario {
     String email;
     String cargo;
     String nome;
+    String senha;
 
 }

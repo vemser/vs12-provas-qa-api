@@ -12,24 +12,30 @@ public class FuncionarioDataFactory extends Funcionario {
     public static String gerarRole() {
         String[] cargo = {
                 "ROLE_MODERADOR",
-                "ROLE_DESTOR",
-                "ROLE_CANDIDADO",
+                "ROLE_GESTOR",
+                //"ROLE_CANDIDATO",
         };
         Random random = new Random();
         int indice = random.nextInt(cargo.length);
         return cargo[indice];
     }
 
-    public static Funcionario novoFuncionario(){
-        Random random = new Random();
-        int numInteiro = random.nextInt(1, 20);
+    public static Funcionario novoFuncionarioAtualizado(){
 
-        Funcionario novoFuncionario = new Funcionario();
-        novoFuncionario.setIdEmpresa(numInteiro);
-        novoFuncionario.setEmail(faker.internet().emailAddress());
-        novoFuncionario.setCargo(gerarRole());
-        novoFuncionario.setNome(faker.name().firstName());
+        Funcionario novoFuncionarioAtualizado = new Funcionario();
+        novoFuncionarioAtualizado.setEmail(faker.internet().emailAddress());
+        novoFuncionarioAtualizado.setSenha(faker.passport().toString());
+        novoFuncionarioAtualizado.setCargo(gerarRole());
+        novoFuncionarioAtualizado.setNome(faker.name().firstName());
+        return novoFuncionarioAtualizado;
+    }
 
-        return novoFuncionario;
+    public static Funcionario novoFuncionarioNaEmpresa(){
+        Funcionario novoFuncionarioNaEmpresa = new Funcionario();
+        novoFuncionarioNaEmpresa.setEmail(faker.internet().emailAddress());
+        novoFuncionarioNaEmpresa.setCargo(gerarRole());
+        novoFuncionarioNaEmpresa.setNome(faker.name().firstName());
+
+        return novoFuncionarioNaEmpresa;
     }
 }
