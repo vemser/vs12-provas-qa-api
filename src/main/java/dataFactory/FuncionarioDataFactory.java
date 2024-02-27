@@ -6,7 +6,7 @@ import net.datafaker.Faker;
 import java.util.Locale;
 import java.util.Random;
 
-public class FuncionarioDataFactory extends Funcionario {
+public class FuncionarioDataFactory {
     private static Faker faker = new Faker(new Locale("PT-BR"));
 
     public static String gerarRole() {

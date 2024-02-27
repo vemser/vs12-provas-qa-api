@@ -1,23 +1,23 @@
 package dataFactory;
 
-import model.Processos;
 import net.datafaker.Faker;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Random;
+
+import model.Processos;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class ProcessoDataFactory extends Processos {
+public class ProcessoDataFactory {
 
     private static Faker faker = new Faker(new Locale("pt-BR"));
-
-    public static Processos processoValido(){
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    public static Processos processoValido() {
         return novoProcesso();
     }
 
-    private static  Processos novoProcesso(){
+    private static Processos novoProcesso() {
         Random random = new Random();
-        int nota = random.nextInt(1, 10)*10;
+        int nota = random.nextInt(1, 10) * 10;
         int numInteiro = random.nextInt(1, 20);
         boolean questoesPublicas = random.nextBoolean();
 
@@ -27,8 +27,10 @@ public class ProcessoDataFactory extends Processos {
 
         Processos novoProcesso = new Processos();
         novoProcesso.setNome(faker.company().name());
-        novoProcesso.setDataHorarioInicio(faker.date().future(1, TimeUnit.DAYS, "yyyy-MM-dd'T'HH:mm:ss'.'sss'Z'"));
-        novoProcesso.setDataHorarioFim(faker.date().future(30, TimeUnit.DAYS, "yyyy-MM-dd'T'HH:mm:ss'.'sss'Z'"));
+        Date dataInicio = faker.date().future(2, TimeUnit.DAYS);
+        Date dataFim = faker.date().future(29, TimeUnit.DAYS);
+        novoProcesso.setDataHorarioInicio(sdf.format(dataInicio));
+        novoProcesso.setDataHorarioFim(sdf.format(dataFim));
         novoProcesso.setNotaCorte(nota);
         novoProcesso.setDificuldade(palavraEscolhida);
         novoProcesso.setPossuiQuestoesPublicas(questoesPublicas);

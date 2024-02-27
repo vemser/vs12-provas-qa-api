@@ -1,47 +1,17 @@
 package dataFactory;
 
 import model.Tema;
+import net.datafaker.Faker;
 
-import java.util.Random;
+import java.util.Locale;
 
-public class TemaDataFactory extends Tema {
+public class TemaDataFactory {
 
-    public static String temaEscolhido(){
-        return temas();
+    private static Faker faker = new Faker(Locale.forLanguageTag("PT-BR"));
+
+    public static Tema gerarTemaValido(){
+        return new Tema(faker.lorem().characters(3,10));
     }
-
-    private static String temas(){
-        String[] temas = {
-                "MATEMÁTICA",
-                "HISTÓRIA",
-                "GEOGRAFIA",
-                "CIÊNCIAS",
-                "LÍNGUA PORTUGUESA",
-                "INGLÊS",
-                "ARTES",
-                "EDUCAÇÃO FÍSICA",
-                "AGILIDADE",
-                "JAVA",
-                "PYTHON",
-                "C++",
-                "LOGICA12",
-                "LOGICA36",
-                "LOGICA65",
-                "LOGICA95",
-                "LOGICA45",
-                "LOGICA63",
-                "LOGICA84",
-                "LOGICA96",
-                "LOGICA62",
-                "LOGICA73",
-
-        };
-
-        Random random = new Random();
-        int indiceAleatorio = random.nextInt(temas.length);
-        return "{\"nome\": \"" + temas[indiceAleatorio] + "\"}";
-
-        };
 
 }
 

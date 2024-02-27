@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "bddf2124-060b-45a1-9104-20b7f6f505a9",
+		"_postman_id": "e549a427-b14f-4a80-b49f-a6626f9a461c",
 		"name": "TF-Provas-API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29520211",
-		"_collection_link": "https://planetary-equinox-955061.postman.co/workspace/TF-PROVAS-QA~a8cad883-2d13-4e42-b5e5-aba5b0974cda/collection/29025966-bddf2124-060b-45a1-9104-20b7f6f505a9?action=share&source=collection_link&creator=29520211"
+		"_exporter_id": "26651037"
 	},
 	"item": [
 		{
@@ -34,18 +33,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/empresa",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/empresa",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"empresa"
 									]
 								}
@@ -73,18 +65,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/empresa/1/funcionario",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/empresa/1/funcionario",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"empresa",
 										"1",
 										"funcionario"
@@ -121,18 +106,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/empresa",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/empresa",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"empresa"
 									]
 								}
@@ -160,18 +138,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/empresa",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/empresa",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"empresa"
 									]
 								}
@@ -184,7 +155,7 @@
 					"name": "Get",
 					"item": [
 						{
-							"name": "Buscar empresa pelo cnpj",
+							"name": "Buscar empresa pelo CNPJ",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -195,18 +166,11 @@
 									}
 								],
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/empresa//cnpj/92298724000181",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/empresa//cnpj/92298724000181",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"empresa",
 										"",
 										"cnpj",
@@ -235,18 +199,11 @@
 									}
 								],
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/empresa/6",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/empresa/6",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"empresa",
 										"6"
 									]
@@ -266,18 +223,11 @@
 									}
 								],
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/empresa?pagina=1&quantidadeRegistros=5",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/empresa?pagina=1&quantidadeRegistros=5",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"empresa"
 									],
 									"query": [
@@ -300,10 +250,13 @@
 					"name": "Put",
 					"item": [
 						{
-							"name": "Atualizar informações de empresa",
+							"name": "Atualiza uma empresa",
 							"request": {
 								"method": "PUT",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": []
 						}
@@ -331,38 +284,6 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n  \"email\": \"QA@gmail.com\",\r\n  \"nome\": \"João Silva QA.\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/candidato",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"candidato"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Cadastrar um novo candidato com sucesso Copy",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{tokenAdm}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"email\": \"vojixi2290@nickolis.com\",\r\n  \"nome\": \"Joao\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -414,7 +335,7 @@
 							"response": []
 						},
 						{
-							"name": "Cadastrar um novo candidato com email já cadastrado invalido sem sucesso",
+							"name": "Cadastrar um novo candidato com email já cadastrado sem sucesso",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -426,39 +347,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"email\": \"joaoqa@gmail.com\",\r\n  \"nome\": \"João Silva QA.\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/candidato",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"candidato"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Cadastrar um novo candidato com sucesso Copy",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{tokenAdm}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"email\": \"QA@gmail.com\",\r\n  \"nome\": \"João Silva QA.\"\r\n}",
+									"raw": "{\r\n  \"email\": \"joaoqa@gmail.com\",\r\n  \"nome\": \"João Silva QA\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -505,7 +394,7 @@
 									"variable": [
 										{
 											"key": "idcandidato",
-											"value": "3"
+											"value": "5"
 										}
 									]
 								}
@@ -626,7 +515,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nome\": \"Andre\",\r\n  \"senha\": \"A123456\"\r\n}\r\n",
+									"raw": "{\r\n  \"nome\": \"João Paulo Bonetti\",\r\n  \"senha\": \"teste123\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -645,46 +534,7 @@
 									"variable": [
 										{
 											"key": "idcandidato",
-											"value": "40"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Atualizar um candidato já atualizado com sucesso",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{tokenAdm}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"nome\": \"Andre\",\r\n  \"senha\": \"A123456\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/candidato/:idcandidato",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"candidato",
-										":idcandidato"
-									],
-									"variable": [
-										{
-											"key": "idcandidato",
-											"value": "39"
+											"value": "32"
 										}
 									]
 								}
@@ -692,10 +542,6 @@
 							"response": []
 						}
 					]
-				},
-				{
-					"name": "Delete",
-					"item": []
 				}
 			]
 		},
@@ -718,7 +564,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nome\": \"LUNA\"\r\n}",
+									"raw": "{\r\n  \"nome\": \"TEMA 1234\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -776,58 +622,12 @@
 							"response": []
 						}
 					]
-				},
-				{
-					"name": "Put",
-					"item": []
-				},
-				{
-					"name": "Delete",
-					"item": []
 				}
 			]
 		},
 		{
 			"name": "funcionario-controller",
 			"item": [
-				{
-					"name": "Post",
-					"item": [
-						{
-							"name": "Adicionar um funcionario com role de admin",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"idEmpresa\": 1,\r\n  \"email\": \"cigeg61567@picvw.com\",\r\n  \"cargo\": \"ROLE_MODERADOR\",\r\n  \"nome\": \"Eleonora Flávia de Colaço\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/funcionario",
-									"protocol": "http",
-									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
-									],
-									"port": "39000",
-									"path": [
-										"vemser",
-										"vs12-provas-back",
-										"funcionario"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
 				{
 					"name": "Get",
 					"item": [
@@ -843,21 +643,40 @@
 									}
 								],
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/funcionario/1/funcionario",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/funcionario/1/funcionario",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"funcionario",
 										"1",
 										"funcionario"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar um funcionário pelo ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/funcionario/1/funcionario/17",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"funcionario",
+										"1",
+										"funcionario",
+										"17"
 									]
 								}
 							},
@@ -869,7 +688,7 @@
 					"name": "Put",
 					"item": [
 						{
-							"name": "Atualizar funcionario",
+							"name": "Atualizar um funcionario",
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -889,18 +708,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/funcionario/5",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/funcionario/5",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"funcionario",
 										"5"
 									]
@@ -913,75 +725,13 @@
 			]
 		},
 		{
-			"name": "alternativa-controller",
-			"item": [
-				{
-					"name": "Post",
-					"item": []
-				},
-				{
-					"name": "Get",
-					"item": [
-						{
-							"name": "Listar alternativas",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{tokenAdm}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/alternativa?pagina=0&quantidadeRegistros=5",
-									"protocol": "http",
-									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
-									],
-									"port": "39000",
-									"path": [
-										"vemser",
-										"vs12-provas-back",
-										"alternativa"
-									],
-									"query": [
-										{
-											"key": "pagina",
-											"value": "0"
-										},
-										{
-											"key": "quantidadeRegistros",
-											"value": "5"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Put",
-					"item": []
-				},
-				{
-					"name": "Delete",
-					"item": []
-				}
-			]
-		},
-		{
 			"name": "auth-controller",
 			"item": [
 				{
 					"name": "Post",
 					"item": [
 						{
-							"name": "login admin",
+							"name": "Login Admin",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -995,18 +745,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/auth/login",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/auth/login",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"auth",
 										"login"
 									]
@@ -1037,7 +780,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"titulo\": \"Agiligade\",\r\n  \"enunciado\": \"qual as cerimônias da metodologia ágil?\",\r\n  \"dificuldade\": \"FACIL\",\r\n  \"idTemas\": [\r\n    0\r\n  ],\r\n  \"alternativas\": [\r\n    {\r\n      \"alternativa\": \"A\",\r\n      \"correta\": true\r\n    }\r\n  ],\r\n  \"idEmpresa\": 1\r\n}",
+									"raw": "{\r\n  \"titulo\": \"Agiligade\",\r\n  \"enunciado\": \"qual as cerimônias da metodologia ágil?\",\r\n  \"dificuldade\": \"FACIL\",\r\n  \"idTemas\": [\r\n    6\r\n  ],\r\n  \"alternativas\": [\r\n    {\r\n      \"alternativa\": \"A\",\r\n      \"correta\": true\r\n    },\r\n    {\r\n      \"alternativa\": \"B\",\r\n      \"correta\": false\r\n    }\r\n  ],\r\n  \"idEmpresa\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1045,18 +788,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/questao",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/questao",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"questao"
 									]
 								}
@@ -1069,22 +805,90 @@
 					"name": "Get",
 					"item": [
 						{
-							"name": "New Request",
+							"name": "Listar questões",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questao",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questao"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar questão pelo ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questao/:idQuestao",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questao",
+										":idQuestao"
+									],
+									"variable": [
+										{
+											"key": "idQuestao",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar questão cadastrada pela empresa",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questao/empresa/:idEmpresa",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questao",
+										"empresa",
+										":idEmpresa"
+									],
+									"variable": [
+										{
+											"key": "idEmpresa",
+											"value": "1"
+										}
+									]
+								}
 							},
 							"response": []
 						}
 					]
-				},
-				{
-					"name": "Put",
-					"item": []
-				},
-				{
-					"name": "Delete",
-					"item": []
 				}
 			]
 		},
@@ -1095,7 +899,7 @@
 					"name": "Post",
 					"item": [
 						{
-							"name": "Criar processo",
+							"name": "Adicionar processo",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -1107,7 +911,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nome\": \"Vem ser DBC\",\r\n    \"dataHorarioInicio\": \"2024-02-03T00:44:42.711Z\",\r\n    \"dataHorarioFim\": \"2024-09-06T23:59:59.711Z\",\r\n    \"notaCorte\": 62,\r\n    \"dificuldade\": \"DIFICIL\",\r\n    \"possuiQuestoesPublicas\": false,\r\n    \"qtdFacil\": 4,\r\n    \"qtdMedia\": 5,\r\n    \"qtdDificil\": 8,\r\n    \"idsTemas\": [\r\n        1,\r\n        2,\r\n        3\r\n    ]\r\n}",
+									"raw": "{\r\n    \"nome\": \"Vem ser DBC\",\r\n    \"dataHorarioInicio\": \"2024-11-03T00:44:42.711Z\",\r\n    \"dataHorarioFim\": \"2024-11-06T23:59:59.711Z\",\r\n    \"notaCorte\": 62,\r\n    \"dificuldade\": \"DIFICIL\",\r\n    \"possuiQuestoesPublicas\": false,\r\n    \"qtdFacil\": 4,\r\n    \"qtdMedia\": 5,\r\n    \"qtdDificil\": 8,\r\n    \"idsTemas\": [\r\n        1,\r\n        2,\r\n        3\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1115,18 +919,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/vs12-provas-back/processo/empresa/3",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/processo/empresa/3",
 									"host": [
-										"vemser-hml",
-										"dbccompany",
-										"com",
-										"br"
+										"{{baseUrl}}"
 									],
-									"port": "39000",
 									"path": [
-										"vemser",
-										"vs12-provas-back",
 										"processo",
 										"empresa",
 										"3"
@@ -1139,15 +936,220 @@
 				},
 				{
 					"name": "Get",
-					"item": []
+					"item": [
+						{
+							"name": "Buscar processo pelo Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/processo/:idProcesso",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"processo",
+										":idProcesso"
+									],
+									"variable": [
+										{
+											"key": "idProcesso",
+											"value": "161"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar processo pelo ID da empresa",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/processo/empresa/:idEmpresa",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"processo",
+										"empresa",
+										":idEmpresa"
+									],
+									"variable": [
+										{
+											"key": "idEmpresa",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar todos os processos ou listar os processos de uma empresa",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/processo",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"processo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Put",
-					"item": []
+					"item": [
+						{
+							"name": "Atualizar um processo",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Vem ser DBC\",\r\n  \"dataHorarioInicio\": \"2024-03-03T00:44:42.711Z\",\r\n  \"dataHorarioFim\": \"2024-04-06T23:59:59.711Z\",\r\n  \"notaCorte\": 82,\r\n  \"dificuldade\": \"MEDIO\",\r\n  \"possuiQuestoesPublicas\": false,\r\n  \"qtdFacil\": 1,\r\n  \"qtdMedia\": 2,\r\n  \"qtdDificil\": 3,\r\n  \"idsTemas\": [\r\n    1,\r\n    2,\r\n    3\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/processo/:idProcesso",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"processo",
+										":idProcesso"
+									],
+									"variable": [
+										{
+											"key": "idProcesso",
+											"value": "161"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "usuario-controller",
+			"item": [
+				{
+					"name": "Put",
+					"item": [
+						{
+							"name": "Atualiza um usuário",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"João Alcantra\",\r\n  \"email\": \"joaoalcantara@gmail.com\",\r\n  \"senha\": \"va14B\",\r\n  \"situacao\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/usuario/:idUsuario",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuario",
+										":idUsuario"
+									],
+									"variable": [
+										{
+											"key": "idUsuario",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
-					"name": "Delete",
-					"item": []
+					"name": "Get",
+					"item": [
+						{
+							"name": "Retorna um usuário pelo ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/usuario/:idUsuario",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"usuario",
+										":idUsuario"
+									],
+									"variable": [
+										{
+											"key": "idUsuario",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
