@@ -1,6 +1,5 @@
-package tests.funcional.processoController;
+package test.processoController;
 
-import dataFactory.ProcessoDataFactory;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import model.Processos;
@@ -13,9 +12,10 @@ import util.AuthUtils;
 import java.util.Locale;
 
 import static io.restassured.RestAssured.given;
+import static dataFactory.ProcessoDataFactory.processoValido;
 import static org.hamcrest.Matchers.equalTo;
 
-public class ProcessoControllerTest extends ProcessoDataFactory {
+public class ProcessoControllerTest {
     private static Faker faker = new Faker(new Locale("pt-BR"));
     private String token;
 

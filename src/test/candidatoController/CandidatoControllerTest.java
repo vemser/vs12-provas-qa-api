@@ -1,4 +1,4 @@
-package tests.funcional.candidatoController;
+package test.candidatoController;
 
 import io.restassured.http.ContentType;
 import model.Candidato;

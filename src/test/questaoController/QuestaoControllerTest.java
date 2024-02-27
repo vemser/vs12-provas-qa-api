@@ -1,4 +1,4 @@
-package tests.funcional.questaoController;
+package test.questaoController;
 
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;

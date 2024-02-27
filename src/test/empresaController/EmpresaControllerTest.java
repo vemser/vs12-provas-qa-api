@@ -1,4 +1,4 @@
-package tests.funcional.empresaController;
+package test.empresaController;
 
 import io.restassured.http.ContentType;
 import model.EmpresaValida;
@@ -109,7 +109,7 @@ public class EmpresaControllerTest extends EmpresaValida {
 
         EmpresaValida empresa = new EmpresaValida();
         empresa.setNome(faker.company().name());
-        empresa.setCnpj(cnpj());
+        empresa.setCnpj(faker.cnpj().valid().replaceAll("[.\\-/]", ""));
         empresa.setEmail(faker.internet().emailAddress());
         empresa.setNomeFuncionario(faker.name().firstName());
 
@@ -149,7 +149,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     public void testAdicionarEmpresaSemNome() {
 
         EmpresaValida empresa = new EmpresaValida();
-        empresa.setCnpj(cnpj());
+        empresa.setCnpj(faker.cnpj().valid());
         empresa.setEmail(faker.internet().emailAddress());
         empresa.setNomeFuncionario(faker.name().firstName());
 
@@ -170,7 +170,7 @@ public class EmpresaControllerTest extends EmpresaValida {
 
         EmpresaValida empresa = new EmpresaValida();
         empresa.setNome(faker.company().name());
-        empresa.setCnpj(cnpj());
+        empresa.setCnpj(faker.cnpj().valid());
         empresa.setEmail(faker.internet().emailAddress());
 
         given()

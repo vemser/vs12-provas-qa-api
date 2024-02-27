@@ -1,4 +1,4 @@
-package tests.funcional.funcionarioController;
+package test.funcionarioController;
 
 import dataFactory.FuncionarioDataFactory;
 import io.restassured.http.ContentType;

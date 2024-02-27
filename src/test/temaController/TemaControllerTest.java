@@ -1,4 +1,4 @@
-package tests.funcional.temaController;
+package test.temaController;
 
 import dataFactory.TemaDataFactory;
 import io.restassured.http.ContentType;
