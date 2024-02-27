@@ -1,8 +1,8 @@
 package dataFactory;
 
-import model.Processos;
 import net.datafaker.Faker;
 
+import model.Processos;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -27,11 +27,8 @@ public class ProcessoDataFactory {
 
         Processos novoProcesso = new Processos();
         novoProcesso.setNome(faker.company().name());
-        Date dataInicio = faker.date().future(1, TimeUnit.DAYS);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(dataInicio);
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date dataFim = faker.date().future(29, TimeUnit.DAYS, cal.getTime());
+        Date dataInicio = faker.date().future(2, TimeUnit.DAYS);
+        Date dataFim = faker.date().future(29, TimeUnit.DAYS);
         novoProcesso.setDataHorarioInicio(sdf.format(dataInicio));
         novoProcesso.setDataHorarioFim(sdf.format(dataFim));
         novoProcesso.setNotaCorte(nota);
