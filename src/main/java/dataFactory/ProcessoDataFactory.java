@@ -3,14 +3,17 @@ package dataFactory;
 import net.datafaker.Faker;
 
 import model.Processos;
-import java.text.SimpleDateFormat;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class ProcessoDataFactory {
 
     private static Faker faker = new Faker(new Locale("pt-BR"));
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     public static Processos processoValido() {
         return novoProcesso();
     }
@@ -27,10 +30,11 @@ public class ProcessoDataFactory {
 
         Processos novoProcesso = new Processos();
         novoProcesso.setNome(faker.company().name());
-        Date dataInicio = faker.date().future(2, TimeUnit.DAYS);
-        Date dataFim = faker.date().future(29, TimeUnit.DAYS);
-        novoProcesso.setDataHorarioInicio(sdf.format(dataInicio));
-        novoProcesso.setDataHorarioFim(sdf.format(dataFim));
+        Duration duration = Duration.ofMinutes(300);
+        LocalDateTime dataInicio = LocalDateTime.now().plus(duration);
+        LocalDateTime dataFim = faker.date().future(60, 10, TimeUnit.DAYS).toLocalDateTime();
+        novoProcesso.setDataHorarioInicio(dataInicio.format(dtf));
+        novoProcesso.setDataHorarioFim(dataFim.format(dtf));
         novoProcesso.setNotaCorte(nota);
         novoProcesso.setDificuldade(palavraEscolhida);
         novoProcesso.setPossuiQuestoesPublicas(questoesPublicas);
@@ -38,6 +42,7 @@ public class ProcessoDataFactory {
         novoProcesso.setQtdMedia(numInteiro);
         novoProcesso.setQtdDificil(numInteiro);
         novoProcesso.setIdsTemas(Arrays.asList(1, 2, 3));
+        System.out.println(novoProcesso);
         return novoProcesso;
     }
 }
