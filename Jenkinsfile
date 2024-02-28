@@ -20,10 +20,12 @@ pipeline {
             steps {
                 script {
                     bat 'allure generate target/allure-results -o target/allure-report'
-                    archiveArtifacts 'target/allure-report'
+
+                    archiveArtifacts 'target/allure-report/**'
                 }
             }
         }
+
     }
 
     post {
