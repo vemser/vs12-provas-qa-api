@@ -1,6 +1,7 @@
 package specs;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.config;
@@ -12,6 +13,7 @@ public class InitialSpecs {
     public static RequestSpecification setup() {
         return new RequestSpecBuilder()
                 .setBaseUri(BASE_URL)
+                .setContentType(ContentType.JSON)
                 .setConfig(config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
                 .build();
     }
