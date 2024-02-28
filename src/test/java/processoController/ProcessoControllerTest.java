@@ -77,7 +77,7 @@ public class ProcessoControllerTest {
 
     @Test
     public void testDeleteProcessoPorId() {
-        String idEmpresa = (faker.number().digit());
+        String idEmpresa = ("1");
 
         Response response = given()
                 .spec(InitialSpecs.setup())
@@ -107,7 +107,7 @@ public class ProcessoControllerTest {
 
     @Test
     public void testAdicionarProcessoComSucesso() {
-        Integer idEmpresa = 0;
+        Integer idEmpresa = 1;
 
       Response response = given()
                 .spec(InitialSpecs.setup())
