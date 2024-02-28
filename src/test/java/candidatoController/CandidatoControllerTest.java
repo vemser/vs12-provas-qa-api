@@ -47,9 +47,7 @@ public class CandidatoControllerTest extends Candidato {
         candidatoClient
                 .cadastrar(CandidatoDataFactory.gerarCandidatoComEmailJahCadastrado(), token)
         .then()
-                .statusCode(HttpStatus.SC_CREATED)
-//                .body("idCandidato", equalTo(48))
-        ;
+                .statusCode(HttpStatus.SC_CREATED);
     }
 
     @Test
