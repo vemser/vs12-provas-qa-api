@@ -21,7 +21,7 @@ pipeline {
                 script {
                     // Execute os testes e gera relatórios do Allure
                     // sh 'mvn test allure:report'
-                    sh 'mvn clean test'
+                    bat 'mvn clean test'
                 }
             }
         }
