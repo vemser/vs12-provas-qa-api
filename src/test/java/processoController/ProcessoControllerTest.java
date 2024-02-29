@@ -26,6 +26,7 @@ public class ProcessoControllerTest {
     }
 
     @Test
+    @DisplayName("Listar processos")
     public void testListarProcessos() {
 
         given()
