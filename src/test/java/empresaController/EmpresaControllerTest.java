@@ -5,6 +5,7 @@ import model.EmpresaValida;
 import model.Funcionario;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import specs.InitialSpecs;
 import util.AuthUtils;
@@ -24,6 +25,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Listar empresas")
     public void testListarEmpresas() {
 
         given()
@@ -39,6 +41,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Buscar empresa por ID com sucesso")
     public void testBuscarEmpresaPorIdComSucesso() {
         Integer idEmpresa = 5;
 
@@ -57,6 +60,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Buscar empresa por ID inexistente")
     public void testBuscarEmpresaPorIdInexistente() {
         Integer idEmpresa = 9612;
 
@@ -73,6 +77,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Buscar empresa pelo CNPJ com sucesso")
     public void testBuscarEmpresaPeloCnpjComSucesso() {
         String cnpjEmpresa = "90123456789012";
 
@@ -90,6 +95,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Buscar empresa pelo CNPJ inexistente")
     public void testBuscarEmpresaPeloCnpjInexistente() {
         String cnpjEmpresa = "90123456794372";
 
@@ -105,6 +111,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Adicionar empresa com sucesso")
     public void testAdicionarEmpresaComSucesso() {
 
         EmpresaValida empresa = new EmpresaValida();
@@ -126,6 +133,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Adicionar empresa sem CNPJ")
     public void testAdicionarEmpresaSemCnpj() {
 
         EmpresaValida empresa = new EmpresaValida();
@@ -146,6 +154,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Adicionar empresa sem nome")
     public void testAdicionarEmpresaSemNome() {
 
         EmpresaValida empresa = new EmpresaValida();
@@ -166,6 +175,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Adicionar empresa sem nome de funcionário")
     public void testAdicionarEmpresaSemNomeDeFuncionario() {
 
         EmpresaValida empresa = new EmpresaValida();
@@ -186,6 +196,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     }
 
     @Test
+    @DisplayName("Adicionar funcionário na empresa")
     public void testAdicionarFuncionarioNaEmpresa() {
         Funcionario funcionario = new Funcionario();
         funcionario.setEmail(faker.internet().emailAddress());
@@ -207,6 +218,7 @@ public class EmpresaControllerTest extends EmpresaValida {
         ;
     }
     @Test
+    @DisplayName("Adicionar funcionário como candidato")
     public void testAdicionarFuncionarioComoCandidato() {
         Funcionario funcionario = new Funcionario();
         funcionario.setEmail(faker.internet().emailAddress());

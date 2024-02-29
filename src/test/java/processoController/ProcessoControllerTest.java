@@ -4,6 +4,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import specs.InitialSpecs;
 import util.AuthUtils;
@@ -41,6 +42,7 @@ public class ProcessoControllerTest {
     }
 
     @Test
+    @DisplayName("Buscar processo por ID com sucesso")
     public void testBuscarProcessoPorIdComSucesso() {
         Integer idProcesso = 6;
 
@@ -60,6 +62,7 @@ public class ProcessoControllerTest {
     }
 
     @Test
+    @DisplayName("Buscar processo inexistente")
     public void testBuscarProcessoInexistente() {
         Integer idProcesso = 999999999;
 
@@ -76,6 +79,7 @@ public class ProcessoControllerTest {
     }
 
     @Test
+    @DisplayName("Deletar processo por ID")
     public void testDeleteProcessoPorId() {
         String idEmpresa = ("1");
 
@@ -106,6 +110,7 @@ public class ProcessoControllerTest {
     }
 
     @Test
+    @DisplayName("Adicionar processo com sucesso")
     public void testAdicionarProcessoComSucesso() {
         Integer idEmpresa = 1;
 
@@ -133,6 +138,7 @@ public class ProcessoControllerTest {
     }
 
     @Test
+    @DisplayName("Atualizar processo com sucesso")
     public void testAtualizarProcessoComSucesso() {
         String idEmpresa = "1";
 

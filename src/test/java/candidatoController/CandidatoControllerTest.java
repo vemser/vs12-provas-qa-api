@@ -6,6 +6,7 @@ import model.Candidato;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
@@ -21,6 +22,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Adicionar candidato com sucesso como administrador")
     public void testAdicionarCandidatoComSucessoComoAdmin(){
 
         candidatoClient
@@ -31,6 +33,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Adicionar candidato com email inválido como administrador")
     public void testAdicionarCandidatoComEmailInvalidoComoAdmin(){
 
         candidatoClient
@@ -42,6 +45,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Adicionar candidato com email já cadastrado como administrador")
     public void testAdicionarCandidatoComEmailJaCadastradoComoAdmin(){
 
         candidatoClient
@@ -51,6 +55,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Buscar candidato pelo ID com sucesso como administrador")
     public void testBuscarCandidatoPeloIdComSucessoComoAdmin(){
 
         candidatoClient
@@ -62,6 +67,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Buscar candidato com ID inválido sem sucesso como administrador")
     public void testBuscarCandidatoComIdInvalidoSemSucessoComoAdmin(){
 
         candidatoClient
@@ -72,6 +78,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Buscar candidato pelo ID não cadastrado sem sucesso como administrador")
     public void testBuscarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
 
         candidatoClient
@@ -83,6 +90,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Listar candidatos com sucesso como administrador")
     public void testListarCandidatosComSucessoComoAdmin(){
 
         candidatoClient
@@ -92,6 +100,7 @@ public class CandidatoControllerTest extends Candidato {
         ;
     }
     @Test
+    @DisplayName("Listar candidatos sem sucesso informando página inválida como administrador")
     public void testListarCandidatosSemSucessoInformandoPaginaInvalidaComoAdmin(){
         candidatoClient
                 .listar(-1, 10, token)
@@ -101,6 +110,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Desativar candidato com sucesso como administrador")
     public void testDesativarCandidatoComSucessoComoAdmin(){
 
         candidatoClient
@@ -111,6 +121,7 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Desativar candidato com ID não cadastrado sem sucesso como administrador")
     public void testDesativarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
 
         candidatoClient

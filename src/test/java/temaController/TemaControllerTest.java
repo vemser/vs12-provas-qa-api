@@ -3,6 +3,7 @@ package temaController;
 import dataFactory.TemaDataFactory;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import specs.InitialSpecs;
 import util.AuthUtils;
@@ -20,6 +21,7 @@ public class TemaControllerTest extends TemaDataFactory {
     }
 
     @Test
+    @DisplayName("Listar temas")
     public void testListarTemas() {
 
         given()
@@ -35,6 +37,7 @@ public class TemaControllerTest extends TemaDataFactory {
         ;
     }
     @Test
+    @DisplayName("Adicionar tema com sucesso")
     public void testAdicionarTemaComSucesso() {
 
 
@@ -50,6 +53,7 @@ public class TemaControllerTest extends TemaDataFactory {
     }
 
     @Test
+    @DisplayName("Adicionar tema já cadastrado")
     public void testAdicionarTemaJaCadastrado() {
 
         given()
