@@ -28,6 +28,10 @@ public class QuestaoDataFactory {
             listaAlternativas[i] = alternativa;
         }
 
+        if(!existeAlternativaCorreta){
+            listaAlternativas[0].setCorreta(true);
+        }
+
         Questao questao = new Questao();
         questao.setTitulo(FAKER.lorem().word());
         questao.setEnunciado(FAKER.lorem().sentence());

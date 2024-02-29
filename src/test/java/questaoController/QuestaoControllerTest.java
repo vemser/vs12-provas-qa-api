@@ -29,7 +29,7 @@ public class QuestaoControllerTest {
     public void buscarQuestaoPorId(){
 
         client
-            .buscarPorId(1, this.token)
+            .buscarPorId(1, token)
         .then()
             .statusCode(200)
         ;
@@ -38,13 +38,8 @@ public class QuestaoControllerTest {
     @DisplayName("Buscar questão por ID inexistente")
     public void buscarQuestaoPorIdInexistente(){
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .param("aaaa")
-        .when()
-                .get("/questao/aaaa" )
+        client
+                .buscarPorId(FAKER.internet().uuid(), token)
         .then()
                 .statusCode(400)
         ;
@@ -55,17 +50,10 @@ public class QuestaoControllerTest {
     public void cadastrarQuestaoComSucesso() {
         Questao questao = QuestaoDataFactory.gerarQuestaoValida();
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(questao)
-                .log().all()
-        .when()
-                .post("/questao")
+        client
+                .cadastrar(questao, token)
         .then()
                 .statusCode(HttpStatus.SC_CREATED)
-                .log().all()
         ;
     }
     @Test
