@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import model.Funcionario;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import specs.InitialSpecs;
 import util.AuthUtils;
@@ -21,6 +22,7 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
     }
 
     @Test
+    @DisplayName("Listar funcionários")
     public void testListarFuncionarios() {
 
         given()
@@ -36,6 +38,7 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
     }
 
     @Test
+    @DisplayName("Listar funcionário pelo ID")
     public void testListarFuncionarioPeloId() {
 
         given()
@@ -51,6 +54,7 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
     }
 
     @Test
+    @DisplayName("Atualizar funcionário")
     public void testAtualizarFuncionario() {
         Response response = given()
                 .spec(InitialSpecs.setup())

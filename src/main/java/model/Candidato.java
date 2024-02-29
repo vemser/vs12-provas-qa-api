@@ -16,5 +16,8 @@ public class Candidato {
     @JsonIgnore
     private String senha;
 
-
+    public Candidato(String email, String nome){
+        this.email = email;
+        this.nome = nome;
+    }
 }

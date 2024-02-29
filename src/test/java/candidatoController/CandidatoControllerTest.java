@@ -1,22 +1,19 @@
 package candidatoController;
 
-import io.restassured.http.ContentType;
+import client.candidato.CandidatoClient;
+import dataFactory.CandidatoDataFactory;
 import model.Candidato;
-import net.datafaker.Faker;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import specs.InitialSpecs;
 import util.AuthUtils;
 
-import java.util.Locale;
-
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CandidatoControllerTest extends Candidato {
-    private static Faker faker = new Faker(new Locale("PT-BR"));
+    private final CandidatoClient candidatoClient = new CandidatoClient();
     private String token;
 
     @BeforeEach
@@ -25,36 +22,22 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Adicionar candidato com sucesso como administrador")
     public void testAdicionarCandidatoComSucessoComoAdmin(){
-        Candidato candidato = new Candidato();
-        candidato.setEmail("wataxik974@searpen.com");
-        candidato.setNome(faker.name().firstName());
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(candidato)
-        .when()
-                .post("/candidato")
+        candidatoClient
+                .cadastrar(CandidatoDataFactory.gerarCandidatoValido(), token)
         .then()
                 .statusCode(HttpStatus.SC_CREATED)
         ;
     }
 
     @Test
+    @DisplayName("Adicionar candidato com email inválido como administrador")
     public void testAdicionarCandidatoComEmailInvalidoComoAdmin(){
-        Candidato candidato = new Candidato();
-        candidato.setEmail("cadidatoteste");
-        candidato.setNome("Marcos");
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(candidato)
-        .when()
-                .post("/candidato")
+        candidatoClient
+                .cadastrar(CandidatoDataFactory.gerarCandidatoComEmailInvalido(), token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("errors", Matchers.contains("email: must be a well-formed email address"))
@@ -62,34 +45,21 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Adicionar candidato com email já cadastrado como administrador")
     public void testAdicionarCandidatoComEmailJaCadastradoComoAdmin(){
-        Candidato candidato = new Candidato();
-        candidato.setEmail("wataxik974@searpen.com");
-        candidato.setNome(faker.name().firstName());
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(candidato)
-        .when()
-                .post("/candidato")
+        candidatoClient
+                .cadastrar(CandidatoDataFactory.gerarCandidatoComEmailJahCadastrado(), token)
         .then()
-                .statusCode(HttpStatus.SC_CREATED)
-                .body("idCandidato", equalTo(48))
-        ;
+                .statusCode(HttpStatus.SC_CREATED);
     }
 
     @Test
+    @DisplayName("Buscar candidato pelo ID com sucesso como administrador")
     public void testBuscarCandidatoPeloIdComSucessoComoAdmin(){
-        Integer idCandidato = 2;
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-        .when()
-                .get("/candidato/" + idCandidato)
-
+        candidatoClient
+                .buscarPorId(2, token)
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("idCandidato", equalTo(2))
@@ -97,30 +67,22 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Buscar candidato com ID inválido sem sucesso como administrador")
     public void testBuscarCandidatoComIdInvalidoSemSucessoComoAdmin(){
-        String idCandidato = "asdasd";
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-        .when()
-                .get("/candidato/" + idCandidato)
-
+        candidatoClient
+                .buscarPorId(CandidatoDataFactory.gerarIdInvalido(), token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }
 
     @Test
+    @DisplayName("Buscar candidato pelo ID não cadastrado sem sucesso como administrador")
     public void testBuscarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
-        Integer idCandidato = 20000;
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-        .when()
-                .get("/candidato/" + idCandidato)
-
+        candidatoClient
+                .buscarPorId(CandidatoDataFactory.gerarIdNaoCadastrado(), token)
         .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
                 .body("message", equalTo("Candidato não encontrado."))
@@ -128,62 +90,45 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Listar candidatos com sucesso como administrador")
     public void testListarCandidatosComSucessoComoAdmin(){
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .param("pagina",0)
-                .param("quantidadeRegistros",10)
 
-        .when()
-                .get("/candidato")
+        candidatoClient
+                .listar(0, 10, token)
         .then()
                 .statusCode(HttpStatus.SC_OK)
         ;
     }
     @Test
-    public void testListarCandidatosSemSucessoComoAdmin(){
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .param("pagina","asd")
-                .param("quantidadeRegistros","asd")
-        .when()
-                .get("/candidato")
+    @DisplayName("Listar candidatos sem sucesso informando página inválida como administrador")
+    public void testListarCandidatosSemSucessoInformandoPaginaInvalidaComoAdmin(){
+        candidatoClient
+                .listar(-1, 10, token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }
 
     @Test
+    @DisplayName("Desativar candidato com sucesso como administrador")
     public void testDesativarCandidatoComSucessoComoAdmin(){
-        Integer idCandidato = 2;
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-        .when()
-                .delete("/candidato/" + idCandidato)
+
+        candidatoClient
+                .excluir(2, token)
         .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
-
     }
 
     @Test
+    @DisplayName("Desativar candidato com ID não cadastrado sem sucesso como administrador")
     public void testDesativarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
-        Integer idCandidato = 20000;
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
 
-        .when()
-                .delete("/candidato/" + idCandidato)
+        candidatoClient
+                .excluir(CandidatoDataFactory.gerarIdNaoCadastrado(), token)
         .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
                 .body("message",equalTo("Candidado não existe."))
         ;
-
     }
-
-
 }

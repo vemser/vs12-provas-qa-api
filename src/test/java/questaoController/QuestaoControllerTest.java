@@ -3,6 +3,7 @@ package questaoController;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import model.Alternativa;
 import model.Questao;
@@ -20,6 +21,7 @@ public class QuestaoControllerTest {
     }
 
     @Test
+    @DisplayName("Buscar questão por ID")
     public void buscarQuestaoPorId(){
         String idQuestao = "19";
         given()
@@ -35,6 +37,7 @@ public class QuestaoControllerTest {
         ;
     }
     @Test
+    @DisplayName("Buscar questão por ID inexistente")
     public void buscarQuestaoPorIdInexistente(){
 
         given()
@@ -50,6 +53,7 @@ public class QuestaoControllerTest {
     }
 
     @Test
+    @DisplayName("Cadastrar questão com sucesso")
     public void cadastrarQuestaoComSucesso() {
 
         Alternativa alternativa1 = new Alternativa();
@@ -78,6 +82,7 @@ public class QuestaoControllerTest {
         ;
     }
     @Test
+    @DisplayName("Cadastrar questão sem enunciando e sem dificuldade")
     public void cadastrarQuestaoSemEnunciadoeDificuldade() {
         Alternativa alternativa1 = new Alternativa();
         alternativa1.setAlternativa("esta é uma alternativa verdadeira");
