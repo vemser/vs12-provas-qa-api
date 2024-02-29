@@ -1,14 +1,11 @@
 package model;
 
 import lombok.*;
-import net.datafaker.Faker;
-
-import java.util.Random;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmpresaValida {
+public class Empresa {
     String nome;
     String cnpj;
     String email;

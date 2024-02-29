@@ -33,4 +33,5 @@ public abstract class BaseSpecs<Model> implements ISpecs<Model>{
                 .setBody(bodyData)
                 .build();
     }
+
 }

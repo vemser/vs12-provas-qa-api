@@ -1,7 +1,8 @@
 package empresaController;
 
+import client.empresa.EmpresaClient;
 import io.restassured.http.ContentType;
-import model.EmpresaValida;
+import model.Empresa;
 import model.Funcionario;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,11 +13,13 @@ import util.AuthUtils;
 
 import java.util.Locale;
 
+import static dataFactory.EmpresaDataFactory.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class EmpresaControllerTest extends EmpresaValida {
+public class EmpresaControllerTest extends Empresa {
     private static Faker faker = new Faker(new Locale("PT-BR"));
+    private static EmpresaClient client = new EmpresaClient();
     private String token;
 
     @BeforeEach
@@ -28,13 +31,7 @@ public class EmpresaControllerTest extends EmpresaValida {
     @DisplayName("Listar empresas")
     public void testListarEmpresas() {
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .param("pagina", "2")
-                .param("quantidadeRegistros", "5")
-        .when()
-                .get("/empresa")
+        client.listar(2, 5, token)
         .then()
                 .statusCode(200)
         ;
@@ -114,17 +111,11 @@ public class EmpresaControllerTest extends EmpresaValida {
     @DisplayName("Adicionar empresa com sucesso")
     public void testAdicionarEmpresaComSucesso() {
 
-        EmpresaValida empresa = new EmpresaValida();
-        empresa.setNome(faker.company().name());
-        empresa.setCnpj(faker.cnpj().valid().replaceAll("[.\\-/]", ""));
-        empresa.setEmail(faker.internet().emailAddress());
-        empresa.setNomeFuncionario(faker.name().firstName());
-
         given()
                 .spec(InitialSpecs.setup())
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
-                .body(empresa)
+                .body(gerarEmpresaValida())
         .when()
                 .post("/empresa")
         .then()
@@ -136,16 +127,11 @@ public class EmpresaControllerTest extends EmpresaValida {
     @DisplayName("Adicionar empresa sem CNPJ")
     public void testAdicionarEmpresaSemCnpj() {
 
-        EmpresaValida empresa = new EmpresaValida();
-        empresa.setNome(faker.company().name());
-        empresa.setEmail(faker.internet().emailAddress());
-        empresa.setNomeFuncionario(faker.name().firstName());
-
         given()
                 .spec(InitialSpecs.setup())
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
-                .body(empresa)
+                .body(gerarEmpresaSemCNPJ())
             .when()
                 .post("/empresa")
             .then()
@@ -157,16 +143,11 @@ public class EmpresaControllerTest extends EmpresaValida {
     @DisplayName("Adicionar empresa sem nome")
     public void testAdicionarEmpresaSemNome() {
 
-        EmpresaValida empresa = new EmpresaValida();
-        empresa.setCnpj(faker.cnpj().valid());
-        empresa.setEmail(faker.internet().emailAddress());
-        empresa.setNomeFuncionario(faker.name().firstName());
-
         given()
                 .spec(InitialSpecs.setup())
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
-                .body(empresa)
+                .body(gerarEmpresaSemNome())
             .when()
                 .post("/empresa")
             .then()
@@ -178,16 +159,11 @@ public class EmpresaControllerTest extends EmpresaValida {
     @DisplayName("Adicionar empresa sem nome de funcionário")
     public void testAdicionarEmpresaSemNomeDeFuncionario() {
 
-        EmpresaValida empresa = new EmpresaValida();
-        empresa.setNome(faker.company().name());
-        empresa.setCnpj(faker.cnpj().valid());
-        empresa.setEmail(faker.internet().emailAddress());
-
         given()
                 .spec(InitialSpecs.setup())
                 .header("Authorization", this.token)
                 .contentType(ContentType.JSON)
-                .body(empresa)
+                .body(gerarEmpresaSemNomeDeFuncionario())
             .when()
                 .post("/empresa")
             .then()
