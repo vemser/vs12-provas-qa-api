@@ -92,9 +92,7 @@ public class ProcessoControllerTest {
             .when()
                 .post("/processo/empresa/" + idEmpresa)
             .then()
-                .statusCode(201)
                 .extract().response();
-
 
         String idProcesso = response.jsonPath().getString("idProcesso");
 

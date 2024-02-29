@@ -1,5 +1,6 @@
 package questaoController;
 
+import client.questao.QuestaoClient;
 import dataFactory.QuestaoDataFactory;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -12,9 +13,11 @@ import specs.InitialSpecs;
 import util.AuthUtils;
 
 import static io.restassured.RestAssured.given;
+import static util.RandomData.FAKER;
 
 public class QuestaoControllerTest {
     private String token;
+    private final QuestaoClient client = new QuestaoClient();
 
     @BeforeEach
     public void setup() {
@@ -24,17 +27,11 @@ public class QuestaoControllerTest {
     @Test
     @DisplayName("Buscar questão por ID")
     public void buscarQuestaoPorId(){
-        String idQuestao = "19";
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .param(idQuestao)
-        .when()
-                .get("/questao/20" )
+
+        client
+            .buscarPorId(1, this.token)
         .then()
-                .log().all()
-                .statusCode(200)
+            .statusCode(200)
         ;
     }
     @Test
