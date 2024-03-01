@@ -2,7 +2,7 @@ package util;
 
 import io.restassured.http.ContentType;
 import model.Login;
-import specs.InitialSpecs;
+import specs.BaseSpecs;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ public class AuthUtils {
     private static String getToken(Login loginData) throws IOException {
 
         String res = given()
-                .spec(InitialSpecs.setup())
+                .spec(BaseSpecs.setup())
                 .contentType(ContentType.JSON)
                 .body(loginData)
                 .when()
