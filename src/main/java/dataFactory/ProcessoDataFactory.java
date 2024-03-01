@@ -17,6 +17,7 @@ public class ProcessoDataFactory {
     public static Processos processoValido() {
         return novoProcesso();
     }
+    public static Processos processoInvalido(){return new Processos();}
 
     private static Processos novoProcesso() {
         Random random = new Random();
@@ -28,13 +29,18 @@ public class ProcessoDataFactory {
         int indice = random.nextInt(palavras.length);
         String palavraEscolhida = palavras[indice];
 
+
         Processos novoProcesso = new Processos();
+
         novoProcesso.setNome(faker.company().name());
+
         Duration duration = Duration.ofMinutes(300);
         LocalDateTime dataInicio = LocalDateTime.now().plus(duration);
         LocalDateTime dataFim = faker.date().future(60, 10, TimeUnit.DAYS).toLocalDateTime();
+
         novoProcesso.setDataHorarioInicio(dataInicio.format(dtf));
         novoProcesso.setDataHorarioFim(dataFim.format(dtf));
+
         novoProcesso.setNotaCorte(nota);
         novoProcesso.setDificuldade(palavraEscolhida);
         novoProcesso.setPossuiQuestoesPublicas(questoesPublicas);

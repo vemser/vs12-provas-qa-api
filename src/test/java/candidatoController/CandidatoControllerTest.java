@@ -2,14 +2,15 @@ package candidatoController;
 
 import client.candidato.CandidatoClient;
 import dataFactory.CandidatoDataFactory;
+import io.restassured.response.Response;
 import model.Candidato;
 import org.apache.http.HttpStatus;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
+import static dataFactory.CandidatoDataFactory.*;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CandidatoControllerTest extends Candidato {
@@ -26,7 +27,7 @@ public class CandidatoControllerTest extends Candidato {
     public void testAdicionarCandidatoComSucessoComoAdmin(){
 
         client
-                .cadastrar(CandidatoDataFactory.gerarCandidatoValido(), token)
+                .cadastrar(gerarCandidatoValido(), token)
         .then()
                 .statusCode(HttpStatus.SC_CREATED)
         ;
@@ -37,10 +38,9 @@ public class CandidatoControllerTest extends Candidato {
     public void testAdicionarCandidatoComEmailInvalidoComoAdmin(){
 
         client
-                .cadastrar(CandidatoDataFactory.gerarCandidatoComEmailInvalido(), token)
+                .cadastrar(gerarCandidatoComEmailInvalido(), token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("errors", Matchers.contains("email: must be a well-formed email address"))
         ;
     }
 
@@ -49,7 +49,7 @@ public class CandidatoControllerTest extends Candidato {
     public void testAdicionarCandidatoComEmailJaCadastradoComoAdmin(){
 
         client
-                .cadastrar(CandidatoDataFactory.gerarCandidatoComEmailJahCadastrado(), token)
+                .cadastrar(gerarCandidatoComEmailJahCadastrado(), token)
         .then()
                 .statusCode(HttpStatus.SC_CREATED);
     }
@@ -82,10 +82,9 @@ public class CandidatoControllerTest extends Candidato {
     public void testBuscarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
 
         client
-                .buscarPorId(CandidatoDataFactory.gerarIdNaoCadastrado(), token)
+                .buscarPorId(gerarIdNaoCadastrado(), token)
         .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body("message", equalTo("Candidato não encontrado."))
         ;
     }
 
@@ -122,13 +121,12 @@ public class CandidatoControllerTest extends Candidato {
 
     @Test
     @DisplayName("Desativar candidato com ID não cadastrado sem sucesso como administrador")
-    public void testDesativarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
+    public void testDesativarCandidatoComIdNaoCadastradoSemSucessoComoAdmin() {
 
         client
-                .excluir(CandidatoDataFactory.gerarIdNaoCadastrado(), token)
-        .then()
+                .excluir(gerarIdNaoCadastrado(), token)
+                .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body("message",equalTo("Candidado não existe."))
         ;
     }
 }

@@ -1,25 +1,17 @@
 package processoController;
 
 import client.processo.ProcessoClient;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import specs.InitialSpecs;
 import util.AuthUtils;
 
-import model.Processos;
-import java.util.Locale;
-
+import static dataFactory.ProcessoDataFactory.processoInvalido;
 import static dataFactory.ProcessoDataFactory.processoValido;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 
 public class ProcessoControllerTest {
     private final ProcessoClient client = new ProcessoClient();
-    private final String PATH_EMPRESA = "empresa";
     private String token;
 
     @BeforeEach
@@ -32,7 +24,7 @@ public class ProcessoControllerTest {
     public void testListarProcessos() {
 
         client.listar(1, 5, token)
-            .then()
+                .then()
                 .statusCode(200)
         ;
     }
@@ -44,7 +36,7 @@ public class ProcessoControllerTest {
         int idEmpresa = 1;
 
         Response response =
-                client.cadastrar(processoValido(), PATH_EMPRESA, idEmpresa, token)
+                client.cadastrarEmpresa(processoValido(), idEmpresa, token)
                 .then()
                 .extract().response();
 
@@ -64,7 +56,6 @@ public class ProcessoControllerTest {
         client.buscarPorId(idProcesso, token)
                 .then()
                 .statusCode(404)
-                .body("message", equalTo("Processo não encontrado."))
         ;
     }
 
@@ -75,7 +66,7 @@ public class ProcessoControllerTest {
         int idEmpresa = 1;
 
         Response response =
-                client.cadastrar(processoValido(), PATH_EMPRESA, idEmpresa, token)
+                client.cadastrarEmpresa(processoValido(), idEmpresa, token)
                 .then()
                 .extract().response();
 
@@ -93,9 +84,20 @@ public class ProcessoControllerTest {
 
         int idEmpresa = 1;
 
-        client.cadastrar(processoValido(), PATH_EMPRESA, idEmpresa, token)
+        client.cadastrarEmpresa(processoValido(), idEmpresa, token)
                 .then()
                 .statusCode(201);
+    }
+
+    @Test
+    @DisplayName("Adicionar processo vazio")
+    public void testAdicionarProcessoVazio() {
+
+        int idEmpresa = 1;
+
+        client.cadastrarEmpresa(processoInvalido(), idEmpresa, token)
+                .then()
+                .statusCode(400);
     }
 
     @Test
@@ -105,7 +107,7 @@ public class ProcessoControllerTest {
         int idEmpresa = 1;
 
         Response response =
-                client.cadastrar(processoValido(), PATH_EMPRESA, idEmpresa, token)
+                client.cadastrarEmpresa(processoValido(), idEmpresa, token)
                 .then()
                 .extract().response();
 

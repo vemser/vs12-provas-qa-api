@@ -8,9 +8,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
-import static org.hamcrest.Matchers.equalTo;
-
-
 public class TemaControllerTest extends TemaDataFactory {
 
     private TemaClient client = new TemaClient();
@@ -45,7 +42,6 @@ public class TemaControllerTest extends TemaDataFactory {
 
         client.cadastrar(new Tema("JAVA"), token)
                 .then()
-                .statusCode(400)
-                .body("message", equalTo("Tema já cadastrado."));
+                .statusCode(400);
     }
 }

@@ -12,6 +12,7 @@ public class FuncionarioClient extends BaseClient<Funcionario> {
     private final String ID_FUNCIONARIO_PATH_PARAM = "{_idFuncionario}";
     private final String ID_EMPRESA_PATH_PARAM = "{_idEmpresa}";
     private final String COMPLEMENTO_PATH = "/funcionario/";
+    private final String ID_EMPRESA_FUNCIONARIO_ID_FUNCIONARIO = "{_idEmpresa}/funcionario/{_idFuncionario}";
 
     public FuncionarioClient() {
         super(new FuncionarioSpecs());
@@ -39,7 +40,7 @@ public class FuncionarioClient extends BaseClient<Funcionario> {
                         .pathParams("_idFuncionario", idFuncionario)
                         .header("Authorization", authToken)
                 .when()
-                        .delete(ID_EMPRESA_PATH_PARAM + COMPLEMENTO_PATH + ID_FUNCIONARIO_PATH_PARAM)
+                        .delete(ID_EMPRESA_FUNCIONARIO_ID_FUNCIONARIO)
                 ;
     }
 

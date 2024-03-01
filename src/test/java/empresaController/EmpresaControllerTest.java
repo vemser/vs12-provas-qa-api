@@ -1,27 +1,19 @@
 package empresaController;
 
 import client.empresa.EmpresaClient;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import model.Empresa;
-import model.Funcionario;
-import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import specs.InitialSpecs;
 import util.AuthUtils;
 
-import java.util.Locale;
 
 import static dataFactory.EmpresaDataFactory.*;
 import static dataFactory.FuncionarioDataFactory.gerarFuncionarioComoCandidato;
 import static dataFactory.FuncionarioDataFactory.novoFuncionarioNaEmpresa;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 
 public class EmpresaControllerTest extends Empresa {
-    private static Faker faker = new Faker(new Locale("PT-BR"));
     private static EmpresaClient client = new EmpresaClient();
     private String token;
 
@@ -35,7 +27,7 @@ public class EmpresaControllerTest extends Empresa {
     public void testListarEmpresas() {
 
         client.listar(2, 5, token)
-        .then()
+                .then()
                 .statusCode(200)
         ;
     }
@@ -80,7 +72,7 @@ public class EmpresaControllerTest extends Empresa {
         String cnpj = response.jsonPath().getString("cnpj");
 
         client.buscarPorCNPJ(cnpj, token)
-        .then()
+                .then()
                 .statusCode(200)
         ;
     }
@@ -151,9 +143,42 @@ public class EmpresaControllerTest extends Empresa {
     public void testAdicionarFuncionarioComoCandidato() {
 
         client.cadastrarFuncionarioNaEmpresa(gerarFuncionarioComoCandidato(), 1, token)
-           .then()
+                .then()
                 .statusCode(400)
         ;
+    }
+
+    @Test
+    @DisplayName("Desativar empresa por ID")
+    public void testDesativarEmpresaPorID() {
+
+        Response response =
+                client.cadastrar(gerarEmpresaValida(), token)
+                .then()
+                .extract().response();
+        ;
+
+        int idEmpresa = response.jsonPath().getInt("idEmpresa");
+
+        client.excluir(idEmpresa, token)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    @DisplayName("Atualizar empresa com sucesso")
+    public void testAtualizarEmpresaComSucesso() {
+
+        Response response = client.cadastrar(gerarEmpresaValida(), token)
+                .then()
+                .extract().response();
+        ;
+
+        int idEmpresa = response.jsonPath().getInt("idEmpresa");
+
+        client.atualizar(gerarEmpresaValida(), idEmpresa, token)
+                .then()
+                .statusCode(200);
     }
 }
 

@@ -12,8 +12,7 @@ public class FuncionarioDataFactory {
     public static String gerarRole() {
         String[] cargo = {
                 "ROLE_MODERADOR",
-                "ROLE_GESTOR",
-                //"ROLE_CANDIDATO",
+                "ROLE_GESTOR"
         };
         Random random = new Random();
         int indice = random.nextInt(cargo.length);

@@ -2,13 +2,12 @@ package questaoController;
 
 import client.questao.QuestaoClient;
 import dataFactory.QuestaoDataFactory;
+import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
-
-import static util.RandomData.FAKER;
 
 public class QuestaoControllerTest {
     private String token;
@@ -34,7 +33,7 @@ public class QuestaoControllerTest {
     public void buscarQuestaoPorIdInexistente(){
 
         client
-                .buscarPorId(FAKER.internet().uuid(), token)
+                .buscarPorId(-1, token)
         .then()
                 .statusCode(400)
         ;
@@ -58,6 +57,23 @@ public class QuestaoControllerTest {
                 .cadastrar(QuestaoDataFactory.gerarQuestaoInvalidaSemEnunciadoEDificuldade(), token)
         .then()
                 .statusCode(400)
+        ;
+    }
+
+    @Test
+    @DisplayName("Deletar questão com sucesso")
+    public void deletarQuestaoComSucesso() {
+
+        Response response = client
+                .cadastrar(QuestaoDataFactory.gerarQuestaoValida(), token)
+                .then()
+                .extract().response();
+
+        int idQuestao = response.jsonPath().getInt("idQuestao");
+
+        client.excluir(idQuestao, token)
+                .then()
+                .statusCode(200)
         ;
     }
 }
