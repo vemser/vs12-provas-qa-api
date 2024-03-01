@@ -2,7 +2,7 @@ package funcionarioController;
 
 import client.empresa.EmpresaClient;
 import client.funcionario.FuncionarioClient;
-import dataFactory.FuncionarioDataFactory;
+import data.factory.FuncionarioDataFactory;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package dataFactory;
+package data.factory;
 
 import net.datafaker.Faker;
 

@@ -1,7 +1,7 @@
 package candidatoController;
 
 import client.candidato.CandidatoClient;
-import dataFactory.CandidatoDataFactory;
+import data.factory.CandidatoDataFactory;
 import io.restassured.response.Response;
 import model.Candidato;
 import org.apache.http.HttpStatus;
@@ -10,8 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
-import static dataFactory.CandidatoDataFactory.*;
-import static org.hamcrest.Matchers.equalTo;
+import static data.factory.CandidatoDataFactory.*;
 
 public class CandidatoControllerTest extends Candidato {
     private final CandidatoClient client = new CandidatoClient();
