@@ -12,8 +12,7 @@ public class FuncionarioDataFactory {
     public static String gerarRole() {
         String[] cargo = {
                 "ROLE_MODERADOR",
-                "ROLE_GESTOR",
-                //"ROLE_CANDIDATO",
+                "ROLE_GESTOR"
         };
         Random random = new Random();
         int indice = random.nextInt(cargo.length);
@@ -37,5 +36,14 @@ public class FuncionarioDataFactory {
         novoFuncionarioNaEmpresa.setNome(faker.name().firstName());
 
         return novoFuncionarioNaEmpresa;
+    }
+
+    public static Funcionario gerarFuncionarioComoCandidato(){
+        Funcionario funcionarioComoCandidato = new Funcionario();
+        funcionarioComoCandidato.setEmail(faker.internet().emailAddress());
+        funcionarioComoCandidato.setCargo("ROLE_CANDIDATO");
+        funcionarioComoCandidato.setNome(faker.name().firstName());
+
+        return funcionarioComoCandidato;
     }
 }

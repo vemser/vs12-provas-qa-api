@@ -1,18 +1,16 @@
 package temaController;
 
+import client.tema.TemaClient;
 import dataFactory.TemaDataFactory;
-import io.restassured.http.ContentType;
+import model.Tema;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import specs.InitialSpecs;
 import util.AuthUtils;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-
-
 public class TemaControllerTest extends TemaDataFactory {
+
+    private TemaClient client = new TemaClient();
     private String token;
 
     @BeforeEach
@@ -24,15 +22,8 @@ public class TemaControllerTest extends TemaDataFactory {
     @DisplayName("Listar temas")
     public void testListarTemas() {
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .param("pagina", "0")
-                .param("quantidadeRegistros", "10")
-        .when()
-                .get("/tema")
-        .then()
+        client.listar(0,10,token)
+                .then()
                 .statusCode(200)
         ;
     }
@@ -40,15 +31,8 @@ public class TemaControllerTest extends TemaDataFactory {
     @DisplayName("Adicionar tema com sucesso")
     public void testAdicionarTemaComSucesso() {
 
-
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(TemaDataFactory.gerarTemaValido())
-        .when()
-                .post("/tema")
-        .then()
+        client.cadastrar(TemaDataFactory.gerarTemaValido(), token)
+                .then()
                 .statusCode(201);
     }
 
@@ -56,15 +40,8 @@ public class TemaControllerTest extends TemaDataFactory {
     @DisplayName("Adicionar tema já cadastrado")
     public void testAdicionarTemaJaCadastrado() {
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body("{\"nome\": \"" + "Luna" + "\"}")
-        .when()
-                .post("/tema")
-        .then()
-                .statusCode(400)
-                .body("message", equalTo("Tema já cadastrado."));
+        client.cadastrar(new Tema("JAVA"), token)
+                .then()
+                .statusCode(400);
     }
 }

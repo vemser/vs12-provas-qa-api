@@ -6,7 +6,7 @@ import specs.ISpecs;
 import static io.restassured.RestAssured.given;
 
 public abstract class BaseClient<Model> {
-    private final ISpecs<Model> SPECS;
+    protected final ISpecs<Model> SPECS;
     private final String ID_PATH_PARAM = "{_id}";
 
     public BaseClient(ISpecs<Model> specs) {
@@ -21,19 +21,7 @@ public abstract class BaseClient<Model> {
                 .when()
                         .post();
     }
-
     public Response buscarPorId(Integer id, String authToken) {
-        return
-                given()
-                        .spec(SPECS.requestSpec())
-                        .header("Authorization", authToken)
-                        .pathParams("_id", id)
-                .when()
-                        .get(ID_PATH_PARAM)
-                ;
-    }
-
-    public Response buscarPorId(String id, String authToken) {
         return
                 given()
                         .spec(SPECS.requestSpec())

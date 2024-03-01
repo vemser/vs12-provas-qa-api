@@ -20,8 +20,8 @@ public class CandidatoDataFactory {
         candidato.setEmail("wataxik974@searpen.com");
         return candidato;
     }
-    public static String gerarIdInvalido(){
-        return FAKER.internet().uuid();
+    public static Integer gerarIdInvalido(){
+        return -1;
     }
 
     public static Integer gerarIdNaoCadastrado(){
