@@ -109,7 +109,7 @@ public class ProcessoControllerTest {
                 .then()
                 .extract().response();
 
-        int idProcesso = Integer.parseInt(response.jsonPath().getString("idProcesso"));
+        int idProcesso = response.jsonPath().getInt("idProcesso");
 
         client.atualizar(processoValido(), idProcesso, token)
                 .then()

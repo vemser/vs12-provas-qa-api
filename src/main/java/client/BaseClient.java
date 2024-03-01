@@ -47,7 +47,6 @@ public abstract class BaseClient<Model> {
                         .post(ID_PATH_PATH_PARAM);
     }
 
-
     public Response buscarPorId(Integer id, String authToken) {
         return
                 given()
