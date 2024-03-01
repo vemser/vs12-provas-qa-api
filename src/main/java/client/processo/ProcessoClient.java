@@ -16,7 +16,7 @@ public class ProcessoClient extends BaseClient<Processos> {
         super(new ProcessoSpecs());
     }
 
-    public Response cadastrarEmpresa(Processos processo, Integer idEmpresa, String authToken) {
+    public Response cadastrarProcesso(Processos processo, Integer idEmpresa, String authToken) {
         return
                 given()
                         .spec(SPECS.requestSpec(processo))

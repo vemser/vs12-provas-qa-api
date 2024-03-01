@@ -33,6 +33,16 @@ public class EmpresaControllerTest extends Empresa {
     }
 
     @Test
+    @DisplayName("Listar empresas com token inválido")
+    public void testListarEmpresasComTokenInvalido() {
+
+        client.listar(2, 5, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
+
+    @Test
     @DisplayName("Buscar empresa por ID com sucesso")
     public void testBuscarEmpresaPorIdComSucesso() {
 
@@ -49,6 +59,17 @@ public class EmpresaControllerTest extends Empresa {
     }
 
     @Test
+    @DisplayName("Buscar empresa por ID utilizando token inválido")
+    public void testBuscarEmpresaPorIdUtilizandoTokenInvalido() {
+
+        int idEmpresa = 0;
+
+        client.buscarPorId(idEmpresa, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500);
+    }
+
+    @Test
     @DisplayName("Buscar empresa por ID inválido")
     public void testBuscarEmpresaPorIdInvalido() {
 
@@ -59,6 +80,7 @@ public class EmpresaControllerTest extends Empresa {
                 .statusCode(400);
         ;
     }
+
 
     @Test
     @DisplayName("Buscar empresa pelo CNPJ com sucesso")
@@ -90,12 +112,34 @@ public class EmpresaControllerTest extends Empresa {
     }
 
     @Test
+    @DisplayName("Buscar empresa pelo CNPJ com token inválido")
+    public void testBuscarEmpresaPeloCnpjComTokenInvalido() {
+
+        String cnpj = "0";
+
+        client.buscarPorCNPJ(cnpj, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
+
+    @Test
     @DisplayName("Adicionar empresa com sucesso")
     public void testAdicionarEmpresaComSucesso() {
 
         client.cadastrar(gerarEmpresaValida(), token)
                 .then()
                 .statusCode(201)
+        ;
+    }
+
+    @Test
+    @DisplayName("Adicionar empresa com token inválido")
+    public void testAdicionarEmpresaComTokenInvalido() {
+
+        client.cadastrar(gerarEmpresaValida(), "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
         ;
     }
 
@@ -138,6 +182,17 @@ public class EmpresaControllerTest extends Empresa {
                 .statusCode(201)
         ;
     }
+
+    @Test
+    @DisplayName("Adicionar funcionário na empresa com token inválido")
+    public void testAdicionarFuncionarioNaEmpresaComTokenInvalido() {
+
+        client.cadastrarFuncionarioNaEmpresa(novoFuncionarioNaEmpresa(), 1, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
+
     @Test
     @DisplayName("Adicionar funcionário como candidato")
     public void testAdicionarFuncionarioComoCandidato() {
@@ -166,6 +221,17 @@ public class EmpresaControllerTest extends Empresa {
     }
 
     @Test
+    @DisplayName("Desativar empresa por ID inexistente")
+    public void testDesativarEmpresaPorIDInexistente() {
+
+        int idEmpresa = 999999999;
+
+        client.excluir(idEmpresa, token)
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
     @DisplayName("Atualizar empresa com sucesso")
     public void testAtualizarEmpresaComSucesso() {
 
@@ -179,6 +245,17 @@ public class EmpresaControllerTest extends Empresa {
         client.atualizar(gerarEmpresaValida(), idEmpresa, token)
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    @DisplayName("Atualizar empresa com token inválido")
+    public void testAtualizarEmpresaComTokenInvalido() {
+
+        int idEmpresa = 0;
+
+        client.atualizar(gerarEmpresaValida(), idEmpresa, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500);
     }
 }
 

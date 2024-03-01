@@ -17,7 +17,7 @@ public class CandidatoDataFactory {
 
     public static Candidato gerarCandidatoComEmailJahCadastrado(){
         Candidato candidato = gerarCandidatoAleatorio();
-        candidato.setEmail("wataxik974@searpen.com");
+        candidato.setEmail("savio@email.com");
         return candidato;
     }
     public static Integer gerarIdInvalido(){

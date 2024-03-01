@@ -27,6 +27,16 @@ public class TemaControllerTest extends TemaDataFactory {
                 .statusCode(200)
         ;
     }
+
+    @Test
+    @DisplayName("Listar temas com token inválido")
+    public void testListarTemasComTokenInvalido() {
+
+        client.listar(0,10, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
     @Test
     @DisplayName("Adicionar tema com sucesso")
     public void testAdicionarTemaComSucesso() {
@@ -34,6 +44,15 @@ public class TemaControllerTest extends TemaDataFactory {
         client.cadastrar(TemaDataFactory.gerarTemaValido(), token)
                 .then()
                 .statusCode(201);
+    }
+
+    @Test
+    @DisplayName("Adicionar tema com token inválido")
+    public void testAdicionarTemaComTokenInvalido() {
+
+        client.cadastrar(TemaDataFactory.gerarTemaValido(), "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500);
     }
 
     @Test

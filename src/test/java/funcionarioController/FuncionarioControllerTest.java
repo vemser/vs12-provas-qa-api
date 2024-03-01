@@ -25,9 +25,20 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
     public void testListarFuncionarios() {
 
         client
-                .listar(1, 0, 5, token)
+                .listar(0, 5, token)
         .then()
                 .statusCode(200)
+        ;
+    }
+
+    @Test
+    @DisplayName("Listar funcionários com token inválido")
+    public void testListarFuncionariosComTokenInvalido() {
+
+        client
+                .listar(1, 0, 5, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
         ;
     }
 
@@ -39,6 +50,17 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
                 .buscarPorId(1, 8, token)
         .then()
                 .statusCode(200)
+        ;
+    }
+
+    @Test
+    @DisplayName("Listar funcionário pelo ID com token inválido")
+    public void testListarFuncionarioPeloIdComTokenInvalido() {
+
+        client
+                .buscarPorId(1, 8, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
         ;
     }
 
@@ -73,6 +95,18 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
     }
 
     @Test
+    @DisplayName("Atualizar funcionário com token inválido")
+    public void testAtualizarFuncionarioComTokenInvalido() {
+
+        int idNovoFuncionario = 0;
+
+        client.atualizar(novoFuncionarioAtualizado(), idNovoFuncionario, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
+
+    @Test
     @DisplayName("Deletar funcionário por ID")
     public void testDeletarFuncionarioPorID() {
         int idEmpresa = 1;
@@ -87,6 +121,19 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
         client.excluir(idEmpresa, idNovoFuncionario, token)
                 .then()
                 .statusCode(200)
+        ;
+    }
+
+    @Test
+    @DisplayName("Deletar funcionário por ID com token inválido")
+    public void testDeletarFuncionarioPorIDComTokenInvalido() {
+
+        int idEmpresa = 0;
+        int idNovoFuncionario = 0;
+
+        client.excluir(idEmpresa, idNovoFuncionario, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
         ;
     }
 }

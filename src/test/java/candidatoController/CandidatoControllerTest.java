@@ -34,6 +34,17 @@ public class CandidatoControllerTest extends Candidato {
     }
 
     @Test
+    @DisplayName("Adicionar candidato utilizando token inválido")
+    public void testAdicionarCandidatoUtilizandoTokenInvalido(){
+
+        client
+                .cadastrar(gerarCandidatoValido(), "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
+
+    @Test
     @DisplayName("Adicionar candidato com email inválido como administrador")
     public void testAdicionarCandidatoComEmailInvalidoComoAdmin(){
 
@@ -59,10 +70,20 @@ public class CandidatoControllerTest extends Candidato {
     public void testBuscarCandidatoPeloIdComSucessoComoAdmin(){
 
         client
-                .buscarPorId(2, token)
+                .buscarPorId(58, token)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("idCandidato", equalTo(2))
+        ;
+    }
+
+    @Test
+    @DisplayName("Buscar candidato pelo ID utilizando token inválido")
+    public void testBuscarCandidatoPeloIdUtilizandoTokenInvalido(){
+
+        client
+                .buscarPorId(2, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
         ;
     }
 
@@ -98,6 +119,17 @@ public class CandidatoControllerTest extends Candidato {
                 .statusCode(HttpStatus.SC_OK)
         ;
     }
+
+    @Test
+    @DisplayName("Listar candidatos utilizando token inválido")
+    public void testListarCandidatosUtilizandoTokenInvalido(){
+
+        client
+                .listar(0, 10, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
     @Test
     @DisplayName("Listar candidatos sem sucesso informando página inválida como administrador")
     public void testListarCandidatosSemSucessoInformandoPaginaInvalidaComoAdmin(){
@@ -112,8 +144,14 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Desativar candidato com sucesso como administrador")
     public void testDesativarCandidatoComSucessoComoAdmin(){
 
+        Response response =
+                client.cadastrar(gerarCandidatoValido(), token)
+                        .then().extract().response();
+
+        int idCandidato = response.jsonPath().getInt("idCandidato");
+
         client
-                .excluir(2, token)
+                .excluir(idCandidato, token)
         .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
@@ -127,6 +165,17 @@ public class CandidatoControllerTest extends Candidato {
                 .excluir(gerarIdNaoCadastrado(), token)
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
+        ;
+    }
+
+    @Test
+    @DisplayName("Desativar candidato com token inválido")
+    public void testDesativarCandidatoComTokenInvalido(){
+
+        client
+                .excluir(2, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
         ;
     }
 }

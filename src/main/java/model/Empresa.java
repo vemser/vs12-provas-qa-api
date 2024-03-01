@@ -6,8 +6,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Empresa {
-    String nome;
-    String cnpj;
-    String email;
-    String nomeFuncionario;
+    private String nome;
+    private String cnpj;
+    private String email;
+    private String cargo;
+    private String nomeFuncionario;
 }

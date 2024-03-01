@@ -28,6 +28,17 @@ public class QuestaoControllerTest {
                 .statusCode(200)
         ;
     }
+
+    @Test
+    @DisplayName("Buscar questão por ID com token inválido")
+    public void buscarQuestaoPorIdComTokenInvalido(){
+
+        client
+                .buscarPorId(1, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
     @Test
     @DisplayName("Buscar questão por ID inexistente")
     public void buscarQuestaoPorIdInexistente(){
@@ -47,6 +58,17 @@ public class QuestaoControllerTest {
                 .cadastrar(QuestaoDataFactory.gerarQuestaoValida(), token)
         .then()
                 .statusCode(HttpStatus.SC_CREATED)
+        ;
+    }
+
+    @Test
+    @DisplayName("Cadastrar questão com token inválido")
+    public void cadastrarQuestaoComTokenInvalido() {
+
+        client
+                .cadastrar(QuestaoDataFactory.gerarQuestaoValida(), "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
         ;
     }
     @Test
@@ -74,6 +96,18 @@ public class QuestaoControllerTest {
         client.excluir(idQuestao, token)
                 .then()
                 .statusCode(200)
+        ;
+    }
+
+    @Test
+    @DisplayName("Deletar questão com token inválido")
+    public void deletarQuestaoComTokenInvalido() {
+
+        int idQuestao = 0;
+
+        client.excluir(idQuestao, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
         ;
     }
 }

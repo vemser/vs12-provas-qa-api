@@ -30,13 +30,23 @@ public class ProcessoControllerTest {
     }
 
     @Test
+    @DisplayName("Listar processos com token inválido")
+    public void testListarProcessosComTokenInvalido() {
+
+        client.listar(1, 5, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
+
+    @Test
     @DisplayName("Buscar processo por ID com sucesso")
     public void testBuscarProcessoPorIdComSucesso() {
 
         int idEmpresa = 1;
 
         Response response =
-                client.cadastrarEmpresa(processoValido(), idEmpresa, token)
+                client.cadastrarProcesso(processoValido(), idEmpresa, token)
                 .then()
                 .extract().response();
 
@@ -45,6 +55,17 @@ public class ProcessoControllerTest {
         client.buscarPorId(idProcesso, token)
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    @DisplayName("Buscar processo por ID com token inválido")
+    public void testBuscarProcessoPorIdComTokenInvalido() {
+
+        int idProcesso = 0;
+
+        client.buscarPorId(idProcesso, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500);
     }
 
     @Test
@@ -66,7 +87,7 @@ public class ProcessoControllerTest {
         int idEmpresa = 1;
 
         Response response =
-                client.cadastrarEmpresa(processoValido(), idEmpresa, token)
+                client.cadastrarProcesso(processoValido(), idEmpresa, token)
                 .then()
                 .extract().response();
 
@@ -79,14 +100,37 @@ public class ProcessoControllerTest {
     }
 
     @Test
+    @DisplayName("Deletar processo por ID com token inválido")
+    public void testDeleteProcessoPorIdComTokenInvalido() {
+
+        int idProcesso = 0;
+
+        client.excluir(idProcesso, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500)
+        ;
+    }
+
+    @Test
     @DisplayName("Adicionar processo com sucesso")
     public void testAdicionarProcessoComSucesso() {
 
         int idEmpresa = 1;
 
-        client.cadastrarEmpresa(processoValido(), idEmpresa, token)
+        client.cadastrarProcesso(processoValido(), idEmpresa, token)
                 .then()
                 .statusCode(201);
+    }
+
+    @Test
+    @DisplayName("Adicionar processo com token inválido")
+    public void testAdicionarProcessoComSucessoTokenInvalido() {
+
+        int idEmpresa = 1;
+
+        client.cadastrarProcesso(processoValido(), idEmpresa, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500);
     }
 
     @Test
@@ -95,7 +139,7 @@ public class ProcessoControllerTest {
 
         int idEmpresa = 1;
 
-        client.cadastrarEmpresa(processoInvalido(), idEmpresa, token)
+        client.cadastrarProcesso(processoInvalido(), idEmpresa, token)
                 .then()
                 .statusCode(400);
     }
@@ -107,7 +151,7 @@ public class ProcessoControllerTest {
         int idEmpresa = 1;
 
         Response response =
-                client.cadastrarEmpresa(processoValido(), idEmpresa, token)
+                client.cadastrarProcesso(processoValido(), idEmpresa, token)
                 .then()
                 .extract().response();
 
@@ -116,5 +160,16 @@ public class ProcessoControllerTest {
         client.atualizar(processoValido(), idProcesso, token)
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    @DisplayName("Atualizar processo com token inválido")
+    public void testAtualizarProcessoComTokenInvalido() {
+
+        int idProcesso = 0;
+
+        client.atualizar(processoValido(), idProcesso, "TOKEN_INVALIDO")
+                .then()
+                .statusCode(500);
     }
 }
