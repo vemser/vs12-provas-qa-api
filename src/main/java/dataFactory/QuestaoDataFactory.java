@@ -9,6 +9,18 @@ public class QuestaoDataFactory {
 
     private static final String[] NIVEL_DIFICULDADE = {"FACIL", "MEDIO", "DIFICIL"};
     public static Questao gerarQuestaoValida(){
+        return gerarQuestaoAleatoria();
+    }
+
+    public static Questao gerarQuestaoInvalidaSemEnunciadoEDificuldade(){
+        Questao questao = gerarQuestaoAleatoria();
+        questao.setEnunciado("");
+        questao.setDificuldade("");
+
+        return questao;
+    }
+
+    private static Questao gerarQuestaoAleatoria(){
 
         int quantidadeDeAlternativas = FAKER.number().numberBetween(2, 5);
         Alternativa[] listaAlternativas = new Alternativa[quantidadeDeAlternativas];
@@ -26,6 +38,10 @@ public class QuestaoDataFactory {
             }
 
             listaAlternativas[i] = alternativa;
+        }
+
+        if(!existeAlternativaCorreta){
+            listaAlternativas[0].setCorreta(true);
         }
 
         Questao questao = new Questao();

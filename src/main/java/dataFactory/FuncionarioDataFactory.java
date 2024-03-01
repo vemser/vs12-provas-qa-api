@@ -38,4 +38,13 @@ public class FuncionarioDataFactory {
 
         return novoFuncionarioNaEmpresa;
     }
+
+    public static Funcionario gerarFuncionarioComoCandidato(){
+        Funcionario funcionarioComoCandidato = new Funcionario();
+        funcionarioComoCandidato.setEmail(faker.internet().emailAddress());
+        funcionarioComoCandidato.setCargo("ROLE_CANDIDATO");
+        funcionarioComoCandidato.setNome(faker.name().firstName());
+
+        return funcionarioComoCandidato;
+    }
 }

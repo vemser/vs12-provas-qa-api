@@ -13,7 +13,7 @@ import util.AuthUtils;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CandidatoControllerTest extends Candidato {
-    private final CandidatoClient candidatoClient = new CandidatoClient();
+    private final CandidatoClient client = new CandidatoClient();
     private String token;
 
     @BeforeEach
@@ -25,7 +25,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Adicionar candidato com sucesso como administrador")
     public void testAdicionarCandidatoComSucessoComoAdmin(){
 
-        candidatoClient
+        client
                 .cadastrar(CandidatoDataFactory.gerarCandidatoValido(), token)
         .then()
                 .statusCode(HttpStatus.SC_CREATED)
@@ -36,7 +36,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Adicionar candidato com email inválido como administrador")
     public void testAdicionarCandidatoComEmailInvalidoComoAdmin(){
 
-        candidatoClient
+        client
                 .cadastrar(CandidatoDataFactory.gerarCandidatoComEmailInvalido(), token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
@@ -48,7 +48,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Adicionar candidato com email já cadastrado como administrador")
     public void testAdicionarCandidatoComEmailJaCadastradoComoAdmin(){
 
-        candidatoClient
+        client
                 .cadastrar(CandidatoDataFactory.gerarCandidatoComEmailJahCadastrado(), token)
         .then()
                 .statusCode(HttpStatus.SC_CREATED);
@@ -58,7 +58,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Buscar candidato pelo ID com sucesso como administrador")
     public void testBuscarCandidatoPeloIdComSucessoComoAdmin(){
 
-        candidatoClient
+        client
                 .buscarPorId(2, token)
         .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -70,7 +70,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Buscar candidato com ID inválido sem sucesso como administrador")
     public void testBuscarCandidatoComIdInvalidoSemSucessoComoAdmin(){
 
-        candidatoClient
+        client
                 .buscarPorId(CandidatoDataFactory.gerarIdInvalido(), token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
@@ -81,7 +81,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Buscar candidato pelo ID não cadastrado sem sucesso como administrador")
     public void testBuscarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
 
-        candidatoClient
+        client
                 .buscarPorId(CandidatoDataFactory.gerarIdNaoCadastrado(), token)
         .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
@@ -93,7 +93,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Listar candidatos com sucesso como administrador")
     public void testListarCandidatosComSucessoComoAdmin(){
 
-        candidatoClient
+        client
                 .listar(0, 10, token)
         .then()
                 .statusCode(HttpStatus.SC_OK)
@@ -102,7 +102,7 @@ public class CandidatoControllerTest extends Candidato {
     @Test
     @DisplayName("Listar candidatos sem sucesso informando página inválida como administrador")
     public void testListarCandidatosSemSucessoInformandoPaginaInvalidaComoAdmin(){
-        candidatoClient
+        client
                 .listar(-1, 10, token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
@@ -113,7 +113,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Desativar candidato com sucesso como administrador")
     public void testDesativarCandidatoComSucessoComoAdmin(){
 
-        candidatoClient
+        client
                 .excluir(2, token)
         .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT)
@@ -124,7 +124,7 @@ public class CandidatoControllerTest extends Candidato {
     @DisplayName("Desativar candidato com ID não cadastrado sem sucesso como administrador")
     public void testDesativarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
 
-        candidatoClient
+        client
                 .excluir(CandidatoDataFactory.gerarIdNaoCadastrado(), token)
         .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)

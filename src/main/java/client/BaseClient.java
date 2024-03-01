@@ -6,8 +6,10 @@ import specs.ISpecs;
 import static io.restassured.RestAssured.given;
 
 public abstract class BaseClient<Model> {
-    private final ISpecs<Model> SPECS;
+    protected final ISpecs<Model> SPECS;
     private final String ID_PATH_PARAM = "{_id}";
+    private final String PATH_ID_PATH_PARAM = "{_path}/{_id}";
+    private final String ID_PATH_PATH_PARAM = "{_id}/{_path}";
 
     public BaseClient(ISpecs<Model> specs) {
         this.SPECS = specs;
@@ -20,6 +22,28 @@ public abstract class BaseClient<Model> {
                         .header("Authorization", authToken)
                 .when()
                         .post();
+    }
+
+    public Response cadastrar(Model bodyData, String path, Integer id, String authToken) {
+        return
+                given()
+                        .spec(SPECS.requestSpec(bodyData))
+                        .header("Authorization", authToken)
+                        .pathParam("_path",path)
+                        .pathParam("_id",id)
+                        .when()
+                        .post(PATH_ID_PATH_PARAM);
+    }
+
+    public Response cadastrar(Model bodyData, Integer id, String path, String authToken) {
+        return
+                given()
+                        .spec(SPECS.requestSpec(bodyData))
+                        .header("Authorization", authToken)
+                        .pathParam("_id",id)
+                        .pathParam("_path",path)
+                        .when()
+                        .post(ID_PATH_PATH_PARAM);
     }
 
     public Response buscarPorId(Integer id, String authToken) {

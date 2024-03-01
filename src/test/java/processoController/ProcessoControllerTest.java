@@ -1,5 +1,6 @@
 package processoController;
 
+import client.processo.ProcessoClient;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import net.datafaker.Faker;
@@ -17,7 +18,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class ProcessoControllerTest {
-    private static Faker faker = new Faker(new Locale("pt-BR"));
+    private final ProcessoClient client = new ProcessoClient();
+    private final String PATH_EMPRESA = "empresa";
     private String token;
 
     @BeforeEach
@@ -29,14 +31,7 @@ public class ProcessoControllerTest {
     @DisplayName("Listar processos")
     public void testListarProcessos() {
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .param("pagina", "1")
-                .param("quantidadeRegistros", "5")
-            .when()
-                .get("/processo")
+        client.listar(1, 5, token)
             .then()
                 .statusCode(200)
         ;
@@ -45,35 +40,29 @@ public class ProcessoControllerTest {
     @Test
     @DisplayName("Buscar processo por ID com sucesso")
     public void testBuscarProcessoPorIdComSucesso() {
-        Integer idProcesso = 6;
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-            .when()
-                .get("/processo/" + idProcesso)
-            .then()
-                .statusCode(200)
-                .body("idProcesso", equalTo(6))
-                .body("nome", equalTo("Vem ser DBC"))
-                .body("ativo", equalTo(false))
-                .body("idEmpresa", equalTo(1))
-        ;
+        int idEmpresa = 1;
+
+        Response response =
+                client.cadastrar(processoValido(), PATH_EMPRESA, idEmpresa, token)
+                .then()
+                .extract().response();
+
+        int idProcesso = response.jsonPath().getInt("idProcesso");
+
+        client.buscarPorId(idProcesso, token)
+                .then()
+                .statusCode(200);
     }
 
     @Test
     @DisplayName("Buscar processo inexistente")
     public void testBuscarProcessoInexistente() {
-        Integer idProcesso = 999999999;
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-           .when()
-                .get("/processo/" + idProcesso)
-           .then()
+        int idProcesso = -1;
+
+        client.buscarPorId(idProcesso, token)
+                .then()
                 .statusCode(404)
                 .body("message", equalTo("Processo não encontrado."))
         ;
@@ -82,30 +71,18 @@ public class ProcessoControllerTest {
     @Test
     @DisplayName("Deletar processo por ID")
     public void testDeleteProcessoPorId() {
-        String idEmpresa = ("1");
 
-        Response response = given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(processoValido())
-            .when()
-                .post("/processo/empresa/" + idEmpresa)
-            .then()
-                .statusCode(201)
+        int idEmpresa = 1;
+
+        Response response =
+                client.cadastrar(processoValido(), PATH_EMPRESA, idEmpresa, token)
+                .then()
                 .extract().response();
 
+        int idProcesso = response.jsonPath().getInt("idProcesso");
 
-        String idProcesso = response.jsonPath().getString("idProcesso");
-
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .param(idProcesso)
-            .when()
-                .delete("/processo/" + idProcesso)
-            .then()
+        client.excluir(idProcesso, token)
+                .then()
                 .statusCode(200)
         ;
     }
@@ -113,61 +90,29 @@ public class ProcessoControllerTest {
     @Test
     @DisplayName("Adicionar processo com sucesso")
     public void testAdicionarProcessoComSucesso() {
-        Integer idEmpresa = 1;
 
-      Response response = given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(processoValido())
-            .when()
-                .post("/processo/empresa/" + idEmpresa)
-            .then()
-                .statusCode(201)
-                .extract().response();
+        int idEmpresa = 1;
 
-        Integer idProcesso = response.jsonPath().getInt("idProcesso");
-
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-            .when()
-                .get("/processo/" + idProcesso)
-            .then()
-                .body("idProcesso", equalTo(idProcesso));
+        client.cadastrar(processoValido(), PATH_EMPRESA, idEmpresa, token)
+                .then()
+                .statusCode(201);
     }
 
     @Test
     @DisplayName("Atualizar processo com sucesso")
     public void testAtualizarProcessoComSucesso() {
-        String idEmpresa = "1";
 
-        Response response = given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(processoValido())
-           .when()
-                .post("/processo/empresa/" + idEmpresa)
-           .then()
+        int idEmpresa = 1;
+
+        Response response =
+                client.cadastrar(processoValido(), PATH_EMPRESA, idEmpresa, token)
+                .then()
                 .extract().response();
 
+        int idProcesso = response.jsonPath().getInt("idProcesso");
 
-        String idProcesso = response.jsonPath().getString("idProcesso");
-        Processos processos = processoValido();
-
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .contentType(ContentType.JSON)
-                .body(processos)
-            .when()
-                .put("/processo/" + idProcesso)
-            .then()
-                .statusCode(200)
-                .body("nome", equalTo(processos.getNome()))
-                .body("notaCorte", equalTo(processos.getNotaCorte()))
-                .body("dificuldade", equalTo(processos.getDificuldade()));
+        client.atualizar(processoValido(), idProcesso, token)
+                .then()
+                .statusCode(200);
     }
 }

@@ -8,7 +8,8 @@ import static io.restassured.RestAssured.config;
 import static io.restassured.config.LogConfig.logConfig;
 
 public class InitialSpecs {
-    private static final String BASE_URL = "http://vemser-dbc.dbccompany.com.br:39000/vemser/vs12-provas-back";
+    private static final String BASE_URL = "http://26.73.130.213:8080";
+
     private InitialSpecs(){};
     public static RequestSpecification setup() {
         return new RequestSpecBuilder()
