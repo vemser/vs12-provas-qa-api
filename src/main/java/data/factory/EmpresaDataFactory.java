@@ -1,4 +1,4 @@
-package dataFactory;
+package data.factory;
 
 import model.Empresa;
 import net.datafaker.Faker;

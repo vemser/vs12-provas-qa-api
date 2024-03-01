@@ -7,8 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
-import static dataFactory.ProcessoDataFactory.processoInvalido;
-import static dataFactory.ProcessoDataFactory.processoValido;
+import static data.factory.ProcessoDataFactory.processoInvalido;
+import static data.factory.ProcessoDataFactory.processoValido;
 
 public class ProcessoControllerTest {
     private final ProcessoClient client = new ProcessoClient();

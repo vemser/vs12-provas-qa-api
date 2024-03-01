@@ -1,4 +1,4 @@
-package dataFactory;
+package data.factory;
 
 import model.Alternativa;
 import model.Questao;

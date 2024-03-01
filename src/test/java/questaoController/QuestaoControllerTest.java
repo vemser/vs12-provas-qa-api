@@ -1,7 +1,7 @@
 package questaoController;
 
 import client.questao.QuestaoClient;
-import dataFactory.QuestaoDataFactory;
+import data.factory.QuestaoDataFactory;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;

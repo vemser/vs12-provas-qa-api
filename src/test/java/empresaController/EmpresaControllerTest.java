@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
 
-import static dataFactory.EmpresaDataFactory.*;
-import static dataFactory.FuncionarioDataFactory.gerarFuncionarioComoCandidato;
-import static dataFactory.FuncionarioDataFactory.novoFuncionarioNaEmpresa;
+import static data.factory.EmpresaDataFactory.*;
+import static data.factory.FuncionarioDataFactory.gerarFuncionarioComoCandidato;
+import static data.factory.FuncionarioDataFactory.novoFuncionarioNaEmpresa;
 
 public class EmpresaControllerTest extends Empresa {
     private static EmpresaClient client = new EmpresaClient();
