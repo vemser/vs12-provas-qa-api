@@ -1,13 +1,12 @@
 package client;
 
 import io.restassured.response.Response;
-import model.Processos;
 import specs.ISpecs;
 
 import static io.restassured.RestAssured.given;
 
 public abstract class BaseClient<Model> {
-    private final ISpecs<Model> SPECS;
+    protected final ISpecs<Model> SPECS;
     private final String ID_PATH_PARAM = "{_id}";
     private final String PATH_ID_PATH_PARAM = "{_path}/{_id}";
     private final String ID_PATH_PATH_PARAM = "{_id}/{_path}";

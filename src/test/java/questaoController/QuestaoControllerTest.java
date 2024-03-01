@@ -24,9 +24,9 @@ public class QuestaoControllerTest {
     public void buscarQuestaoPorId(){
 
         client
-            .buscarPorId(1, token)
+                .buscarPorId(1, token)
         .then()
-            .statusCode(200)
+                .statusCode(200)
         ;
     }
     @Test

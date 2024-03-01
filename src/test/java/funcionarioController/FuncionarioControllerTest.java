@@ -1,5 +1,6 @@
 package funcionarioController;
 
+import client.funcionario.FuncionarioClient;
 import dataFactory.FuncionarioDataFactory;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -14,6 +15,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class FuncionarioControllerTest extends FuncionarioDataFactory {
+    private static final FuncionarioClient client = new FuncionarioClient();
     private String token;
 
     @BeforeEach
@@ -25,13 +27,8 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
     @DisplayName("Listar funcionários")
     public void testListarFuncionarios() {
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .param("pagina", "0")
-                .param("quantidadeRegistros", "5")
-        .when()
-                .get("/funcionario/1/funcionario")
+        client
+                .listar(1, 0, 5, token)
         .then()
                 .statusCode(200)
         ;
@@ -41,14 +38,9 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
     @DisplayName("Listar funcionário pelo ID")
     public void testListarFuncionarioPeloId() {
 
-        given()
-                .spec(InitialSpecs.setup())
-                .header("Authorization", this.token)
-                .param("pagina", "0")
-                .param("quantidadeRegistros", "5")
-            .when()
-                .get("/funcionario/1/funcionario/8")
-            .then()
+        client
+                .buscarPorId(1, 8, token)
+        .then()
                 .statusCode(200)
         ;
     }
