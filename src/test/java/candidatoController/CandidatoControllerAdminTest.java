@@ -75,7 +75,7 @@ public class CandidatoControllerAdminTest extends Candidato {
         client
                 .cadastrar(gerarCandidatoValido(), "TOKEN_INVALIDO")
         .then()
-                .statusCode(HttpStatus.SC_FORBIDDEN)
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
