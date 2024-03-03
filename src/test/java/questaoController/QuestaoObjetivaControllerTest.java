@@ -141,7 +141,7 @@ public class QuestaoObjetivaControllerTest {
                 .then()
                 .extract().response();
 
-        int idQuestao = response.jsonPath().getInt("idQuestao");
+        int idQuestao = response.path("idQuestao");
 
         client.excluir(idQuestao, token)
                 .then()
