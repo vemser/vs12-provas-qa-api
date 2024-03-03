@@ -39,4 +39,15 @@ public class AuthUtils {
         }
 
     }
+    public static String getTokenGestor() {
+        String email = System.getenv("EMAIL_GESTOR");
+        String senha = System.getenv("SENHA_GESTOR");
+
+        try{
+            return getToken(new Login(email, senha));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

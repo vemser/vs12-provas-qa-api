@@ -37,8 +37,8 @@ public abstract class BaseClient<Model> {
                 given()
                         .spec(SPECS.requestSpec())
                         .header("Authorization", authToken)
-                        .param("pagina",pagina)
-                        .param("quantidadeRegistros",quantidadeRegistro)
+                        .param("pagina", pagina)
+                        .param("quantidadeRegistros", quantidadeRegistro)
                 .when()
                         .get()
                 ;

@@ -1,7 +1,8 @@
 package data.factory;
 
 import model.Candidato;
-import static util.RandomData.*;
+
+import static util.RandomData.FAKER;
 
 
 public class CandidatoDataFactory {
