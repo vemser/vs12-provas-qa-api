@@ -3,13 +3,19 @@ package processoController;
 import client.processo.ProcessoClient;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
+import model.Processo;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import util.AuthUtils;
 
-import static data.factory.ProcessoDataFactory.processoInvalido;
-import static data.factory.ProcessoDataFactory.processoValido;
+import static data.factory.ProcessoDataFactory.gerarProcessoInvalidoTodosOsCamposVazios;
+import static data.factory.ProcessoDataFactory.gerarProcessoValido;
+import static org.hamcrest.Matchers.*;
+import static util.RandomData.FAKER;
 
 @Feature("Processo - Fluxo Admin")
 public class ProcessoControllerTest {
@@ -22,157 +28,202 @@ public class ProcessoControllerTest {
     }
 
     @Test
-    @DisplayName("Listar processos")
+    @DisplayName("CT-API-06.1.1 - Listar processos com sucesso")
     public void testListarProcessos() {
 
-        client.listar(1, 5, token)
-                .then()
-                .statusCode(200)
+        client
+                .listar(FAKER.number().numberBetween(0, 20), FAKER.number().numberBetween(1, 20), token)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body("content", notNullValue())
+        ;
+    }
+    @Test
+    @DisplayName("CT-API-06.1.2 - Listar processos informando paginacao invalida sem sucesso")
+    public void testListarProcessosComPaginacaoInvalida() {
+
+        client
+                .listar(-1, 5, token)
+        .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("message", equalTo("findAll.pagina: must be greater than or equal to 0"))
         ;
     }
 
     @Test
-    @DisplayName("Listar processos com token inválido")
+    @DisplayName("CT-API-06.1.3 - Listar processos com token inválido sem sucesso")
     public void testListarProcessosComTokenInvalido() {
 
-        client.listar(1, 5, "TOKEN_INVALIDO")
-                .then()
-                .statusCode(500)
+        client
+                .listar(1, 5, "TOKEN_INVALIDO")
+        .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
     @Test
-    @DisplayName("Buscar processo por ID com sucesso")
+    @DisplayName("CT-API-06.1.4 - Buscar processo por ID com sucesso")
     public void testBuscarProcessoPorIdComSucesso() {
 
-        int idEmpresa = 1;
+        Processo processo = gerarProcessoValido();
+        int idEmpresa = processo.getIdEmpresa();
 
         Response response =
                 client
-                        .cadastrarProcesso(processoValido(), idEmpresa, token)
+                        .cadastrarProcesso(processo, idEmpresa, token)
                 .then()
                     .extract().response();
 
-        String idProcesso = response.path("idProcesso");
+        Integer idProcesso = response.path("idProcesso");
 
-        client.buscarPorId(Integer.valueOf(idProcesso), token)
-                .then()
-                .statusCode(200);
+        client
+                .buscarPorId(idProcesso, token)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body("idProcesso", equalTo(idProcesso))
+        ;
     }
 
     @Test
-    @DisplayName("Buscar processo por ID com token inválido")
+    @DisplayName("CT-API-06.1.5 - Buscar processo por ID com token inválido sem sucesso")
     public void testBuscarProcessoPorIdComTokenInvalido() {
 
         int idProcesso = 0;
 
-        client.buscarPorId(idProcesso, "TOKEN_INVALIDO")
-                .then()
-                .statusCode(500);
+        client
+                .buscarPorId(idProcesso, "TOKEN_INVALIDO")
+        .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED);
     }
 
     @Test
-    @DisplayName("Buscar processo inexistente")
+    @DisplayName("CT-API-06.1.6 - Buscar processo inexistente sem sucesso")
     public void testBuscarProcessoInexistente() {
 
         int idProcesso = -1;
 
-        client.buscarPorId(idProcesso, token)
-                .then()
-                .statusCode(404)
+        client
+                .buscarPorId(idProcesso, token)
+        .then()
+                .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
     }
 
     @Test
-    @DisplayName("Deletar processo por ID")
+    @DisplayName("CT-API-06.1.7 - Deletar processo por ID com sucesso")
     public void testDeleteProcessoPorId() {
 
-        int idEmpresa = 1;
+        Processo processo = gerarProcessoValido();
 
         Response response =
-                client.cadastrarProcesso(processoValido(), idEmpresa, token)
+                client
+                        .cadastrarProcesso(processo, processo.getIdEmpresa(), token)
                 .then()
-                .extract().response();
+                        .extract().response();
 
-        int idProcesso = response.jsonPath().getInt("idProcesso");
+        int idProcesso = response.path("idProcesso");
 
-        client.excluir(idProcesso, token)
-                .then()
-                .statusCode(200)
+        client
+                .excluir(idProcesso, token)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
         ;
     }
 
     @Test
-    @DisplayName("Deletar processo por ID com token inválido")
+    @DisplayName("CT-API-06.1.8 - Deletar processo por ID com token inválido sem sucesso")
     public void testDeleteProcessoPorIdComTokenInvalido() {
 
         int idProcesso = 0;
 
-        client.excluir(idProcesso, "TOKEN_INVALIDO")
-                .then()
-                .statusCode(500)
+        client
+                .excluir(idProcesso, "TOKEN_INVALIDO")
+        .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
     @Test
-    @DisplayName("Adicionar processo com sucesso")
+    @DisplayName("CT-API-06.1.9 - Adicionar processo com sucesso")
     public void testAdicionarProcessoComSucesso() {
 
-        int idEmpresa = 1;
+        Processo processo = gerarProcessoValido();
 
-        client.cadastrarProcesso(processoValido(), idEmpresa, token)
-                .then()
-                .statusCode(201);
+        client
+                .cadastrarProcesso(processo, processo.getIdEmpresa(), token)
+        .then()
+                .statusCode(HttpStatus.SC_CREATED)
+                .body("nome", equalTo(processo.getNome()))
+        ;
     }
 
     @Test
-    @DisplayName("Adicionar processo com token inválido")
+    @DisplayName("CT-API-06.1.10 - Adicionar processo com token inválido sem sucesso")
     public void testAdicionarProcessoComSucessoTokenInvalido() {
 
         int idEmpresa = 1;
 
-        client.cadastrarProcesso(processoValido(), idEmpresa, "TOKEN_INVALIDO")
-                .then()
-                .statusCode(500);
+        client
+                .cadastrarProcesso(gerarProcessoValido(), idEmpresa, "TOKEN_INVALIDO")
+        .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED);
     }
 
     @Test
-    @DisplayName("Adicionar processo vazio")
+    @DisplayName("CT-API-06.1.11 - Adicionar processo vazio sem sucesso")
     public void testAdicionarProcessoVazio() {
 
         int idEmpresa = 1;
 
-        client.cadastrarProcesso(processoInvalido(), idEmpresa, token)
-                .then()
-                .statusCode(400);
+        client
+                .cadastrarProcesso(gerarProcessoInvalidoTodosOsCamposVazios(), idEmpresa, token)
+        .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
-    @DisplayName("Atualizar processo com sucesso")
+    @DisplayName("CT-API-06.1.12 - Atualizar processo com sucesso")
     public void testAtualizarProcessoComSucesso() {
 
-        int idEmpresa = 1;
+        Processo processo = gerarProcessoValido();
 
         Response response =
-                client.cadastrarProcesso(processoValido(), idEmpresa, token)
+                client
+                        .cadastrarProcesso(processo, processo.getIdEmpresa(), token)
                 .then()
-                .extract().response();
+                        .extract().response();
 
-        int idProcesso = response.jsonPath().getInt("idProcesso");
+        int idProcesso = response.path("idProcesso");
 
-        client.atualizar(processoValido(), idProcesso, token)
-                .then()
-                .statusCode(200);
+        client
+                .atualizar(gerarProcessoValido(), idProcesso, token)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body("idProcesso", equalTo(idProcesso))
+        ;
     }
 
     @Test
-    @DisplayName("Atualizar processo com token inválido")
+    @DisplayName("CT-API-06.1.13 - Atualizar processo com token inválido sem sucesso")
     public void testAtualizarProcessoComTokenInvalido() {
 
         int idProcesso = 0;
 
-        client.atualizar(processoValido(), idProcesso, "TOKEN_INVALIDO")
-                .then()
-                .statusCode(500);
+        client
+                .atualizar(gerarProcessoValido(), idProcesso, "TOKEN_INVALIDO")
+        .then()
+                .statusCode(HttpStatus.SC_UNAUTHORIZED);
+    }
+
+    @ParameterizedTest
+    @MethodSource("data.provider.ProcessoDataProvider#argumentosInvalidos")
+    @DisplayName("CT-API-06.1.14 - Cadastrar processo sem informar campos obrigatórios sem sucesso")
+    public void testCadastrarProcessoSemInformarCamposObrigatorios(Processo processo, String mensagem){
+        client
+                .cadastrarProcesso(processo, processo.getIdEmpresa(), token)
+        .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body("errors", contains(mensagem))
+        ;
     }
 }

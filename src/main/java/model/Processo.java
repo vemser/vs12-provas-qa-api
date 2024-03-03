@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Processos {
+public class Processo {
 
     String nome;
     String dataHorarioInicio;
@@ -17,9 +17,11 @@ public class Processos {
     Integer notaCorte;
     String dificuldade;
     Boolean possuiQuestoesPublicas;
+    Integer qtdObjetivas;
+    Integer qtdTecnicas;
     Integer qtdFacil;
     Integer qtdMedia;
     Integer qtdDificil;
     List<Integer> idsTemas;
-
+    Integer idEmpresa;
 }

@@ -4,10 +4,7 @@ import client.BaseClient;
 import io.restassured.response.Response;
 import model.Empresa;
 import model.Funcionario;
-import model.Processos;
-import specs.ISpecs;
 import specs.empresa.EmpresaSpecs;
-import specs.processo.ProcessoSpecs;
 
 import static io.restassured.RestAssured.given;
 
