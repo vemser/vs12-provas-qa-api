@@ -1,4 +1,4 @@
-package model;
+package model.candidato;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

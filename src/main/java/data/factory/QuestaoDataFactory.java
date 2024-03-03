@@ -1,57 +1,84 @@
 package data.factory;
 
 import model.Alternativa;
-import model.Questao;
+import model.questao.QuestaoObjetiva;
 
 import static util.RandomData.FAKER;
 
 public class QuestaoDataFactory {
 
     private static final String[] NIVEL_DIFICULDADE = {"FACIL", "MEDIO", "DIFICIL"};
-    public static Questao gerarQuestaoValida(){
-        return gerarQuestaoAleatoria();
+    public static QuestaoObjetiva gerarQuestaoObjetivaValida(){
+        return gerarQuestaoObjetivaAleatoria();
     }
 
-    public static Questao gerarQuestaoInvalidaSemEnunciadoEDificuldade(){
-        Questao questao = gerarQuestaoAleatoria();
-        questao.setEnunciado("");
-        questao.setDificuldade("");
+    public static QuestaoObjetiva gerarQuestaoObjetivaInvalidaSemEnunciado(){
+        QuestaoObjetiva questaoObjetiva = gerarQuestaoObjetivaAleatoria();
+        questaoObjetiva.setEnunciado("");
 
-        return questao;
+        return questaoObjetiva;
     }
 
-    private static Questao gerarQuestaoAleatoria(){
+    public static QuestaoObjetiva gerarQuestaoObjetivaInvalidaSemDificuldade(){
+        QuestaoObjetiva questaoObjetiva = gerarQuestaoObjetivaAleatoria();
+        questaoObjetiva.setDificuldade(null);
+
+        return questaoObjetiva;
+    }
+    public static QuestaoObjetiva gerarQuestaoObjetivaInvalidaSemTipo(){
+        QuestaoObjetiva questaoObjetiva = gerarQuestaoObjetivaAleatoria();
+        questaoObjetiva.setTipoQuestao(null);
+
+        return questaoObjetiva;
+    }
+
+    public static QuestaoObjetiva gerarQuestaoObjetivaInvalidaSemNenhumTema(){
+        QuestaoObjetiva questaoObjetiva = gerarQuestaoObjetivaAleatoria();
+        questaoObjetiva.setIdTemas(new int[0]);
+
+        return questaoObjetiva;
+    }
+    public static QuestaoObjetiva gerarQuestaoObjetivaInvalidaSemAlternativas(){
+        QuestaoObjetiva questaoObjetiva = gerarQuestaoObjetivaAleatoria();
+        questaoObjetiva.setAlternativas(new Alternativa[0]);
+
+        return questaoObjetiva;
+    }
+
+    public static QuestaoObjetiva gerarQuestaoObjetivaInvalidaComMaisDeUmaOpcaoCorreta(){
+        QuestaoObjetiva questaoObjetiva = gerarQuestaoObjetivaAleatoria();
+        Alternativa[] alternativas = questaoObjetiva.getAlternativas();
+        alternativas[0].setCorreta(true);
+        alternativas[1].setCorreta(true);
+
+        questaoObjetiva.setAlternativas(alternativas);
+        return questaoObjetiva;
+    }
+
+    private static QuestaoObjetiva gerarQuestaoObjetivaAleatoria(){
 
         int quantidadeDeAlternativas = FAKER.number().numberBetween(2, 5);
         Alternativa[] listaAlternativas = new Alternativa[quantidadeDeAlternativas];
 
-        boolean existeAlternativaCorreta = false;
         for(int i = 0; i < quantidadeDeAlternativas; i++ ){
             Alternativa alternativa = new Alternativa();
             alternativa.setAlternativa(FAKER.lorem().sentence());
-            if(!existeAlternativaCorreta){
-                boolean isRespostaCorreta = FAKER.random().nextBoolean();
-                alternativa.setCorreta(isRespostaCorreta);
-                existeAlternativaCorreta = isRespostaCorreta;
-            } else {
-                alternativa.setCorreta(false);
-            }
+            alternativa.setCorreta(false);
 
             listaAlternativas[i] = alternativa;
         }
 
-        if(!existeAlternativaCorreta){
-            listaAlternativas[0].setCorreta(true);
-        }
+        listaAlternativas[FAKER.number().numberBetween(0, listaAlternativas.length-1)].setCorreta(true);
 
-        Questao questao = new Questao();
-        questao.setTitulo(FAKER.lorem().word());
-        questao.setEnunciado(FAKER.lorem().sentence());
-        questao.setDificuldade(NIVEL_DIFICULDADE[FAKER.number().numberBetween(0, NIVEL_DIFICULDADE.length)]);
-        questao.setIdTemas(new int[]{FAKER.number().numberBetween(1, 5)});
-        questao.setAlternativas(listaAlternativas);
-        questao.setIdEmpresa(0);
+        QuestaoObjetiva questaoObjetiva = new QuestaoObjetiva();
+        questaoObjetiva.setTitulo(FAKER.lorem().word());
+        questaoObjetiva.setEnunciado(FAKER.lorem().sentence());
+        questaoObjetiva.setDificuldade(NIVEL_DIFICULDADE[FAKER.number().numberBetween(0, NIVEL_DIFICULDADE.length)]);
+        questaoObjetiva.setIdTemas(new int[]{FAKER.number().numberBetween(1, 5)});
+        questaoObjetiva.setAlternativas(listaAlternativas);
+        questaoObjetiva.setTipoQuestao("OBJETIVA");
+        questaoObjetiva.setIdEmpresa(0);
 
-        return questao;
+        return questaoObjetiva;
     }
 }
