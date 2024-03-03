@@ -1,6 +1,7 @@
 package empresaController;
 
 import client.empresa.EmpresaClient;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import model.Empresa;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import static data.factory.EmpresaDataFactory.*;
 import static data.factory.FuncionarioDataFactory.gerarFuncionarioComoCandidato;
 import static data.factory.FuncionarioDataFactory.novoFuncionarioNaEmpresa;
 
+@Feature("Empresa - Fluxo Admin")
 public class EmpresaControllerTest extends Empresa {
     private static EmpresaClient client = new EmpresaClient();
     private String token;

@@ -3,13 +3,14 @@ package funcionarioController;
 import client.empresa.EmpresaClient;
 import client.funcionario.FuncionarioClient;
 import data.factory.FuncionarioDataFactory;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
-
+@Feature("Funcionário - Fluxo Admin")
 public class FuncionarioControllerTest extends FuncionarioDataFactory {
     private static final FuncionarioClient client = new FuncionarioClient();
     private static final EmpresaClient empresaClient = new EmpresaClient();

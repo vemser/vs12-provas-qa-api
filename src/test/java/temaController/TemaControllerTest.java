@@ -2,6 +2,7 @@ package temaController;
 
 import client.tema.TemaClient;
 import data.factory.TemaDataFactory;
+import io.qameta.allure.Feature;
 import model.Tema;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import util.AuthUtils;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 
+@Feature("Tema - Fluxo Admin")
 public class TemaControllerTest extends TemaDataFactory {
 
     private final TemaClient client = new TemaClient();

@@ -2,6 +2,7 @@ package questaoController;
 
 import client.questao.QuestaoClient;
 import data.factory.QuestaoDataFactory;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
+@Feature("Questão - Fluxo Admin")
 public class QuestaoControllerTest {
     private String token;
     private final QuestaoClient client = new QuestaoClient();

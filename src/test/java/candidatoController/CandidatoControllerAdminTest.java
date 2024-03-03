@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static util.RandomData.FAKER;
 
 
-@Feature("CT-API-02.1.1 - Candidato - Logado como Admin")
+@Feature("Candidato - Fluxo Admin")
 public class CandidatoControllerAdminTest extends Candidato {
     private final CandidatoClient client = new CandidatoClient();
     private String token;
@@ -30,7 +30,7 @@ public class CandidatoControllerAdminTest extends Candidato {
     }
 
     @Test
-    @DisplayName("CT-API-02.1.18 - Adicionar candidato como administrador com sucesso")
+    @DisplayName("CT-API-02.1.1 - Adicionar candidato como administrador com sucesso")
     public void testAdicionarCandidatoComSucessoComoAdmin(){
 
         client

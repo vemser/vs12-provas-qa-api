@@ -1,6 +1,7 @@
 package processoController;
 
 import client.processo.ProcessoClient;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +11,7 @@ import util.AuthUtils;
 import static data.factory.ProcessoDataFactory.processoInvalido;
 import static data.factory.ProcessoDataFactory.processoValido;
 
+@Feature("Processo - Fluxo Admin")
 public class ProcessoControllerTest {
     private final ProcessoClient client = new ProcessoClient();
     private String token;
