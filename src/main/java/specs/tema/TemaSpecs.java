@@ -1,6 +1,5 @@
 package specs.tema;
 
-import model.Questao;
 import model.Tema;
 import specs.BaseSpecs;
 

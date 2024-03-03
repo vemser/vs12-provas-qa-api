@@ -2,7 +2,7 @@ package client.candidato;
 
 import client.BaseClient;
 import io.restassured.response.Response;
-import model.Candidato;
+import model.candidato.Candidato;
 import specs.candidato.CandidatoSpecs;
 
 import static io.restassured.RestAssured.given;

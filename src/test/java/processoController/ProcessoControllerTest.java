@@ -48,13 +48,14 @@ public class ProcessoControllerTest {
         int idEmpresa = 1;
 
         Response response =
-                client.cadastrarProcesso(processoValido(), idEmpresa, token)
+                client
+                        .cadastrarProcesso(processoValido(), idEmpresa, token)
                 .then()
-                .extract().response();
+                    .extract().response();
 
-        int idProcesso = response.jsonPath().getInt("idProcesso");
+        String idProcesso = response.path("idProcesso");
 
-        client.buscarPorId(idProcesso, token)
+        client.buscarPorId(Integer.valueOf(idProcesso), token)
                 .then()
                 .statusCode(200);
     }

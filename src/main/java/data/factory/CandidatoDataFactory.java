@@ -1,6 +1,6 @@
 package data.factory;
 
-import model.Candidato;
+import model.candidato.Candidato;
 
 import static util.RandomData.FAKER;
 

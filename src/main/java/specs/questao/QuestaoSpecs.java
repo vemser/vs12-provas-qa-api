@@ -1,9 +1,9 @@
 package specs.questao;
 
-import model.Questao;
+import model.questao.QuestaoObjetiva;
 import specs.BaseSpecs;
 
-public class QuestaoSpecs extends BaseSpecs<Questao> {
+public class QuestaoSpecs extends BaseSpecs<QuestaoObjetiva> {
 
     public QuestaoSpecs() {
         super("/questao");
