@@ -54,18 +54,18 @@ public class QuestaoDataFactory {
 
     public static QuestaoObjetiva gerarQuestaoObjetivaInvalidaSemAlternativas() {
         QuestaoObjetiva questaoObjetiva = gerarQuestaoObjetivaAleatoria();
-        questaoObjetiva.setAlternativaQuestaoObjetivas(new AlternativaQuestaoObjetiva[0]);
+        questaoObjetiva.setAlternativas(new AlternativaQuestaoObjetiva[0]);
 
         return questaoObjetiva;
     }
 
     public static QuestaoObjetiva gerarQuestaoObjetivaInvalidaComMaisDeUmaOpcaoCorreta() {
         QuestaoObjetiva questaoObjetiva = gerarQuestaoObjetivaAleatoria();
-        AlternativaQuestaoObjetiva[] alternativaQuestaoObjetivas = questaoObjetiva.getAlternativaQuestaoObjetivas();
+        AlternativaQuestaoObjetiva[] alternativaQuestaoObjetivas = questaoObjetiva.getAlternativas();
         alternativaQuestaoObjetivas[0].setCorreta(true);
         alternativaQuestaoObjetivas[1].setCorreta(true);
 
-        questaoObjetiva.setAlternativaQuestaoObjetivas(alternativaQuestaoObjetivas);
+        questaoObjetiva.setAlternativas(alternativaQuestaoObjetivas);
         return questaoObjetiva;
     }
 
@@ -145,7 +145,7 @@ public class QuestaoDataFactory {
         questaoObjetiva.setEnunciado(FAKER.lorem().sentence());
         questaoObjetiva.setDificuldade(NIVEL_DIFICULDADE[FAKER.number().numberBetween(0, NIVEL_DIFICULDADE.length)]);
         questaoObjetiva.setIdTemas(new int[]{FAKER.number().numberBetween(1, 6)});
-        questaoObjetiva.setAlternativaQuestaoObjetivas(listaAlternativaQuestaoObjetivas);
+        questaoObjetiva.setAlternativas(listaAlternativaQuestaoObjetivas);
         questaoObjetiva.setTipoQuestao("OBJETIVA");
         questaoObjetiva.setIdEmpresa(0);
 

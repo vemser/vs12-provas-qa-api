@@ -16,6 +16,6 @@ public class QuestaoObjetiva {
     private String dificuldade;
     private String tipoQuestao;
     private int[] idTemas;
-    private AlternativaQuestaoObjetiva[] alternativaQuestaoObjetivas;
+    private AlternativaQuestaoObjetiva[] alternativas;
     private int idEmpresa;
 }
