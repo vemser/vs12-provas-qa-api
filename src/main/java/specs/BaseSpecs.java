@@ -14,7 +14,6 @@ import static io.restassured.config.LogConfig.logConfig;
 public abstract class BaseSpecs<Model> implements ISpecs<Model>{
 
     private static final String BASE_URL_ONRENDER = "https://vs12-provas-back-release.onrender.com";
-    private static final String BASE_URL_ALTERNATIVE = "http://26.73.130.213:8080";
     private static final String BASE_URL = "http://vemser-dbc.dbccompany.com.br:39000/vemser/vs12-provas-back";
     private String basePath;
 

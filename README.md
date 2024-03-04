@@ -12,6 +12,15 @@ Clone o repositório no local desejado;
   git clone git@github.com:vemser/vs12-provas-qa-api.git
 ```
 
+Adicione credenciais válidas como variáveis de ambiente para as seguintes variáveis:
+
+````properties
+EMAIL_ADM={EMAIL DO ADMINISTRADOR}
+SENHA_ADM={SENHA DO ADMINISTRADOR}
+EMAIL_GESTOR={EMAIL DO GESTOR}
+SENHA_GESTOR={SENHA DO GESTOR}
+````
+
 ## Features cobertas
 
 - Endpoint de Candidato
