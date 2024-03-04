@@ -118,6 +118,13 @@ public class QuestaoDataFactory {
         return questao;
     }
 
+    public static QuestaoTecnica gerarQuestaoTecnicaInvalidaComTituloMaiorQueOLimite() {
+        QuestaoTecnica questao = gerarQuestaoTecnicaAleatoria();
+        questao.setTitulo(FAKER.lorem().paragraph());
+
+        return questao;
+    }
+
     private static QuestaoObjetiva gerarQuestaoObjetivaAleatoria() {
 
         int quantidadeDeAlternativas = FAKER.number().numberBetween(2, 6);
@@ -148,7 +155,7 @@ public class QuestaoDataFactory {
     private static QuestaoTecnica gerarQuestaoTecnicaAleatoria() {
         QuestaoTecnica questao = new QuestaoTecnica();
 
-        questao.setTitulo(FAKER.lorem().sentence());
+        questao.setTitulo(FAKER.lorem().word());
         questao.setEnunciado(FAKER.lorem().sentence());
         questao.setTipoQuestao("TECNICA");
         questao.setDificuldade(NIVEL_DIFICULDADE[FAKER.number().numberBetween(0, NIVEL_DIFICULDADE.length)]);
