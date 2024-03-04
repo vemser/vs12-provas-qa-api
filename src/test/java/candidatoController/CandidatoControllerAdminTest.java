@@ -120,7 +120,7 @@ public class CandidatoControllerAdminTest extends Candidato {
         client
                 .buscarPorId(FAKER.number().positive(), "TOKEN_INVALIDO")
                 .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
@@ -164,7 +164,7 @@ public class CandidatoControllerAdminTest extends Candidato {
         client
                 .listar(0, 10, "TOKEN_INVALIDO")
                 .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
     @Test
@@ -217,7 +217,7 @@ public class CandidatoControllerAdminTest extends Candidato {
         client
                 .excluir(2, "TOKEN_INVALIDO")
                 .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
