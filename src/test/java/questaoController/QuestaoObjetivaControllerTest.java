@@ -16,6 +16,7 @@ import util.AuthUtils;
 import static org.hamcrest.Matchers.*;
 import static util.RandomData.FAKER;
 
+@DisplayName("CT-API-04 - Questão Objetiva")
 @Feature("Questão Objetiva - Fluxo Admin")
 public class QuestaoObjetivaControllerTest {
     private String token;

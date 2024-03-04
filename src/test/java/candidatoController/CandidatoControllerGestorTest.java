@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static util.RandomData.FAKER;
 
+@DisplayName("CT-API-02 - Candidato")
 @Feature("Candidato - Fluxo Gestor")
 public class CandidatoControllerGestorTest extends Candidato {
     private final CandidatoClient client = new CandidatoClient();

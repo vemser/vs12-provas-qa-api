@@ -5,11 +5,13 @@ import client.funcionario.FuncionarioClient;
 import data.factory.FuncionarioDataFactory;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
+@DisplayName("CT-API-07 - Empresa")
 @Feature("Funcionário - Fluxo Admin")
 public class FuncionarioControllerTest extends FuncionarioDataFactory {
     private static final FuncionarioClient client = new FuncionarioClient();
@@ -22,93 +24,93 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
     }
 
     @Test
-    @DisplayName("Listar funcionários")
+    @DisplayName("CT-API-07.1 - Listar funcionários com sucesso")
     public void testListarFuncionarios() {
 
         client
                 .listar(0, 5, token)
         .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
         ;
     }
 
     @Test
-    @DisplayName("Listar funcionários com token inválido")
+    @DisplayName("CT-API-07.2 - Listar funcionários com token inválido sem sucesso")
     public void testListarFuncionariosComTokenInvalido() {
 
         client
                 .listar(1, 0, 5, "TOKEN_INVALIDO")
                 .then()
-                .statusCode(500)
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
     @Test
-    @DisplayName("Listar funcionário pelo ID")
+    @DisplayName("CT-API-07.3 - Listar funcionário pelo ID com sucesso")
     public void testListarFuncionarioPeloId() {
 
         client
                 .buscarPorId(1, 8, token)
         .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
         ;
     }
 
     @Test
-    @DisplayName("Listar funcionário pelo ID com token inválido")
+    @DisplayName("CT-API-07.4 - Listar funcionário pelo ID com token inválido sem sucesso")
     public void testListarFuncionarioPeloIdComTokenInvalido() {
 
         client
                 .buscarPorId(1, 8, "TOKEN_INVALIDO")
                 .then()
-                .statusCode(500)
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
     @Test
-    @DisplayName("Listar funcionário por ID inválido")
+    @DisplayName("CT-API-07.5 - Listar funcionário por ID inválido sem sucesso")
     public void testListarFuncionarioPorIDInvalido() {
 
         client
                 .buscarPorId(1, -1, token)
                 .then()
-                .statusCode(400)
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }
 
     @Test
-    @DisplayName("Atualizar funcionário")
+    @DisplayName("CT-API-07.6 - Atualizar funcionário com sucesso")
     public void testAtualizarFuncionario() {
         int idEmpresa = 1;
 
         Response response =
                 empresaClient.cadastrarFuncionarioNaEmpresa(novoFuncionarioNaEmpresa(), idEmpresa, token)
                 .then()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .extract().response();
 
-        int idNovoFuncionario = response.jsonPath().getInt("idFuncionario");
+        int idNovoFuncionario = response.path("idFuncionario");
 
         client.atualizar(novoFuncionarioAtualizado(), idNovoFuncionario, token)
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
         ;
     }
 
     @Test
-    @DisplayName("Atualizar funcionário com token inválido")
+    @DisplayName("CT-API-07.7 - Atualizar funcionário com token inválido sem sucesso")
     public void testAtualizarFuncionarioComTokenInvalido() {
 
         int idNovoFuncionario = 0;
 
         client.atualizar(novoFuncionarioAtualizado(), idNovoFuncionario, "TOKEN_INVALIDO")
                 .then()
-                .statusCode(500)
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
     @Test
-    @DisplayName("Deletar funcionário por ID")
+    @DisplayName("CT-API-07.8 - Deletar funcionário por ID com sucesso")
     public void testDeletarFuncionarioPorID() {
         int idEmpresa = 1;
 
@@ -117,16 +119,16 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
                         .then()
                         .extract().response();
 
-        int idNovoFuncionario = response.jsonPath().getInt("idFuncionario");
+        int idNovoFuncionario = response.path("idFuncionario");
 
         client.excluir(idEmpresa, idNovoFuncionario, token)
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
         ;
     }
 
     @Test
-    @DisplayName("Deletar funcionário por ID com token inválido")
+    @DisplayName("CT-API-07.9 - Deletar funcionário por ID com token inválido sem sucesso")
     public void testDeletarFuncionarioPorIDComTokenInvalido() {
 
         int idEmpresa = 0;
@@ -134,7 +136,7 @@ public class FuncionarioControllerTest extends FuncionarioDataFactory {
 
         client.excluir(idEmpresa, idNovoFuncionario, "TOKEN_INVALIDO")
                 .then()
-                .statusCode(500)
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 }

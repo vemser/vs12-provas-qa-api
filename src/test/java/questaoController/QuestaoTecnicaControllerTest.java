@@ -95,7 +95,7 @@ public class QuestaoTecnicaControllerTest {
         QuestaoTecnica questao = QuestaoDataFactory.gerarQuestaoTecnicaValida();
 
         client
-                .atualizar(questao, FAKER.number().numberBetween(1, 100), token)
+                .atualizar(questao, FAKER.number().numberBetween(1, 100), "TOKEN_INVALIDO")
         .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;

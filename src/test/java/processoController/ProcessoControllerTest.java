@@ -17,6 +17,7 @@ import static data.factory.ProcessoDataFactory.gerarProcessoValido;
 import static org.hamcrest.Matchers.*;
 import static util.RandomData.FAKER;
 
+@DisplayName("CT-API-06 - Processo")
 @Feature("Processo - Fluxo Admin")
 public class ProcessoControllerTest {
     private final ProcessoClient client = new ProcessoClient();
