@@ -1,4 +1,4 @@
-package model;
+package model.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

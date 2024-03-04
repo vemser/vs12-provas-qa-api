@@ -1,6 +1,6 @@
 package data.factory;
 
-import model.Processo;
+import model.processo.Processo;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

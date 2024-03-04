@@ -1,6 +1,6 @@
 package specs.processo;
 
-import model.Processo;
+import model.processo.Processo;
 import specs.BaseSpecs;
 
 public class ProcessoSpecs extends BaseSpecs<Processo> {

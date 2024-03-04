@@ -2,7 +2,7 @@ package client.funcionario;
 
 import client.BaseClient;
 import io.restassured.response.Response;
-import model.Funcionario;
+import model.funcionario.Funcionario;
 import specs.funcionario.FuncionarioSpecs;
 
 import static io.restassured.RestAssured.given;

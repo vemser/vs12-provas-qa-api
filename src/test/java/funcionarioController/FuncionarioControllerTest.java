@@ -14,8 +14,8 @@ import util.AuthUtils;
 @DisplayName("CT-API-07 - Empresa")
 @Feature("Funcionário - Fluxo Admin")
 public class FuncionarioControllerTest extends FuncionarioDataFactory {
-    private static final FuncionarioClient client = new FuncionarioClient();
-    private static final EmpresaClient empresaClient = new EmpresaClient();
+    private final FuncionarioClient client = new FuncionarioClient();
+    private final EmpresaClient empresaClient = new EmpresaClient();
     private String token;
 
     @BeforeEach

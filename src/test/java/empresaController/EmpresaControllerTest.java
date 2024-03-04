@@ -3,7 +3,7 @@ package empresaController;
 import client.empresa.EmpresaClient;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
-import model.Empresa;
+import model.empresa.Empresa;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

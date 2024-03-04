@@ -1,6 +1,6 @@
 package data.factory;
 
-import model.Funcionario;
+import model.funcionario.Funcionario;
 import net.datafaker.Faker;
 
 import java.util.Locale;

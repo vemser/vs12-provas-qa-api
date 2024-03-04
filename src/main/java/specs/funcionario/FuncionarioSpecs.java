@@ -1,6 +1,6 @@
 package specs.funcionario;
 
-import model.Funcionario;
+import model.funcionario.Funcionario;
 import specs.BaseSpecs;
 
 public class FuncionarioSpecs extends BaseSpecs<Funcionario> {

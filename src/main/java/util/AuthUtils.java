@@ -1,7 +1,7 @@
 package util;
 
 import io.restassured.http.ContentType;
-import model.Login;
+import model.login.Login;
 import specs.BaseSpecs;
 
 import java.io.IOException;

@@ -3,7 +3,7 @@ package processoController;
 import client.processo.ProcessoClient;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
-import model.Processo;
+import model.processo.Processo;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
