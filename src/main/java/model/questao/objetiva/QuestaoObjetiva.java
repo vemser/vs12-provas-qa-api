@@ -1,10 +1,9 @@
-package model.questao;
+package model.questao.objetiva;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.Alternativa;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +16,6 @@ public class QuestaoObjetiva {
     private String dificuldade;
     private String tipoQuestao;
     private int[] idTemas;
-    private Alternativa[] alternativas;
+    private AlternativaQuestaoObjetiva[] alternativaQuestaoObjetivas;
     private int idEmpresa;
 }

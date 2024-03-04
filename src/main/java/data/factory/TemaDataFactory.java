@@ -1,6 +1,6 @@
 package data.factory;
 
-import model.Tema;
+import model.tema.Tema;
 
 
 import static util.RandomData.FAKER;

@@ -3,7 +3,7 @@ package temaController;
 import client.tema.TemaClient;
 import data.factory.TemaDataFactory;
 import io.qameta.allure.Feature;
-import model.Tema;
+import model.tema.Tema;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

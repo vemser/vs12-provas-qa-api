@@ -1,10 +1,10 @@
 package questaoController;
 
-import client.questao.QuestaoClient;
+import client.questao.QuestaoObjetivaClient;
 import data.factory.QuestaoDataFactory;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
-import model.questao.QuestaoObjetiva;
+import model.questao.objetiva.QuestaoObjetiva;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +19,7 @@ import static util.RandomData.FAKER;
 @Feature("Questão Objetiva - Fluxo Admin")
 public class QuestaoObjetivaControllerTest {
     private String token;
-    private final QuestaoClient client = new QuestaoClient();
+    private final QuestaoObjetivaClient client = new QuestaoObjetivaClient();
 
     @BeforeEach
     public void setup() {
@@ -160,7 +160,7 @@ public class QuestaoObjetivaControllerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("data.provider.QuestaoDataProvider#argumentosInvalidos")
+    @MethodSource("data.provider.QuestaoDataProvider#argumentosInvalidosQuestaoObjetiva")
     @DisplayName("CT-API-04.1.11 - Cadastrar questão objetiva sem informar campos obrigatórios sem sucesso")
     public void cadastrarQuestaoSemInformarCamposObrigatorios(QuestaoObjetiva questao, String mensagem) {
 
