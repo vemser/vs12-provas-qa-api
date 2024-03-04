@@ -1,6 +1,6 @@
 package specs.candidato;
 
-import model.Candidato;
+import model.candidato.Candidato;
 import specs.BaseSpecs;
 
 public class CandidatoSpecs extends BaseSpecs<Candidato> {

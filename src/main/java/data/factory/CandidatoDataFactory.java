@@ -1,7 +1,8 @@
-package dataFactory;
+package data.factory;
 
-import model.Candidato;
-import static util.RandomData.*;
+import model.candidato.Candidato;
+
+import static util.RandomData.FAKER;
 
 
 public class CandidatoDataFactory {
@@ -17,7 +18,7 @@ public class CandidatoDataFactory {
 
     public static Candidato gerarCandidatoComEmailJahCadastrado(){
         Candidato candidato = gerarCandidatoAleatorio();
-        candidato.setEmail("wataxik974@searpen.com");
+        candidato.setEmail("savio@email.com");
         return candidato;
     }
     public static Integer gerarIdInvalido(){

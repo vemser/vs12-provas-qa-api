@@ -1,4 +1,4 @@
-package model;
+package model.candidato;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -8,16 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Candidato {
+public class CandidatoResponse {
     private String email;
     private String nome;
-    @JsonIgnore
-    private String idCandidato;
-    @JsonIgnore
+    private Integer idCandidato;
+    private Integer idEmpresa;
     private String senha;
-
-    public Candidato(String email, String nome){
-        this.email = email;
-        this.nome = nome;
-    }
 }

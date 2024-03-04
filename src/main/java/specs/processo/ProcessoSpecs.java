@@ -1,9 +1,9 @@
 package specs.processo;
 
-import model.Processos;
+import model.Processo;
 import specs.BaseSpecs;
 
-public class ProcessoSpecs extends BaseSpecs<Processos> {
+public class ProcessoSpecs extends BaseSpecs<Processo> {
 
     public ProcessoSpecs(){
         super("/processo");

@@ -1,4 +1,4 @@
-package dataFactory;
+package data.factory;
 
 import model.Empresa;
 import net.datafaker.Faker;
@@ -11,6 +11,7 @@ public class EmpresaDataFactory {
 
     public static Empresa gerarEmpresaValida(){
         return empresaValida();
+
     };
 
     public static Empresa gerarEmpresaSemCNPJ(){
@@ -29,6 +30,7 @@ public class EmpresaDataFactory {
         faker.company().name(),
         faker.cnpj().valid().replaceAll("[.\\-/]", ""),
         faker.internet().emailAddress(),
+        "ROLE_MODERADOR",
         faker.name().firstName());
     }
 
@@ -37,14 +39,16 @@ public class EmpresaDataFactory {
                 faker.company().name(),
                 null,
                 faker.internet().emailAddress(),
+                "ROLE_MODERADOR",
                 faker.name().firstName());
     }
 
     private static Empresa empresaSemNome(){
         return new Empresa(
-                null,
+               null,
                 faker.cnpj().valid().replaceAll("[.\\-/]", ""),
                 faker.internet().emailAddress(),
+                "ROLE_MODERADOR",
                 faker.name().firstName());
     }
 
@@ -53,6 +57,7 @@ public class EmpresaDataFactory {
                 faker.company().name(),
                 faker.cnpj().valid().replaceAll("[.\\-/]", ""),
                 faker.internet().emailAddress(),
+                "ROLE_MODERADOR",
                 null);
     }
 
