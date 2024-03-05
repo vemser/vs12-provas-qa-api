@@ -7,21 +7,12 @@ import specs.dashboard.DashboardSpecs;
 import static io.restassured.RestAssured.given;
 
 public class DashboardClient extends BaseClient<Object> {
-
-    private final String COMPLEMENTO_EMPRESA_PATH = "/empresa/";
+    
     public DashboardClient() {
         super(new DashboardSpecs());
     }
-
-    public Response buscarDashboardEmpresa(String authToken){
-        return given()
-                .spec(SPECS.requestSpec())
-                .header("Authorization", authToken)
-        .when()
-                .get(COMPLEMENTO_EMPRESA_PATH)
-        ;
-    }
-    public Response buscarDashboardGlobal(String authToken){
+    
+    public Response buscarDashboard(String authToken){
         return given()
                 .spec(SPECS.requestSpec())
                 .header("Authorization", authToken)

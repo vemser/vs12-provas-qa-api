@@ -45,7 +45,7 @@ public class CandidatoControllerGestorTest {
     public void testAdicionarCandidatoComoGestorUtilizandoTokenInvalido(){
 
         client
-                .cadastrar(gerarCandidatoValido(), "TOKEN_INVALIDO")
+                .cadastrar(gerarCandidatoValido(), AuthUtils.getTokenInvalidio())
         .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -126,13 +126,20 @@ public class CandidatoControllerGestorTest {
     }
 
     @Test
-    @DisplayName("CT-API-02.2.8 - Desativar candidato como gestor sem sucesso")
-    public void testDesativarCandidatoSemSucessoComoGestor(){
+    @DisplayName("CT-API-02.2.8 - Desativar candidato como gestor com sucesso")
+    public void testDesativarCandidatoComSucessoComoGestor(){
+
+        CandidatoResponse candidato =
+                client
+                        .cadastrar(CandidatoDataFactory.gerarCandidatoValido(), token)
+                .then()
+                        .statusCode(HttpStatus.SC_CREATED)
+                        .extract().as(CandidatoResponse.class);
 
         client
-                .excluir(FAKER.number().numberBetween(1, 100), token)
-                .then()
-                .statusCode(HttpStatus.SC_FORBIDDEN)
+                .excluir(Integer.valueOf(candidato.getIdCandidato()), token)
+        .then()
+                .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
     }
 

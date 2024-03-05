@@ -74,7 +74,7 @@ public class CandidatoControllerAdminTest {
     public void testAdicionarCandidatoComoAdminUtilizandoTokenInvalido() {
 
         client
-                .cadastrar(gerarCandidatoValido(), "TOKEN_INVALIDO")
+                .cadastrar(gerarCandidatoValido(), AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -119,7 +119,7 @@ public class CandidatoControllerAdminTest {
     public void testBuscarCandidatoPeloIdUtilizandoTokenInvalido() {
 
         client
-                .buscarPorId(FAKER.number().positive(), "TOKEN_INVALIDO")
+                .buscarPorId(FAKER.number().positive(), AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -163,7 +163,7 @@ public class CandidatoControllerAdminTest {
     public void testListarCandidatosUtilizandoTokenInvalido() {
 
         client
-                .listar(0, 10, "TOKEN_INVALIDO")
+                .listar(0, 10, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -180,8 +180,8 @@ public class CandidatoControllerAdminTest {
     }
 
     @Test
-    @DisplayName("CT-API-02.1.12 - Desativar candidato com sucesso como administrador")
-    public void testDesativarCandidatoComSucessoComoAdmin() {
+    @DisplayName("CT-API-02.1.12 - Desativar candidato de uma empresa sem sucesso como administrador")
+    public void testDesativarCandidatoSemSucessoSucessoComoAdmin() {
 
         this.token = AuthUtils.getTokenGestor();
 
@@ -197,7 +197,7 @@ public class CandidatoControllerAdminTest {
         client
                 .excluir(idCandidato, token)
                 .then()
-                .statusCode(HttpStatus.SC_NO_CONTENT)
+                .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
     }
 
@@ -217,7 +217,7 @@ public class CandidatoControllerAdminTest {
     public void testDesativarCandidatoComTokenInvalido() {
 
         client
-                .excluir(2, "TOKEN_INVALIDO")
+                .excluir(FAKER.number().numberBetween(1, 100), AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;

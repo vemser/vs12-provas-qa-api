@@ -67,7 +67,7 @@ public class CandidatoControllerCandidatoTest {
     public void testAtualizarCandidatoComTokenInvalidoSemSucessoComoCandidato() {
 
             client
-                    .atualizarDadosLogadoComoCandidato(CandidatoDataFactory.gerarDadosAtualizacaoDeCandidato(), "TOKEN_INVALIDO")
+                    .atualizarDadosLogadoComoCandidato(CandidatoDataFactory.gerarDadosAtualizacaoDeCandidato(), AuthUtils.getTokenInvalidio())
             .then()
                     .statusCode(HttpStatus.SC_UNAUTHORIZED)
             ;

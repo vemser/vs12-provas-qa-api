@@ -39,7 +39,7 @@ public class FuncionarioControllerTest {
     public void testListarFuncionariosComTokenInvalido() {
 
         client
-                .listar(1, 0, 5, "TOKEN_INVALIDO")
+                .listar(1, 0, 5, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -61,7 +61,7 @@ public class FuncionarioControllerTest {
     public void testListarFuncionarioPeloIdComTokenInvalido() {
 
         client
-                .buscarPorId(1, 8, "TOKEN_INVALIDO")
+                .buscarPorId(1, 8, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -103,7 +103,7 @@ public class FuncionarioControllerTest {
 
         int idNovoFuncionario = 0;
 
-        client.atualizar(novoFuncionarioAtualizado(), idNovoFuncionario, "TOKEN_INVALIDO")
+        client.atualizar(novoFuncionarioAtualizado(), idNovoFuncionario, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -134,7 +134,7 @@ public class FuncionarioControllerTest {
         int idEmpresa = 0;
         int idNovoFuncionario = 0;
 
-        client.excluir(idEmpresa, idNovoFuncionario, "TOKEN_INVALIDO")
+        client.excluir(idEmpresa, idNovoFuncionario, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;

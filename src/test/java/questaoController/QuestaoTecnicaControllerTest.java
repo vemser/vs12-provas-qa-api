@@ -13,7 +13,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import util.AuthUtils;
 
-import static org.hamcrest.Matchers.contains;
+import java.util.Objects;
+
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static util.RandomData.FAKER;
 
@@ -55,7 +57,7 @@ public class QuestaoTecnicaControllerTest {
     public void cadastrarQuestaoTecnicaComTokenInvalidoSemSucesso() {
 
             client
-                    .cadastrar(QuestaoDataFactory.gerarQuestaoTecnicaValida(), "TOKEN_INVALIDO")
+                    .cadastrar(QuestaoDataFactory.gerarQuestaoTecnicaValida(), AuthUtils.getTokenInvalidio())
             .then()
                     .statusCode(HttpStatus.SC_UNAUTHORIZED)
             ;
@@ -81,10 +83,20 @@ public class QuestaoTecnicaControllerTest {
                     .extract().as(QuestaoTecnicaResponse.class)
             ;
 
+        QuestaoTecnicaResponse questaoAnteriorAhAtualizacao =
+                client
+                        .buscarPorId(questaoAhSerAtualizada.getIdQuestao(), token)
+                .then()
+                        .statusCode(HttpStatus.SC_OK)
+                        .extract().as(QuestaoTecnicaResponse.class)
+                ;
+
         assertAll(
-                () -> assertEquals(questaoAhSerAtualizada.getIdQuestao(), questaoAtualizada.getIdQuestao()),
+                () -> assertNotEquals(questaoAhSerAtualizada.getIdQuestao(), questaoAtualizada.getIdQuestao()),
                 () -> assertNotEquals(questaoAhSerAtualizada.getEnunciado(), questaoAtualizada.getEnunciado()),
-                () -> assertNotEquals(questaoAhSerAtualizada.getTitulo(), questaoAtualizada.getTitulo())
+                () -> assertNotEquals(questaoAhSerAtualizada.getTitulo(), questaoAtualizada.getTitulo()),
+                () -> assertFalse(questaoAnteriorAhAtualizacao.isAtivo()),
+                () -> assertTrue(questaoAtualizada.isAtivo())
         );
     }
 
@@ -95,7 +107,7 @@ public class QuestaoTecnicaControllerTest {
         QuestaoTecnica questao = QuestaoDataFactory.gerarQuestaoTecnicaValida();
 
         client
-                .atualizar(questao, FAKER.number().numberBetween(1, 100), "TOKEN_INVALIDO")
+                .atualizar(questao, FAKER.number().numberBetween(1, 100), AuthUtils.getTokenInvalidio())
         .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -104,13 +116,16 @@ public class QuestaoTecnicaControllerTest {
     @ParameterizedTest
     @MethodSource("data.provider.QuestaoDataProvider#argumentosInvalidosQuestaoTecnica")
     @DisplayName("CT-API-04.2.3 - Cadastrar questão técnica sem informar campos obrigatórios sem sucesso")
-    public void cadastrarQuestaoTecnicaSemInformarCamposObrigatorios(QuestaoTecnica questao, String mensagem) {
+    public void cadastrarQuestaoTecnicaSemInformarCamposObrigatorios(QuestaoTecnica questao, String key, String mensagem) {
 
         client
                 .cadastrar(questao, token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("errors", contains(mensagem))
+                .body(key, Objects.equals(key, "errors")
+                        ? contains(mensagem)
+                        : equalTo(mensagem)
+                )
         ;
 
     }

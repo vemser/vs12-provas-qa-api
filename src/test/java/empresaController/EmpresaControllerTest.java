@@ -40,7 +40,7 @@ public class EmpresaControllerTest {
     @DisplayName("CT-API-01.2 - Listar empresas com token inválido sem sucesso")
     public void testListarEmpresasComTokenInvalido() {
 
-        client.listar(2, 5, "TOKEN_INVALIDO")
+        client.listar(2, 5, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -68,7 +68,7 @@ public class EmpresaControllerTest {
 
         int idEmpresa = 0;
 
-        client.buscarPorId(idEmpresa, "TOKEN_INVALIDO")
+        client.buscarPorId(idEmpresa, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED);
     }
@@ -121,7 +121,7 @@ public class EmpresaControllerTest {
 
         String cnpj = "0";
 
-        client.buscarPorCNPJ(cnpj, "TOKEN_INVALIDO")
+        client.buscarPorCNPJ(cnpj, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -141,7 +141,7 @@ public class EmpresaControllerTest {
     @DisplayName("CT-API-01.10 - Adicionar empresa com token inválido sem sucesso")
     public void testAdicionarEmpresaComTokenInvalido() {
 
-        client.cadastrar(gerarEmpresaValida(), "TOKEN_INVALIDO")
+        client.cadastrar(gerarEmpresaValida(), AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -191,7 +191,7 @@ public class EmpresaControllerTest {
     @DisplayName("CT-API-01.15 - Adicionar funcionário na empresa com token inválido sem sucesso")
     public void testAdicionarFuncionarioNaEmpresaComTokenInvalido() {
 
-        client.cadastrarFuncionarioNaEmpresa(novoFuncionarioNaEmpresa(), 1, "TOKEN_INVALIDO")
+        client.cadastrarFuncionarioNaEmpresa(novoFuncionarioNaEmpresa(), 1, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -257,7 +257,7 @@ public class EmpresaControllerTest {
 
         int idEmpresa = 0;
 
-        client.atualizar(gerarEmpresaValida(), idEmpresa, "TOKEN_INVALIDO")
+        client.atualizar(gerarEmpresaValida(), idEmpresa, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED);
     }

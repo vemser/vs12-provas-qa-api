@@ -56,7 +56,7 @@ public class ProcessoControllerTest {
     public void testListarProcessosComTokenInvalido() {
 
         client
-                .listar(1, 5, "TOKEN_INVALIDO")
+                .listar(1, 5, AuthUtils.getTokenInvalidio())
         .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -66,6 +66,7 @@ public class ProcessoControllerTest {
     @DisplayName("CT-API-06.1.4 - Buscar processo por ID com sucesso")
     public void testBuscarProcessoPorIdComSucesso() {
 
+
         Processo processo = gerarProcessoValido();
         int idEmpresa = processo.getIdEmpresa();
 
@@ -73,7 +74,8 @@ public class ProcessoControllerTest {
                 client
                         .cadastrarProcesso(processo, idEmpresa, token)
                 .then()
-                    .extract().response();
+                        .statusCode(HttpStatus.SC_CREATED)
+                        .extract().response();
 
         Integer idProcesso = response.path("idProcesso");
 
@@ -92,9 +94,10 @@ public class ProcessoControllerTest {
         int idProcesso = 0;
 
         client
-                .buscarPorId(idProcesso, "TOKEN_INVALIDO")
+                .buscarPorId(idProcesso, AuthUtils.getTokenInvalidio())
         .then()
-                .statusCode(HttpStatus.SC_UNAUTHORIZED);
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+        ;
     }
 
     @Test
@@ -138,7 +141,7 @@ public class ProcessoControllerTest {
         int idProcesso = 0;
 
         client
-                .excluir(idProcesso, "TOKEN_INVALIDO")
+                .excluir(idProcesso, AuthUtils.getTokenInvalidio())
         .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -165,9 +168,10 @@ public class ProcessoControllerTest {
         int idEmpresa = 1;
 
         client
-                .cadastrarProcesso(gerarProcessoValido(), idEmpresa, "TOKEN_INVALIDO")
+                .cadastrarProcesso(gerarProcessoValido(), idEmpresa, AuthUtils.getTokenInvalidio())
         .then()
-                .statusCode(HttpStatus.SC_UNAUTHORIZED);
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+        ;
     }
 
     @Test
@@ -211,9 +215,10 @@ public class ProcessoControllerTest {
         int idProcesso = 0;
 
         client
-                .atualizar(gerarProcessoValido(), idProcesso, "TOKEN_INVALIDO")
+                .atualizar(gerarProcessoValido(), idProcesso, AuthUtils.getTokenInvalidio())
         .then()
-                .statusCode(HttpStatus.SC_UNAUTHORIZED);
+                .statusCode(HttpStatus.SC_UNAUTHORIZED)
+        ;
     }
 
     @ParameterizedTest
