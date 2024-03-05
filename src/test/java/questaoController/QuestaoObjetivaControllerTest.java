@@ -13,6 +13,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import util.AuthUtils;
 
+import java.util.Objects;
+
 import static org.hamcrest.Matchers.*;
 import static util.RandomData.FAKER;
 
@@ -51,7 +53,7 @@ public class QuestaoObjetivaControllerTest {
                 .listar(
                         FAKER.number().numberBetween(0, 20),
                         FAKER.number().numberBetween(1, 30),
-                        "TOKEN_INVALIDO"
+                        AuthUtils.getTokenInvalidio()
                 )
         .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
@@ -83,7 +85,7 @@ public class QuestaoObjetivaControllerTest {
     public void buscarQuestaoPorIdComTokenInvalido(){
 
         client
-                .buscarPorId(FAKER.number().numberBetween(1, 100), "TOKEN_INVALIDO")
+                .buscarPorId(FAKER.number().numberBetween(1, 100), AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -127,7 +129,7 @@ public class QuestaoObjetivaControllerTest {
     public void cadastrarQuestaoComTokenInvalido() {
 
         client
-                .cadastrar(QuestaoDataFactory.gerarQuestaoObjetivaValida(), "TOKEN_INVALIDO")
+                .cadastrar(QuestaoDataFactory.gerarQuestaoObjetivaValida(), AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -154,7 +156,7 @@ public class QuestaoObjetivaControllerTest {
     @DisplayName("CT-API-04.1.10 - Deletar questão objetiva com token inválido")
     public void deletarQuestaoComTokenInvalido() {
 
-        client.excluir(FAKER.number().numberBetween(1, 100), "TOKEN_INVALIDO")
+        client.excluir(FAKER.number().numberBetween(1, 100), AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -163,13 +165,16 @@ public class QuestaoObjetivaControllerTest {
     @ParameterizedTest
     @MethodSource("data.provider.QuestaoDataProvider#argumentosInvalidosQuestaoObjetiva")
     @DisplayName("CT-API-04.1.11 - Cadastrar questão objetiva sem informar campos obrigatórios sem sucesso")
-    public void cadastrarQuestaoSemInformarCamposObrigatorios(QuestaoObjetiva questao, String mensagem) {
+    public void cadastrarQuestaoSemInformarCamposObrigatorios(QuestaoObjetiva questao, String key, String mensagem) {
 
         client
                 .cadastrar(questao, token)
         .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body("errors", contains(mensagem))
+                .body(key, Objects.equals(key, "errors")
+                        ? contains(mensagem)
+                        : equalTo(mensagem)
+                )
         ;
 
     }

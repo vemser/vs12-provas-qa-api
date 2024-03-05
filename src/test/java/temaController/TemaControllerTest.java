@@ -41,7 +41,7 @@ public class TemaControllerTest {
     @DisplayName("CT-API-03.2 - Listar temas com token inválido sem sucesso")
     public void testListarTemasComTokenInvalido() {
 
-        client.listar(0,10, "TOKEN_INVALIDO")
+        client.listar(0,10, AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
@@ -60,7 +60,7 @@ public class TemaControllerTest {
     @DisplayName("CT-API-03.5 - Adicionar tema com token inválido sem sucesso")
     public void testAdicionarTemaComTokenInvalido() {
 
-        client.cadastrar(TemaDataFactory.gerarTemaValido(), "TOKEN_INVALIDO")
+        client.cadastrar(TemaDataFactory.gerarTemaValido(), AuthUtils.getTokenInvalidio())
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED);
     }

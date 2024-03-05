@@ -60,6 +60,9 @@ public class AuthUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public static String getTokenInvalidio(){
+        return "bearer token_invalido";
     }
 }
