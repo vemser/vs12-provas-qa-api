@@ -1,4 +1,4 @@
-package model;
+package model.funcionario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

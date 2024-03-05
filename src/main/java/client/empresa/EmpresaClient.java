@@ -2,8 +2,8 @@ package client.empresa;
 
 import client.BaseClient;
 import io.restassured.response.Response;
-import model.Empresa;
-import model.Funcionario;
+import model.empresa.Empresa;
+import model.funcionario.Funcionario;
 import specs.empresa.EmpresaSpecs;
 
 import static io.restassured.RestAssured.given;

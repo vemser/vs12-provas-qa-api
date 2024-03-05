@@ -1,13 +1,10 @@
 package data.factory;
 
-import model.Empresa;
-import net.datafaker.Faker;
+import model.empresa.Empresa;
 
-import java.util.Locale;
+import static util.RandomData.FAKER;
 
 public class EmpresaDataFactory {
-
-    private static Faker faker = new Faker(new Locale("PT-BR"));
 
     public static Empresa gerarEmpresaValida(){
         return empresaValida();
@@ -27,36 +24,36 @@ public class EmpresaDataFactory {
     };
     private static Empresa empresaValida(){
         return new Empresa(
-        faker.company().name(),
-        faker.cnpj().valid().replaceAll("[.\\-/]", ""),
-        faker.internet().emailAddress(),
+        FAKER.company().name(),
+        FAKER.cnpj().valid().replaceAll("[.\\-/]", ""),
+        FAKER.internet().emailAddress(),
         "ROLE_MODERADOR",
-        faker.name().firstName());
+        FAKER.name().firstName());
     }
 
     private static Empresa empresaSemCNPJ(){
         return new Empresa(
-                faker.company().name(),
+                FAKER.company().name(),
                 null,
-                faker.internet().emailAddress(),
+                FAKER.internet().emailAddress(),
                 "ROLE_MODERADOR",
-                faker.name().firstName());
+                FAKER.name().firstName());
     }
 
     private static Empresa empresaSemNome(){
         return new Empresa(
                null,
-                faker.cnpj().valid().replaceAll("[.\\-/]", ""),
-                faker.internet().emailAddress(),
+                FAKER.cnpj().valid().replaceAll("[.\\-/]", ""),
+                FAKER.internet().emailAddress(),
                 "ROLE_MODERADOR",
-                faker.name().firstName());
+                FAKER.name().firstName());
     }
 
     private static Empresa empresaSemNomeDeFuncionario(){
         return new Empresa(
-                faker.company().name(),
-                faker.cnpj().valid().replaceAll("[.\\-/]", ""),
-                faker.internet().emailAddress(),
+                FAKER.company().name(),
+                FAKER.cnpj().valid().replaceAll("[.\\-/]", ""),
+                FAKER.internet().emailAddress(),
                 "ROLE_MODERADOR",
                 null);
     }

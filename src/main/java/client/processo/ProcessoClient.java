@@ -2,7 +2,7 @@ package client.processo;
 
 import client.BaseClient;
 import io.restassured.response.Response;
-import model.Processo;
+import model.processo.Processo;
 import specs.processo.ProcessoSpecs;
 
 import static io.restassured.RestAssured.given;

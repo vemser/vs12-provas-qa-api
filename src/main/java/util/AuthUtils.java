@@ -1,7 +1,7 @@
 package util;
 
 import io.restassured.http.ContentType;
-import model.Login;
+import model.login.Login;
 import specs.BaseSpecs;
 
 import java.io.IOException;
@@ -42,6 +42,18 @@ public class AuthUtils {
     public static String getTokenGestor() {
         String email = System.getenv("EMAIL_GESTOR");
         String senha = System.getenv("SENHA_GESTOR");
+
+        try{
+            return getToken(new Login(email, senha));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static String getTokenCandidato() {
+        String email = System.getenv("EMAIL_CANDIDATO");
+        String senha = System.getenv("SENHA_CANDIDATO");
 
         try{
             return getToken(new Login(email, senha));

@@ -5,12 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CandidatoResponse {
-    private String email;
+@NoArgsConstructor
+public class CandidatoPutRequest {
     private String nome;
-    private Integer idCandidato;
-    private Integer idEmpresa;
     private String senha;
 }

@@ -20,7 +20,7 @@ import static util.RandomData.FAKER;
 
 @DisplayName("CT-API-02 - Candidato")
 @Feature("Candidato - Fluxo Gestor")
-public class CandidatoControllerGestorTest extends Candidato {
+public class CandidatoControllerGestorTest {
     private final CandidatoClient client = new CandidatoClient();
     private String token;
 

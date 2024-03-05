@@ -1222,7 +1222,13 @@
 							"name": "Cadastrar questão Java com sucesso",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n  \"codigoAluno\": \"public class Main { public static String result(int num){ return num % 2 == 0 ? 'Par' : 'Impar'; } public static void main(String[] args) { Integer num = Integer.parseInt(args[0]); String resultado = result(num); System.out.println(resultado); } }\",\r\n\"variaveis\" : \"2\",\r\n\"resposta\" : \"Par\"\r\n}",
@@ -1249,10 +1255,16 @@
 							"name": "Cadastrar questão C com sucesso",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"codigoAluno\": \"#include <stdio.h>\\n#include <stdlib.h>\\n\\nchar* result(int num) {\\n    return num % 2 == 0 ? \\\"Par\\\" : \\\"Impar\\\";\\n}\\n\\nint main(int argc, char *argv[]) {\\n    int num = atoi(argv[1]);\\n    char *resultado = result(num);\\n    printf(\\\"%s\\\\n\\\", resultado);\\n    return 0;\\n}\",\r\n  \"variaveis\": \"2\",\r\n  \"resposta\": \"Par\"\r\n}\r\n",
+									"raw": "{\r\n  \"codigoAluno\": \"#include <stdio.h> #include <stdlib.h> char* result(int num) { return num % 2 == 0 ? \\\"Par\\\" : \\\"Impar\\\"; } int main(int argc, char *argv[]) { int num = atoi(argv[1]); char *resultado = result(num); printf(\\\"%s\\\\n\\\", resultado); return 0; }\",\r\n  \"variaveis\": \"2\",\r\n  \"resposta\": \"Par\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1286,7 +1298,13 @@
 							"name": "Buscar Dashboard Geral",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/dashboard",
 									"host": [
@@ -1303,7 +1321,13 @@
 							"name": "Buscar Dashboard da Empresa",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/dashboard/empresa",
 									"host": [
@@ -1331,7 +1355,13 @@
 							"name": "Pagina todas as provas",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/prova",
 									"host": [
@@ -1348,7 +1378,13 @@
 							"name": "Busca uma prova",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/prova/:idProva",
 									"host": [
@@ -1372,7 +1408,13 @@
 							"name": "Cria e inicia uma prova",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/prova/processo/:idProva",
 									"host": [
@@ -1397,7 +1439,13 @@
 							"name": "Pagina todas as provas de uma empresa",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenAdm}}",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/prova/empresa",
 									"host": [

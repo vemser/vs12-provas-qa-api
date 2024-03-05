@@ -1,4 +1,4 @@
-package model;
+package model.processo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
