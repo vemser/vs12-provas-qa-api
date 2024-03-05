@@ -17,11 +17,12 @@ public class Processo {
     Integer notaCorte;
     String dificuldade;
     Boolean possuiQuestoesPublicas;
-    Integer qtdObjetivas;
-    Integer qtdTecnicas;
-    Integer qtdFacil;
-    Integer qtdMedia;
-    Integer qtdDificil;
+    Integer qtdFacilObjetiva;
+    Integer qtdMedioObjetiva;
+    Integer qtdDificilObjetiva;
+    Integer qtdFacilTecnica;
+    Integer qtdMedioTecnica;
+    Integer qtdDificilTecnica;
     List<Integer> idsTemas;
     Integer idEmpresa;
 }

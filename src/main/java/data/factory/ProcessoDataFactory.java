@@ -80,22 +80,31 @@ public class ProcessoDataFactory {
         novoProcesso.setDataHorarioInicio(dataInicio.format(dtf));
         novoProcesso.setDataHorarioFim(dataFim.format(dtf));
 
-        Integer qtdQuestoes = FAKER.number().numberBetween(2, 20);
-        Integer qtdObjetivas = FAKER.number().numberBetween(0, qtdQuestoes);
-        Integer qtdTecnicas = qtdQuestoes - qtdObjetivas;
-        Integer qtdFacil = FAKER.number().numberBetween(0, qtdQuestoes);
-        Integer qtdMedia = FAKER.number().numberBetween(0, qtdQuestoes - qtdFacil);
-        Integer qtdDificil = qtdQuestoes - qtdFacil - qtdMedia;
+        int qtdQuestoes = FAKER.number().numberBetween(2, 30);
+        int qtdObjetivas = FAKER.number().numberBetween(0, qtdQuestoes);
+        int qtdTecnicas = qtdQuestoes - qtdObjetivas;
+
+        int qtdFacilObjetiva = FAKER.number().numberBetween(0, qtdObjetivas);
+        int qtdMediaObjetiva = FAKER.number().numberBetween(0, qtdObjetivas - qtdFacilObjetiva);
+        int qtdDificilObjetiva = qtdObjetivas - qtdFacilObjetiva - qtdMediaObjetiva;
+
+        int qtdFacilTecnica = FAKER.number().numberBetween(0, qtdTecnicas);
+        int qtdMediaTecnica = FAKER.number().numberBetween(0, qtdTecnicas - qtdFacilTecnica);
+        int qtdDificilTecnica = qtdTecnicas - qtdFacilTecnica - qtdMediaTecnica;
 
         novoProcesso.setNotaCorte(RANDOM.nextInt(1, 10) * 10);
         novoProcesso.setDificuldade(dificuldade);
         novoProcesso.setPossuiQuestoesPublicas(RANDOM.nextBoolean());
-        novoProcesso.setQtdObjetivas(qtdObjetivas);
-        novoProcesso.setQtdTecnicas(qtdTecnicas);
-        novoProcesso.setQtdFacil(qtdFacil);
-        novoProcesso.setQtdMedia(qtdMedia);
-        novoProcesso.setQtdDificil(qtdDificil);
-        novoProcesso.setIdsTemas(Arrays.asList(1, 2, 3));
+        novoProcesso.setQtdDificilObjetiva(qtdDificilObjetiva);
+        novoProcesso.setQtdMedioObjetiva(qtdMediaObjetiva);
+        novoProcesso.setQtdFacilObjetiva(qtdFacilObjetiva);
+        novoProcesso.setQtdDificilTecnica(qtdDificilTecnica);
+        novoProcesso.setQtdMedioTecnica(qtdMediaTecnica);
+        novoProcesso.setQtdFacilTecnica(qtdFacilTecnica);
+        novoProcesso.setIdsTemas(Arrays.asList(
+                FAKER.number().numberBetween(1, 3),
+                FAKER.number().numberBetween(3, 6)
+                ));
         novoProcesso.setIdEmpresa(FAKER.number().numberBetween(0, 100));
 
         return novoProcesso;

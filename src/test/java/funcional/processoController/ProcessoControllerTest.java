@@ -1,4 +1,4 @@
-package processoController;
+package funcional.processoController;
 
 import client.processo.ProcessoClient;
 import io.qameta.allure.Feature;

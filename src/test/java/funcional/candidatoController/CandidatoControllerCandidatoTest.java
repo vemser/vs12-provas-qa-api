@@ -1,4 +1,4 @@
-package candidatoController;
+package funcional.candidatoController;
 
 import client.candidato.CandidatoClient;
 import data.factory.CandidatoDataFactory;

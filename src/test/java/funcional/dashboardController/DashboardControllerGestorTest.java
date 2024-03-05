@@ -1,4 +1,4 @@
-package dashboardController;
+package funcional.dashboardController;
 
 import client.dashboard.DashboardClient;
 import io.qameta.allure.Feature;

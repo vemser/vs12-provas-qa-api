@@ -1,4 +1,4 @@
-package empresaController;
+package funcional.empresaController;
 
 import client.empresa.EmpresaClient;
 import io.qameta.allure.Feature;

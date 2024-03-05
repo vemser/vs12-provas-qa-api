@@ -1,4 +1,4 @@
-package questaoController;
+package funcional.questaoController;
 
 import client.questao.QuestaoTecnicaClient;
 import data.factory.QuestaoDataFactory;
