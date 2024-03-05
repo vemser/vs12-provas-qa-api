@@ -1,4 +1,4 @@
-package temaController;
+package funcional.temaController;
 
 import client.tema.TemaClient;
 import data.factory.TemaDataFactory;

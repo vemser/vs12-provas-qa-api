@@ -1,4 +1,4 @@
-package funcionarioController;
+package funcional.funcionarioController;
 
 import client.empresa.EmpresaClient;
 import client.funcionario.FuncionarioClient;

@@ -1,4 +1,4 @@
-package loginController;
+package funcional.loginController;
 
 import client.login.LoginClient;
 import data.factory.LoginDataFactory;
