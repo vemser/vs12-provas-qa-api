@@ -26,6 +26,8 @@ pipeline {
         LOGIN_GESTOR=
         EMAIL_GESTOR=
         SENHA_GESTOR=
+        EMAIL_CANDIDATO=
+        SENHA_CANDIDATO=
 
         IMGUR_LINK=
         IMGUR_CLIENT_ID=
