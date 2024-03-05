@@ -2,7 +2,7 @@ package funcionarioController;
 
 import client.empresa.EmpresaClient;
 import client.funcionario.FuncionarioClient;
-import data.factory.FuncionarioDataFactory;
+import static data.factory.FuncionarioDataFactory.*;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -13,7 +13,7 @@ import util.AuthUtils;
 
 @DisplayName("CT-API-07 - Empresa")
 @Feature("Funcionário - Fluxo Admin")
-public class FuncionarioControllerTest extends FuncionarioDataFactory {
+public class FuncionarioControllerTest {
     private final FuncionarioClient client = new FuncionarioClient();
     private final EmpresaClient empresaClient = new EmpresaClient();
     private String token;

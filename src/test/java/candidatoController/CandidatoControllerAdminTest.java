@@ -20,7 +20,7 @@ import static util.RandomData.FAKER;
 
 @DisplayName("CT-API-02 - Candidato")
 @Feature("Candidato - Fluxo Admin")
-public class CandidatoControllerAdminTest extends Candidato {
+public class CandidatoControllerAdminTest {
     private final CandidatoClient client = new CandidatoClient();
     private String token;
 
@@ -31,17 +31,18 @@ public class CandidatoControllerAdminTest extends Candidato {
 
     @Test
     @DisplayName("CT-API-02.1.1 - Adicionar candidato como administrador com sucesso")
-    public void testAdicionarCandidatoComSucessoComoAdmin(){
+    public void testAdicionarCandidatoComSucessoComoAdmin() {
 
         client
                 .cadastrar(gerarCandidatoValido(), token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_CREATED)
         ;
     }
+
     @Test
     @DisplayName("CT-API-02.1.2 - Adicionar candidato como administrador com email já cadastrado com sucesso")
-    public void testAdicionarCandidatoComEmailJaCadastradoComoAdministrador(){
+    public void testAdicionarCandidatoComEmailJaCadastradoComoAdministrador() {
 
         Response res =
                 client
@@ -60,39 +61,39 @@ public class CandidatoControllerAdminTest extends Candidato {
                         .cadastrar(candidatoJahCadastrado, token)
                         .then()
                         .statusCode(HttpStatus.SC_CREATED)
-                        .extract().as(CandidatoResponse.class)
-                ;
+                        .extract().as(CandidatoResponse.class);
 
         assertAll(
                 () -> assertEquals(idCandidado, candidatoResponse.getIdCandidato()),
                 () -> assertEquals(emailCandidato, candidatoResponse.getEmail())
         );
     }
+
     @Test
     @DisplayName("CT-API-02.1.3 - Adicionar candidato como administrador utilizando token inválido sem sucesso")
-    public void testAdicionarCandidatoComoAdminUtilizandoTokenInvalido(){
+    public void testAdicionarCandidatoComoAdminUtilizandoTokenInvalido() {
 
         client
                 .cadastrar(gerarCandidatoValido(), "TOKEN_INVALIDO")
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
 
     @Test
     @DisplayName("CT-API-02.1.4 - Adicionar candidato com email inválido como administrador sem sucesso")
-    public void testAdicionarCandidatoComEmailInvalidoComoAdmin(){
+    public void testAdicionarCandidatoComEmailInvalidoComoAdmin() {
 
         client
                 .cadastrar(gerarCandidatoComEmailInvalido(), token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }
 
     @Test
     @DisplayName("CT-API-02.1.5 - Buscar candidato pelo ID com sucesso como administrador")
-    public void testBuscarCandidatoPeloIdComSucessoComoAdmin(){
+    public void testBuscarCandidatoPeloIdComSucessoComoAdmin() {
 
         this.token = AuthUtils.getTokenGestor();
         Response res = client
@@ -106,7 +107,7 @@ public class CandidatoControllerAdminTest extends Candidato {
         this.token = AuthUtils.getTokenAdmin();
         client
                 .buscarPorId(idCandidato, token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("idCandidato", equalTo(idCandidato))
                 .body("email", equalTo(emailCandido))
@@ -115,7 +116,7 @@ public class CandidatoControllerAdminTest extends Candidato {
 
     @Test
     @DisplayName("CT-API-02.1.6 - Buscar candidato pelo ID utilizando token inválido")
-    public void testBuscarCandidatoPeloIdUtilizandoTokenInvalido(){
+    public void testBuscarCandidatoPeloIdUtilizandoTokenInvalido() {
 
         client
                 .buscarPorId(FAKER.number().positive(), "TOKEN_INVALIDO")
@@ -126,40 +127,40 @@ public class CandidatoControllerAdminTest extends Candidato {
 
     @Test
     @DisplayName("CT-API-02.1.7 - Buscar candidato com ID inválido sem sucesso como administrador")
-    public void testBuscarCandidatoComIdInvalidoSemSucessoComoAdmin(){
+    public void testBuscarCandidatoComIdInvalidoSemSucessoComoAdmin() {
 
         client
                 .buscarPorId(CandidatoDataFactory.gerarIdInvalido(), token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }
 
     @Test
     @DisplayName("CT-API-02.1.8 - Buscar candidato pelo ID não cadastrado sem sucesso como administrador")
-    public void testBuscarCandidatoComIdNaoCadastradoSemSucessoComoAdmin(){
+    public void testBuscarCandidatoComIdNaoCadastradoSemSucessoComoAdmin() {
 
         client
                 .buscarPorId(gerarIdNaoCadastrado(), token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
     }
 
     @Test
     @DisplayName("CT-API-02.1.9 - Listar candidatos com sucesso como administrador")
-    public void testListarCandidatosComSucessoComoAdmin(){
+    public void testListarCandidatosComSucessoComoAdmin() {
 
         client
                 .listar(0, 10, token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_OK)
         ;
     }
 
     @Test
     @DisplayName("CT-API-02.1.10 - Listar candidatos utilizando token inválido")
-    public void testListarCandidatosUtilizandoTokenInvalido(){
+    public void testListarCandidatosUtilizandoTokenInvalido() {
 
         client
                 .listar(0, 10, "TOKEN_INVALIDO")
@@ -167,19 +168,20 @@ public class CandidatoControllerAdminTest extends Candidato {
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
+
     @Test
     @DisplayName("CT-API-02.1.11 - Listar candidatos sem sucesso informando página inválida como administrador")
-    public void testListarCandidatosSemSucessoInformandoPaginaInvalidaComoAdmin(){
+    public void testListarCandidatosSemSucessoInformandoPaginaInvalidaComoAdmin() {
         client
                 .listar(-1, 10, token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }
 
     @Test
     @DisplayName("CT-API-02.1.12 - Desativar candidato com sucesso como administrador")
-    public void testDesativarCandidatoComSucessoComoAdmin(){
+    public void testDesativarCandidatoComSucessoComoAdmin() {
 
         this.token = AuthUtils.getTokenGestor();
 
@@ -194,7 +196,7 @@ public class CandidatoControllerAdminTest extends Candidato {
 
         client
                 .excluir(idCandidato, token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT)
         ;
     }
@@ -212,7 +214,7 @@ public class CandidatoControllerAdminTest extends Candidato {
 
     @Test
     @DisplayName("CT-API-02.1.14 - Desativar candidato com token inválido")
-    public void testDesativarCandidatoComTokenInvalido(){
+    public void testDesativarCandidatoComTokenInvalido() {
 
         client
                 .excluir(2, "TOKEN_INVALIDO")
@@ -223,12 +225,12 @@ public class CandidatoControllerAdminTest extends Candidato {
 
     @Test
     @DisplayName("CT-API-02.1.15 - Atualizar candidato como administrador com sucesso")
-    public void testAtualizarCandidatoComoAdminComSucesso(){
+    public void testAtualizarCandidatoComoAdminComSucesso() {
 
         this.token = AuthUtils.getTokenGestor();
         Response res = client
                 .cadastrar(CandidatoDataFactory.gerarCandidatoValido(), token)
-        .then()
+                .then()
                 .extract().response();
 
         int idCandidato = res.path("idCandidato");
@@ -239,7 +241,7 @@ public class CandidatoControllerAdminTest extends Candidato {
 
         client
                 .atualizar(novosDadosCandidato, idCandidato, token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("idCandidato", equalTo(idCandidato))
                 .body("nome", equalTo(novosDadosCandidato.getNome()))
@@ -248,21 +250,22 @@ public class CandidatoControllerAdminTest extends Candidato {
 
     @Test
     @DisplayName("CT-API-02.1.16 - Atualizar candidato com ID inexistente como administrador sem sucesso")
-    public void testAtualizarCandidatoComIdInexistenteComoAdminSemSucesso(){
+    public void testAtualizarCandidatoComIdInexistenteComoAdminSemSucesso() {
 
         client
                 .atualizar(CandidatoDataFactory.gerarCandidatoValido(), CandidatoDataFactory.gerarIdNaoCadastrado(), token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
         ;
     }
+
     @Test
     @DisplayName("CT-API-02.1.17 - Atualizar candidato com formato inválido de ID como administrador sem sucesso")
-    public void testAtualizarCandidatoComFormatoInvalidoDeIdComoAdminSemSucesso(){
+    public void testAtualizarCandidatoComFormatoInvalidoDeIdComoAdminSemSucesso() {
 
         client
                 .atualizar(CandidatoDataFactory.gerarCandidatoValido(), CandidatoDataFactory.gerarIdInvalido(), token)
-        .then()
+                .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
         ;
     }

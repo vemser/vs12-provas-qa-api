@@ -17,7 +17,7 @@ import static data.factory.FuncionarioDataFactory.novoFuncionarioNaEmpresa;
 
 @DisplayName("CT-API-01 - Empresa")
 @Feature("Empresa - Fluxo Admin")
-public class EmpresaControllerTest extends Empresa {
+public class EmpresaControllerTest {
     private static final EmpresaClient client = new EmpresaClient();
     private String token;
 
