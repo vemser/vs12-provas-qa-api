@@ -8,6 +8,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
+import static org.hamcrest.Matchers.notNullValue;
+
 @DisplayName("CT-API-09 - Dashboard")
 @Feature("Dashboard - Fluxo Gestor")
 public class DashboardControllerGestorTest {
@@ -25,7 +27,8 @@ public class DashboardControllerGestorTest {
         client
                 .buscarDashboardGlobal(token)
         .then()
-                .statusCode(HttpStatus.SC_FORBIDDEN)
+                .statusCode(HttpStatus.SC_OK)
+                .body("qtdCandidatos", notNullValue())
         ;
     }
 

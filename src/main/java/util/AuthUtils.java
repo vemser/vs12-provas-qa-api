@@ -50,4 +50,16 @@ public class AuthUtils {
         }
 
     }
+
+    public static String getTokenCandidato() {
+        String email = System.getenv("EMAIL_CANDIDATO");
+        String senha = System.getenv("SENHA_CANDIDATO");
+
+        try{
+            return getToken(new Login(email, senha));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

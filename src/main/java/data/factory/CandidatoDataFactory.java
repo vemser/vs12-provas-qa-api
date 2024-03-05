@@ -1,9 +1,9 @@
 package data.factory;
 
 import model.candidato.Candidato;
+import model.candidato.CandidatoPutRequest;
 
 import static util.RandomData.FAKER;
-
 
 public class CandidatoDataFactory {
 
@@ -16,10 +16,11 @@ public class CandidatoDataFactory {
         return candidato;
     }
 
-    public static Candidato gerarCandidatoComEmailJahCadastrado(){
-        Candidato candidato = gerarCandidatoAleatorio();
-        candidato.setEmail("savio@email.com");
-        return candidato;
+    public static CandidatoPutRequest gerarDadosAtualizacaoDeCandidato(){
+        return new CandidatoPutRequest(
+                FAKER.name().fullName(),
+                System.getenv("SENHA_CANDIDATO")
+            );
     }
     public static Integer gerarIdInvalido(){
         return -1;

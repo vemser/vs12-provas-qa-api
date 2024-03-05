@@ -3,6 +3,7 @@ package client.candidato;
 import client.BaseClient;
 import io.restassured.response.Response;
 import model.candidato.Candidato;
+import model.candidato.CandidatoPutRequest;
 import specs.candidato.CandidatoSpecs;
 
 import static io.restassured.RestAssured.given;
@@ -24,6 +25,17 @@ public class CandidatoClient extends BaseClient<Candidato> {
                         .param("quantidadeRegistros", quantidadeRegistro)
                 .when()
                         .get(COMPLEMENTO_GETOR_PATH)
+                ;
+    }
+
+    public Response atualizarDadosLogadoComoCandidato(CandidatoPutRequest candidatoData, String authToken) {
+        return
+                given()
+                        .spec(SPECS.requestSpec())
+                        .header("Authorization", authToken)
+                        .body(candidatoData)
+                .when()
+                        .put()
                 ;
     }
 

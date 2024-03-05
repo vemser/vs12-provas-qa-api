@@ -189,7 +189,7 @@ public class CandidatoControllerAdminTest {
                 client.cadastrar(gerarCandidatoValido(), token)
                         .then().extract().response();
 
-        int idCandidato = response.jsonPath().getInt("idCandidato");
+        int idCandidato = response.path("idCandidato");
 
 
         this.token = AuthUtils.getTokenAdmin();

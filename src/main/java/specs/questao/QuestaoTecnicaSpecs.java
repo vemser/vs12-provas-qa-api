@@ -6,6 +6,6 @@ import specs.BaseSpecs;
 public class QuestaoTecnicaSpecs extends BaseSpecs<QuestaoTecnica> {
 
     public QuestaoTecnicaSpecs() {
-        super("/questao/tecnica");
+        super("/questao");
     }
 }
