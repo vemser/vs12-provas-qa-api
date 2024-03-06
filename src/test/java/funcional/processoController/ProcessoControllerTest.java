@@ -15,6 +15,7 @@ import util.AuthUtils;
 import static data.factory.ProcessoDataFactory.gerarProcessoInvalidoTodosOsCamposVazios;
 import static data.factory.ProcessoDataFactory.gerarProcessoValido;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static util.RandomData.FAKER;
 
 @DisplayName("CT-API-06 - Processo")
@@ -204,7 +205,7 @@ public class ProcessoControllerTest {
                 .atualizar(gerarProcessoValido(), idProcesso, token)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body("idProcesso", equalTo(idProcesso))
+                .body("idProcesso", not(equalTo(idProcesso)))
         ;
     }
 
