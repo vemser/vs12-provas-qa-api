@@ -35,9 +35,23 @@ public class LoginDataFactory {
         return login;
     }
 
-    public static Login gerarLoginComDadosValidos(){
+    public static Login gerarLoginAdminComDadosValidos(){
         String email = System.getenv("EMAIL_ADM");
         String senha = System.getenv("SENHA_ADM");
+
+        return new Login(email, senha);
+    }
+
+    public static Login gerarLoginGestorComDadosValidos(){
+        String email = System.getenv("EMAIL_GESTOR");
+        String senha = System.getenv("SENHA_GESTOR");
+
+        return new Login(email, senha);
+    }
+
+    public static Login gerarLoginCandidatoComDadosValidos(){
+        String email = System.getenv("EMAIL_CANDIDATO");
+        String senha = System.getenv("SENHA_CANDIDATO");
 
         return new Login(email, senha);
     }

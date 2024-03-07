@@ -20,7 +20,7 @@ import static util.RandomData.FAKER;
 
 @DisplayName("CT-API-06 - Processo")
 @Feature("Processo - Fluxo Admin")
-public class ProcessoControllerTest {
+public class ProcessoControllerAdminTest {
     private final ProcessoClient client = new ProcessoClient();
     private String token;
 

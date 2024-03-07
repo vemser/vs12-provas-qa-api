@@ -50,6 +50,12 @@ public class QuestaoTecnicaControllerTest {
                 () -> assertEquals(questaoAhSerCadastrada.getCasoTestes().size(), questaoCadastrada.getCasoTestes().size()),
                 () -> assertEquals(questaoAhSerCadastrada.getTemplates().size(), questaoCadastrada.getTemplates().size())
         );
+
+        client
+                .excluir(questaoCadastrada.getIdQuestao(), token)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+        ;
     }
 
     @Test
@@ -98,6 +104,11 @@ public class QuestaoTecnicaControllerTest {
                 () -> assertFalse(questaoAnteriorAhAtualizacao.isAtivo()),
                 () -> assertTrue(questaoAtualizada.isAtivo())
         );
+
+        client
+                .excluir(questaoAtualizada.getIdQuestao(), token)
+        .then()
+                .statusCode(HttpStatus.SC_OK);
     }
 
     @Test
