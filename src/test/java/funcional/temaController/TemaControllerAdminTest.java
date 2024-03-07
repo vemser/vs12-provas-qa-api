@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 @DisplayName("CT-API-03 - Tema")
 @Feature("Tema - Fluxo Admin")
-public class TemaControllerTest {
+public class TemaControllerAdminTest {
 
     private final TemaClient client = new TemaClient();
     private String token;

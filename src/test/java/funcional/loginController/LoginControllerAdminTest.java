@@ -13,14 +13,14 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.hamcrest.Matchers.*;
 
 @DisplayName("CT-API-10 - Login")
-@Feature("Login de Usuário")
-public class LoginControllerTest {
+@Feature("Login - Fluxo Admin")
+public class LoginControllerAdminTest {
 
     private final LoginClient client = new LoginClient();
 
     @ParameterizedTest
     @MethodSource("data.provider.LoginDataProvider#argumentosInvalidos")
-    @DisplayName("CT-API-10.1 - Logar usuário com dados inválidos sem sucesso.")
+    @DisplayName("CT-API-10.1.1 - Logar usuário com dados inválidos sem sucesso.")
     public void logarUsuarioComDadosInvalidosSemSucesso(Login dadosLogin, String mensagem){
         client
                 .logar(dadosLogin)
@@ -30,7 +30,7 @@ public class LoginControllerTest {
     }
 
     @Test
-    @DisplayName("CT-API-10.2 - Logar usuário com credenciais incorretas sem sucesso.")
+    @DisplayName("CT-API-10.1.2 - Logar usuário com credenciais incorretas sem sucesso.")
     public void logarUsuarioComCredenciaisIncorretasSemSucesso(){
         client
                 .logar(LoginDataFactory.gerarLoginComDadosNaoCadastrados())
@@ -40,10 +40,10 @@ public class LoginControllerTest {
     }
 
     @Test
-    @DisplayName("CT-API-10.3 - Logar usuário com credenciais corretas com sucesso.")
+    @DisplayName("CT-API-10.1.3 - Logar usuário com credenciais corretas com sucesso.")
     public void logarUsuarioComCredenciaisCorretasComSucesso(){
         client
-                .logar(LoginDataFactory.gerarLoginComDadosValidos())
+                .logar(LoginDataFactory.gerarLoginAdminComDadosValidos())
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(containsString("Bearer"));

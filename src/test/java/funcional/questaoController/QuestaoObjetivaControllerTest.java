@@ -78,6 +78,12 @@ public class QuestaoObjetivaControllerTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body("idQuestao", equalTo(idQuestao))
         ;
+
+        client
+                .excluir(idQuestao, token)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+        ;
     }
 
     @Test
@@ -86,7 +92,7 @@ public class QuestaoObjetivaControllerTest {
 
         client
                 .buscarPorId(FAKER.number().numberBetween(1, 100), AuthUtils.getTokenInvalidio())
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
@@ -105,10 +111,19 @@ public class QuestaoObjetivaControllerTest {
     @DisplayName("CT-API-04.1.6 - Cadastrar questão objetiva com sucesso")
     public void cadastrarQuestaoComSucesso() {
 
+        Response res =
+            client
+                    .cadastrar(QuestaoDataFactory.gerarQuestaoObjetivaValida(), token)
+            .then()
+                    .statusCode(HttpStatus.SC_CREATED)
+                    .extract().response();
+            ;
+
+        int idQuestao = res.path("idQuestao");
         client
-                .cadastrar(QuestaoDataFactory.gerarQuestaoObjetivaValida(), token)
+                .excluir(idQuestao, token)
         .then()
-                .statusCode(HttpStatus.SC_CREATED)
+                .statusCode(HttpStatus.SC_OK)
         ;
     }
 
@@ -130,7 +145,7 @@ public class QuestaoObjetivaControllerTest {
 
         client
                 .cadastrar(QuestaoDataFactory.gerarQuestaoObjetivaValida(), AuthUtils.getTokenInvalidio())
-                .then()
+        .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }
@@ -141,13 +156,14 @@ public class QuestaoObjetivaControllerTest {
 
         Response response = client
                 .cadastrar(QuestaoDataFactory.gerarQuestaoObjetivaValida(), token)
-                .then()
+        .then()
                 .extract().response();
 
         int idQuestao = response.path("idQuestao");
 
-        client.excluir(idQuestao, token)
-                .then()
+        client
+                .excluir(idQuestao, token)
+        .then()
                 .statusCode(HttpStatus.SC_OK)
         ;
     }
@@ -156,8 +172,9 @@ public class QuestaoObjetivaControllerTest {
     @DisplayName("CT-API-04.1.10 - Deletar questão objetiva com token inválido")
     public void deletarQuestaoComTokenInvalido() {
 
-        client.excluir(FAKER.number().numberBetween(1, 100), AuthUtils.getTokenInvalidio())
-                .then()
+        client
+                .excluir(FAKER.number().numberBetween(1, 100), AuthUtils.getTokenInvalidio())
+        .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED)
         ;
     }

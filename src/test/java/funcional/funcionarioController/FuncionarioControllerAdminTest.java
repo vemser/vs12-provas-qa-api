@@ -11,9 +11,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.AuthUtils;
 
-@DisplayName("CT-API-07 - Empresa")
+@DisplayName("CT-API-07 - Funcionário")
 @Feature("Funcionário - Fluxo Admin")
-public class FuncionarioControllerTest {
+public class FuncionarioControllerAdminTest {
     private final FuncionarioClient client = new FuncionarioClient();
     private final EmpresaClient empresaClient = new EmpresaClient();
     private String token;
